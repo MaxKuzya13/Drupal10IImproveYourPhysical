@@ -1,0 +1,8 @@
+uuid: 1dd4c063-268b-403a-a11c-a8598de6e0b6
+langcode: en
+status: true
+dependencies: {  }
+name: Biceps
+vid: biceps
+description: 'List of exercises for Biceps'
+weight: 0
