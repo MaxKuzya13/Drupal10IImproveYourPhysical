@@ -1,0 +1,8 @@
+uuid: bbc5265a-cd7f-4fb1-9b31-8f828f02b98f
+langcode: en
+status: true
+dependencies: {  }
+name: Shoulders
+vid: shoulders
+description: 'List of exercises for Shoulders'
+weight: 0
