@@ -1,0 +1,22 @@
+uuid: b299bf74-39f3-4a91-93b9-e2fcde7f0565
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.training_plan.field_exercises
+    - node.type.training_plan
+  module:
+    - user
+id: node.training_plan.teaser
+targetEntityType: node
+bundle: training_plan
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_exercises: true

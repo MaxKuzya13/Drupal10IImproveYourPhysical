@@ -1,0 +1,10 @@
+uuid: 40137342-2d34-4d03-bfb1-93ef5bf96649
+langcode: en
+status: true
+dependencies: {  }
+id: training
+label: Training
+icon_uuid: null
+icon_default: null
+description: 'Paragrapg that display main info '
+behavior_plugins: {  }

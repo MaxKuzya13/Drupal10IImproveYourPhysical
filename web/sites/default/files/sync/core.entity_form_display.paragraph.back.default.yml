@@ -1,0 +1,45 @@
+uuid: 0d879660-c735-417b-8be8-3a07e1a6e2d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.back.field_approaches
+    - field.field.paragraph.back.field_exercise
+    - field.field.paragraph.back.field_repetition
+    - field.field.paragraph.back.field_weight
+    - paragraphs.paragraphs_type.back
+id: paragraph.back.default
+targetEntityType: paragraph
+bundle: back
+mode: default
+content:
+  field_approaches:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_exercise:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_repetition:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

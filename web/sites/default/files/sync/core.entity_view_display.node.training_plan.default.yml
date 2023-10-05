@@ -1,0 +1,30 @@
+uuid: 7c4fdc9c-9bd2-4764-ac3c-a82de93425f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.training_plan.field_exercises
+    - node.type.training_plan
+  module:
+    - entity_reference_revisions
+    - user
+id: node.training_plan.default
+targetEntityType: node
+bundle: training_plan
+mode: default
+content:
+  field_exercises:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

@@ -1,0 +1,23 @@
+uuid: 023cdd16-d524-4725-a033-c03c2608ca45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weight
+    - paragraphs.paragraphs_type.chest
+id: paragraph.chest.field_weight
+field_name: field_weight
+entity_type: paragraph
+bundle: chest
+label: Weight
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

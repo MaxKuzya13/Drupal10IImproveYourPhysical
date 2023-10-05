@@ -1,0 +1,23 @@
+uuid: 1c7d7bfb-3ab5-480f-ac71-01f5376ee3c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_repetition
+    - paragraphs.paragraphs_type.chest
+id: paragraph.chest.field_repetition
+field_name: field_repetition
+entity_type: paragraph
+bundle: chest
+label: Repetition
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,23 @@
+uuid: a70f77e6-c96f-4fba-bbc1-cf0ad4d21989
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_approaches
+    - paragraphs.paragraphs_type.back
+id: paragraph.back.field_approaches
+field_name: field_approaches
+entity_type: paragraph
+bundle: back
+label: Approaches
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

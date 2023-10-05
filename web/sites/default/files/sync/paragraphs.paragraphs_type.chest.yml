@@ -1,0 +1,10 @@
+uuid: 0cf63125-24e0-4d0f-b110-24aa50d7803c
+langcode: en
+status: true
+dependencies: {  }
+id: chest
+label: Chest
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

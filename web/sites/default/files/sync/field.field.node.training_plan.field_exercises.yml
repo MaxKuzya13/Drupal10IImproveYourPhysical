@@ -1,0 +1,37 @@
+uuid: 958c5f3a-b38c-435d-aa5b-2af467c75fab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_exercises
+    - node.type.training_plan
+    - paragraphs.paragraphs_type.training
+  module:
+    - entity_reference_revisions
+id: node.training_plan.field_exercises
+field_name: field_exercises
+entity_type: node
+bundle: training_plan
+label: Exercises
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      training: training
+    negate: 0
+    target_bundles_drag_drop:
+      body_part:
+        weight: 4
+        enabled: false
+      chest:
+        weight: 5
+        enabled: false
+      training:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

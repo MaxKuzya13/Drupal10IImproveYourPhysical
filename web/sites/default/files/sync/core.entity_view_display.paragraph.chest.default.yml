@@ -1,0 +1,51 @@
+uuid: 660e2a74-c68e-4e6d-950f-5c93aa2e62ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.chest.field_approaches
+    - field.field.paragraph.chest.field_exercise
+    - field.field.paragraph.chest.field_repetition
+    - field.field.paragraph.chest.field_weight
+    - paragraphs.paragraphs_type.chest
+id: paragraph.chest.default
+targetEntityType: paragraph
+bundle: chest
+mode: default
+content:
+  field_approaches:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_exercise:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_repetition:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }
