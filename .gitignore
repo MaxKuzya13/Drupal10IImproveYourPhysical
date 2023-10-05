@@ -1,0 +1,9 @@
+/.ddev/
+/composer.lock
+/vendor/
+.idea/
+.env
+*.log
+*.cache
+*.tmp
+*.generated
