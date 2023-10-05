@@ -1,0 +1,8 @@
+uuid: 13fdd62a-6b88-4749-96d3-99474c8819a0
+langcode: en
+status: true
+dependencies: {  }
+name: Triceps
+vid: triceps
+description: 'List of exercises for Triceps'
+weight: 0
