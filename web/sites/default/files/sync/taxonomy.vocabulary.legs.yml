@@ -1,0 +1,8 @@
+uuid: b64cd76c-f1b3-4d47-94b8-fb7b6725cc3f
+langcode: en
+status: true
+dependencies: {  }
+name: Legs
+vid: legs
+description: 'List of exercises for Legs'
+weight: 0
