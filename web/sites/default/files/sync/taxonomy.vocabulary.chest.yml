@@ -1,0 +1,8 @@
+uuid: b0188227-3b6d-4ef6-a4d1-870eaf056296
+langcode: en
+status: true
+dependencies: {  }
+name: Chest
+vid: chest
+description: 'List of exercises for Chest'
+weight: 0
