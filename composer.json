@@ -16,6 +16,7 @@
     ],
     "require": {
         "composer/installers": "^2.0",
+        "drupal/admin_toolbar": "^3.4",
         "drupal/adminimal_theme": "^1.7",
         "drupal/antibot": "^2.0",
         "drupal/block_visibility_groups": "^2.0",
