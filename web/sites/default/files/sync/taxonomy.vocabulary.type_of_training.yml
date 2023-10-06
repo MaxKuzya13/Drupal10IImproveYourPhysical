@@ -1,0 +1,8 @@
+uuid: b37bc14b-500c-47c8-8911-3b2883c57331
+langcode: en
+status: true
+dependencies: {  }
+name: 'Type of training'
+vid: type_of_training
+description: ''
+weight: 0

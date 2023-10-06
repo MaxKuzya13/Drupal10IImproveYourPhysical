@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.training_plan.field_exercises
+    - field.field.node.training_plan.field_type_of_training
     - node.type.training_plan
   module:
     - user
@@ -20,3 +21,4 @@ content:
     region: content
 hidden:
   field_exercises: true
+  field_type_of_training: true

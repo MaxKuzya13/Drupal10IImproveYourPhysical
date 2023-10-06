@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.training_plan.field_exercises
+    - field.field.node.training_plan.field_type_of_training
     - node.type.training_plan
   module:
     - entity_reference_revisions
@@ -20,11 +21,19 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 101
+    weight: 2
+    region: content
+  field_type_of_training:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden: {  }
