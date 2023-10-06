@@ -1,0 +1,10 @@
+uuid: 19463a81-6d41-4205-857c-7b746d75e473
+langcode: en
+status: true
+dependencies: {  }
+id: shoulders
+label: Shoulders
+icon_uuid: null
+icon_default: null
+description: 'Paragraph for shoulders'
+behavior_plugins: {  }

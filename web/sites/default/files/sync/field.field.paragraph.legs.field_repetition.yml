@@ -1,0 +1,23 @@
+uuid: c3b564a8-4ba3-4cc0-a885-940faa77d9f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_repetition
+    - paragraphs.paragraphs_type.legs
+id: paragraph.legs.field_repetition
+field_name: field_repetition
+entity_type: paragraph
+bundle: legs
+label: Repetition
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

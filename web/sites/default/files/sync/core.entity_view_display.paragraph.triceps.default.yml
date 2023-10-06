@@ -1,0 +1,51 @@
+uuid: 5cc29310-386e-4aee-bd99-bfe075355c5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.triceps.field_approaches
+    - field.field.paragraph.triceps.field_exercise
+    - field.field.paragraph.triceps.field_repetition
+    - field.field.paragraph.triceps.field_weight
+    - paragraphs.paragraphs_type.triceps
+id: paragraph.triceps.default
+targetEntityType: paragraph
+bundle: triceps
+mode: default
+content:
+  field_approaches:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_exercise:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_repetition:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

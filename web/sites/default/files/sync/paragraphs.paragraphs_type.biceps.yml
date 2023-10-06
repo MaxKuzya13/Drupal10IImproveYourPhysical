@@ -1,0 +1,10 @@
+uuid: c2bec183-e9c3-424c-a85c-8f0cf3735b2c
+langcode: en
+status: true
+dependencies: {  }
+id: biceps
+label: Biceps
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

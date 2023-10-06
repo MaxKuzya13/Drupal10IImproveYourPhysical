@@ -1,0 +1,51 @@
+uuid: e7f5a5c5-5015-4921-b5b5-bed20b6c5c99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.legs.field_approaches
+    - field.field.paragraph.legs.field_exercise
+    - field.field.paragraph.legs.field_repetition
+    - field.field.paragraph.legs.field_weight
+    - paragraphs.paragraphs_type.legs
+id: paragraph.legs.default
+targetEntityType: paragraph
+bundle: legs
+mode: default
+content:
+  field_approaches:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_exercise:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_repetition:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

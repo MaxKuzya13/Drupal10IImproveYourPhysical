@@ -1,0 +1,23 @@
+uuid: dd6ee2b5-a221-464a-a607-73598ee4ab38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_approaches
+    - paragraphs.paragraphs_type.shoulders
+id: paragraph.shoulders.field_approaches
+field_name: field_approaches
+entity_type: paragraph
+bundle: shoulders
+label: Approaches
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

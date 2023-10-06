@@ -1,0 +1,45 @@
+uuid: cee594ac-026f-4b7a-9057-f218aa830bad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.legs.field_approaches
+    - field.field.paragraph.legs.field_exercise
+    - field.field.paragraph.legs.field_repetition
+    - field.field.paragraph.legs.field_weight
+    - paragraphs.paragraphs_type.legs
+id: paragraph.legs.default
+targetEntityType: paragraph
+bundle: legs
+mode: default
+content:
+  field_approaches:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_exercise:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_repetition:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

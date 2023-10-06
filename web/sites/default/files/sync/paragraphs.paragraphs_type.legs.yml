@@ -1,0 +1,10 @@
+uuid: 20dedc06-df64-4f56-806a-f1a7bd41226e
+langcode: en
+status: true
+dependencies: {  }
+id: legs
+label: Legs
+icon_uuid: null
+icon_default: null
+description: 'Paragraph for legs'
+behavior_plugins: {  }

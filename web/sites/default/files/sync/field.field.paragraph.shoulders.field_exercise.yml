@@ -1,0 +1,29 @@
+uuid: a361b4ca-28e9-43cb-98f5-5dfe618f2815
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_exercise
+    - paragraphs.paragraphs_type.shoulders
+    - taxonomy.vocabulary.shoulders
+id: paragraph.shoulders.field_exercise
+field_name: field_exercise
+entity_type: paragraph
+bundle: shoulders
+label: Exercise
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      shoulders: shoulders
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: back
+field_type: entity_reference

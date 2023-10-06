@@ -1,0 +1,29 @@
+uuid: 79679d7d-3041-4051-9076-cddfc0b37643
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_exercise
+    - paragraphs.paragraphs_type.triceps
+    - taxonomy.vocabulary.triceps
+id: paragraph.triceps.field_exercise
+field_name: field_exercise
+entity_type: paragraph
+bundle: triceps
+label: Exercise
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      triceps: triceps
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

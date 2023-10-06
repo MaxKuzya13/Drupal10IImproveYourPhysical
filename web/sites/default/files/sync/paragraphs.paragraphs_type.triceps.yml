@@ -1,0 +1,10 @@
+uuid: ccd88c6b-b8fc-42a1-8972-1aee6d33256d
+langcode: en
+status: true
+dependencies: {  }
+id: triceps
+label: Triceps
+icon_uuid: null
+icon_default: null
+description: 'Paragraph for triceps'
+behavior_plugins: {  }

@@ -1,0 +1,45 @@
+uuid: 36ace0ab-d34a-43bb-81de-85c58de9fd42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.shoulders.field_approaches
+    - field.field.paragraph.shoulders.field_exercise
+    - field.field.paragraph.shoulders.field_repetition
+    - field.field.paragraph.shoulders.field_weight
+    - paragraphs.paragraphs_type.shoulders
+id: paragraph.shoulders.default
+targetEntityType: paragraph
+bundle: shoulders
+mode: default
+content:
+  field_approaches:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_exercise:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_repetition:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

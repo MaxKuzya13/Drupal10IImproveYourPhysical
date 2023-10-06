@@ -1,0 +1,23 @@
+uuid: 95937c65-829e-4725-9e3d-020cdf3c3300
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weight
+    - paragraphs.paragraphs_type.legs
+id: paragraph.legs.field_weight
+field_name: field_weight
+entity_type: paragraph
+bundle: legs
+label: Weight
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

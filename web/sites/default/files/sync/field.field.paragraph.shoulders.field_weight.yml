@@ -1,0 +1,23 @@
+uuid: dee1d895-2999-40e1-a53a-4c3442e38437
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weight
+    - paragraphs.paragraphs_type.shoulders
+id: paragraph.shoulders.field_weight
+field_name: field_weight
+entity_type: paragraph
+bundle: shoulders
+label: Weight
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

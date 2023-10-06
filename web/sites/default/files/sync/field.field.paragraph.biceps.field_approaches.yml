@@ -1,0 +1,23 @@
+uuid: 0cc34de8-4b1c-40e2-bfef-c8997467379d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_approaches
+    - paragraphs.paragraphs_type.biceps
+id: paragraph.biceps.field_approaches
+field_name: field_approaches
+entity_type: paragraph
+bundle: biceps
+label: Approaches
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

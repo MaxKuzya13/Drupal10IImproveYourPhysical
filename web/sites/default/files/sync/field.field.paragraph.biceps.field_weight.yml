@@ -1,0 +1,23 @@
+uuid: 814fab4a-d5a3-4f98-812a-00f1dedd8c65
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weight
+    - paragraphs.paragraphs_type.biceps
+id: paragraph.biceps.field_weight
+field_name: field_weight
+entity_type: paragraph
+bundle: biceps
+label: Weight
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

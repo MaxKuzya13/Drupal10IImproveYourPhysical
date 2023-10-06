@@ -1,0 +1,29 @@
+uuid: 60b80d79-07a0-463f-81e2-5b542e9da184
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_exercise
+    - paragraphs.paragraphs_type.biceps
+    - taxonomy.vocabulary.biceps
+id: paragraph.biceps.field_exercise
+field_name: field_exercise
+entity_type: paragraph
+bundle: biceps
+label: Exercise
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      biceps: biceps
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
