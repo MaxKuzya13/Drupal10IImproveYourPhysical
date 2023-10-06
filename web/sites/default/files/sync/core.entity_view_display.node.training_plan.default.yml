@@ -3,23 +3,30 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.training_plan.field_body_part
     - field.field.node.training_plan.field_exercises
     - field.field.node.training_plan.field_type_of_training
     - node.type.training_plan
   module:
-    - entity_reference_revisions
+    - paragraphs
     - user
 id: node.training_plan.default
 targetEntityType: node
 bundle: training_plan
 mode: default
 content:
-  field_exercises:
-    type: entity_reference_revisions_entity_view
-    label: hidden
+  field_body_part:
+    type: entity_reference_label
+    label: above
     settings:
-      view_mode: default
-      link: ''
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_exercises:
+    type: paragraph_summary
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content

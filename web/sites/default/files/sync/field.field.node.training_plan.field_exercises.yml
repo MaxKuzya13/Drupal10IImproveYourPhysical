@@ -5,7 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_exercises
     - node.type.training_plan
-    - paragraphs.paragraphs_type.training
+    - paragraphs.paragraphs_type.back
+    - paragraphs.paragraphs_type.biceps
+    - paragraphs.paragraphs_type.chest
+    - paragraphs.paragraphs_type.legs
+    - paragraphs.paragraphs_type.shoulders
+    - paragraphs.paragraphs_type.triceps
   module:
     - entity_reference_revisions
 id: node.training_plan.field_exercises
@@ -22,16 +27,33 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      training: training
+      chest: chest
+      back: back
+      biceps: biceps
+      legs: legs
+      shoulders: shoulders
+      triceps: triceps
     negate: 0
     target_bundles_drag_drop:
-      body_part:
-        weight: 4
-        enabled: false
+      back:
+        weight: 8
+        enabled: true
+      biceps:
+        weight: 9
+        enabled: true
       chest:
         weight: 5
-        enabled: false
+        enabled: true
+      legs:
+        weight: 11
+        enabled: true
+      shoulders:
+        weight: 12
+        enabled: true
       training:
         weight: 6
+        enabled: false
+      triceps:
+        weight: 14
         enabled: true
 field_type: entity_reference_revisions

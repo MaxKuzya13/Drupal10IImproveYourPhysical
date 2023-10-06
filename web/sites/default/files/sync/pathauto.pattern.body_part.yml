@@ -1,0 +1,22 @@
+uuid: a2de66d5-caec-4fc0-a62f-2c3ec90e4bb3
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: body_part
+label: 'Body part'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'training/[term:name]'
+selection_criteria:
+  5fd1b370-8ba4-4955-9914-0603cc386b69:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 5fd1b370-8ba4-4955-9914-0603cc386b69
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      body_part: body_part
+selection_logic: and
+weight: -5
+relationships: {  }

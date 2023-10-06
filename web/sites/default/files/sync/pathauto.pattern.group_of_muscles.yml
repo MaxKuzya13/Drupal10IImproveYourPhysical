@@ -7,12 +7,12 @@ dependencies:
 id: group_of_muscles
 label: 'Group of muscles'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'exercises/[term:vocabulary]/[term:name]'
+pattern: 'training/[term:vocabulary]/[term:name]'
 selection_criteria:
-  99a41fbc-51cd-4a97-b4b2-ae5cc78090da:
+  60b1874a-2702-47bf-ade9-f63ebc428bbf:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 99a41fbc-51cd-4a97-b4b2-ae5cc78090da
+    uuid: 60b1874a-2702-47bf-ade9-f63ebc428bbf
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:

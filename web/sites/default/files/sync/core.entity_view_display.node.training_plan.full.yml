@@ -1,0 +1,49 @@
+uuid: 07b6f699-0598-4c8e-a571-24140f1e93da
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.training_plan.field_body_part
+    - field.field.node.training_plan.field_exercises
+    - field.field.node.training_plan.field_type_of_training
+    - node.type.training_plan
+  module:
+    - entity_reference_revisions
+    - user
+id: node.training_plan.full
+targetEntityType: node
+bundle: training_plan
+mode: full
+content:
+  field_body_part:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_exercises:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_type_of_training:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }
