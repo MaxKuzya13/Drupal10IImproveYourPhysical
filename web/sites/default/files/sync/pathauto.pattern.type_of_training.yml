@@ -1,0 +1,22 @@
+uuid: 7ea5e3d3-d2dc-440f-997a-00b764733120
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: type_of_training
+label: 'Type of training'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'training/[term:name]'
+selection_criteria:
+  2e68de34-320e-4c5f-9305-f494f8642a0d:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 2e68de34-320e-4c5f-9305-f494f8642a0d
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      type_of_training: type_of_training
+selection_logic: and
+weight: -5
+relationships: {  }

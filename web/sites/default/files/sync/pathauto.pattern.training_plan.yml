@@ -1,0 +1,22 @@
+uuid: 68a49ba1-f899-49d1-bc86-cafaa1b23562
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: training_plan
+label: 'Training plan'
+type: 'canonical_entities:node'
+pattern: 'training/[node:title]'
+selection_criteria:
+  94995ea6-dc46-4e56-8fbf-dc1fd2724357:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 94995ea6-dc46-4e56-8fbf-dc1fd2724357
+    context_mapping:
+      node: node
+    bundles:
+      training_plan: training_plan
+selection_logic: and
+weight: -5
+relationships: {  }

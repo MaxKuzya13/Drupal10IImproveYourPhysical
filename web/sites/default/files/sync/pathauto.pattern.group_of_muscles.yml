@@ -1,0 +1,27 @@
+uuid: fdf9e4df-8c8a-4774-b08c-1e5e66eeac40
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: group_of_muscles
+label: 'Group of muscles'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'exercises/[term:vocabulary]/[term:name]'
+selection_criteria:
+  99a41fbc-51cd-4a97-b4b2-ae5cc78090da:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 99a41fbc-51cd-4a97-b4b2-ae5cc78090da
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      back: back
+      biceps: biceps
+      chest: chest
+      legs: legs
+      shoulders: shoulders
+      triceps: triceps
+selection_logic: and
+weight: -5
+relationships: {  }
