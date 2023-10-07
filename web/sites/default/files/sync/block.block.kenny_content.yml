@@ -1,0 +1,22 @@
+uuid: e127040b-44c7-4243-9919-7aa8c6b12c35
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kenny
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: kenny_content
+theme: kenny
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

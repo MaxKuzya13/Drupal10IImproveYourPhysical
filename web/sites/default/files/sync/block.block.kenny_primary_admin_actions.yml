@@ -1,0 +1,20 @@
+uuid: aa2bf4ed-6d1f-4431-a6a4-ead00567412d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - kenny
+_core:
+  default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
+id: kenny_primary_admin_actions
+theme: kenny
+region: header
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

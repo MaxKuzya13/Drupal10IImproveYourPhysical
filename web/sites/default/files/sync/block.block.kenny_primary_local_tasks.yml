@@ -1,0 +1,22 @@
+uuid: b05d8cde-e210-4eae-ad3f-c715d6c1c717
+langcode: en
+status: true
+dependencies:
+  theme:
+    - kenny
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: kenny_primary_local_tasks
+theme: kenny
+region: header
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

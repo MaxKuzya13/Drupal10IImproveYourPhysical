@@ -1,0 +1,22 @@
+uuid: 6811b0ad-5d42-4247-9adc-4ce9ae7b10a4
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - kenny
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: kenny_help
+theme: kenny
+region: header
+weight: 3
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }
