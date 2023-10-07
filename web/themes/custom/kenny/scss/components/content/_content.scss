@@ -1,0 +1,10 @@
+.app__content {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}
+
+.main-layout__inner {
+  overflow: hidden;
+  margin-top: 2rem;
+}

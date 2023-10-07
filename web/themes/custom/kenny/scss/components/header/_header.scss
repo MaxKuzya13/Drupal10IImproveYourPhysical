@@ -1,0 +1,37 @@
+.region-header {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  justify-content: space-between;
+  border-bottom: 2px solid gray;
+
+  .block-system-branding-block {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .menu--main {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu {
+    display: flex;
+    @include resetLi;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .menu-item {
+    padding: 0.3rem 1rem;
+    border: 1px solid gray;
+    border-radius: 1rem;
+
+    &:hover {
+      border-color: cadetblue;
+      cursor: pointer;
+
+    }
+  }
+}

@@ -2,7 +2,7 @@ _core:
   default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
 langcode: en
 uuid: 564f6397-9954-4f74-9012-9dec28c48625
-name: 'Drush Site-Install'
+name: Improver
 mail: admin@example.com
 slogan: ''
 page:

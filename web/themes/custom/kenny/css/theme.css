@@ -1,0 +1,204 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dialog-off-canvas-main-canvas,
+.page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.page__main {
+  flex-grow: 1;
+}
+
+.page__footer {
+  padding: 24px 24px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1218px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+}
+
+h1, .h1, h2, .h2, h3, .h3,
+h4, .h4, h5, .h5, h6, .h6 {
+  line-height: 1.25;
+  font-weight: 600;
+  color: #fff;
+}
+
+h1, .h1 {
+  font-size: 3rem;
+}
+
+h2, .h2 {
+  font-size: 2.5rem;
+}
+
+h3, .h3 {
+  font-size: 2rem;
+}
+
+h4, .h4 {
+  font-size: 1.5rem;
+}
+
+h5, .h5 {
+  font-size: 1.25rem;
+}
+
+h6, .h6 {
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.app__content {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}
+
+.main-layout__inner {
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.region-header {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  justify-content: space-between;
+  border-bottom: 2px solid gray;
+}
+.region-header .block-system-branding-block {
+  display: flex;
+  align-items: center;
+}
+.region-header .menu--main {
+  display: flex;
+  align-items: center;
+}
+.region-header .menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 2rem;
+}
+.region-header .menu-item {
+  padding: 0.3rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+}
+.region-header .menu-item:hover {
+  border-color: cadetblue;
+  cursor: pointer;
+}
+
+.app {
+  background: rgba(0, 0, 0, 0.8509803922);
+}
+.app__container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1170px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.view-training-page-training .view-filters form {
+  display: inline-flex;
+  border: 1px solid gray;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+.view-training-page-training .view-filters form .form-item-field-body-part-target-id {
+  padding: 0.5rem;
+}
+.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select {
+  margin-left: 0.3rem;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  background-color: inherit;
+  color: #fff;
+}
+.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select option {
+  background-color: rgba(0, 0, 0, 0.8509803922);
+}
+.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id {
+  padding: 0.5rem;
+}
+.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select {
+  margin-left: 0.3rem;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  background-color: inherit;
+  color: #fff;
+}
+.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select option {
+  background-color: rgba(0, 0, 0, 0.8509803922);
+}
+.view-training-page-training .view-filters .form-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  padding-right: 0.5rem;
+}
+.view-training-page-training .view-filters .form-wrapper .form-submit {
+  background: inherit;
+  border: unset;
+  padding: 0.4rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  color: #fff;
+}
+.view-training-page-training .view-filters .form-wrapper .form-submit:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}

@@ -1,0 +1,78 @@
+.view-training-page-training {
+
+  .view-filters {
+
+    form {
+      display: inline-flex;
+      border: 1px solid gray;
+      padding: 0.5rem;
+      border-radius: 1rem;
+
+      .form-item-field-body-part-target-id {
+        padding: 0.5rem;
+
+
+        .form-select {
+          margin-left: 0.3rem;
+          padding: 0.3rem;
+          border-radius: 1rem;
+          border: 1px solid gray;
+          background-color: inherit;
+          color: $color-text;
+
+          option {
+            background-color: $color-bg;
+          }
+
+          &:hover {
+            border-color: greenyellow;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .form-item-field-type-of-training-target-id {
+        padding: 0.5rem;
+
+        .form-select {
+          margin-left: 0.3rem;
+          padding: 0.3rem;
+          border-radius: 1rem;
+          border: 1px solid gray;
+          background-color: inherit;
+          color: $color-text;
+
+          &:hover {
+            border-color: greenyellow;
+            cursor: pointer;
+          }
+
+          option {
+            background-color: $color-bg;
+          }
+        }
+      }
+    }
+
+    .form-wrapper {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      padding-right: 0.5rem;
+
+      .form-submit {
+        background: inherit;
+        border: unset;
+        padding: 0.4rem 1rem;
+        border: 1px solid gray;
+        border-radius: 1rem;
+        color: $color-text;
+
+        &:hover {
+          border-color: greenyellow;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
