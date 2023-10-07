@@ -31,6 +31,7 @@
         "drupal/photoswipe": "^4.0",
         "drupal/redirect": "^1.9",
         "drupal/twig_tweak": "^3.2",
+        "drupal/views_conditional": "^1.5",
         "drush/drush": "^12.2"
     },
     "conflict": {

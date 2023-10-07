@@ -1,29 +1,22 @@
-uuid: ca237ebb-2db4-403b-b48a-1532f8643fb0
+uuid: 8f75b535-ff64-42ba-948c-9871c61212d8
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.training_plan
-    - system.menu.main
+    - taxonomy.vocabulary.back
+    - taxonomy.vocabulary.biceps
     - taxonomy.vocabulary.body_part
-    - taxonomy.vocabulary.type_of_training
-  content:
-    - 'taxonomy_term:body_part:00363878-c894-4159-8c9e-520ca2092c16'
-    - 'taxonomy_term:body_part:06487ccf-5864-4174-a8b2-c14e21f29f93'
-    - 'taxonomy_term:body_part:3d5a21bb-2b4b-4a86-886c-2a366becf1ae'
-    - 'taxonomy_term:body_part:4bcb2d66-917b-4af9-9c41-990d6dec44ad'
-    - 'taxonomy_term:body_part:b4df95e4-69a8-4a15-8e31-118699cb6e91'
-    - 'taxonomy_term:body_part:c6da0ab9-ec34-48fc-9758-0d4b5e9fac79'
-    - 'taxonomy_term:type_of_training:2c61fed7-50b7-4d73-9fee-d20dd747b735'
-    - 'taxonomy_term:type_of_training:8df0132f-26a6-4a48-b97a-9254e1441664'
+    - taxonomy.vocabulary.chest
+    - taxonomy.vocabulary.legs
+    - taxonomy.vocabulary.triceps
   module:
     - node
     - paragraphs
-    - taxonomy
     - user
-id: training
-label: Training
+id: taxonomy_term_with_paragraphs
+label: 'Taxonomy term with Paragraphs'
 module: views
 description: ''
 tag: ''
@@ -36,7 +29,6 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Training
       fields:
         title:
           id: title
@@ -138,7 +130,56 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
-      arguments: {  }
+      arguments:
+        field_exercise_target_id:
+          id: field_exercise_target_id
+          table: paragraph__field_exercise
+          field: field_exercise_target_id
+          relationship: field_exercises
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: taxonomy_tid
+          default_argument_options:
+            term_page: '1'
+            node: false
+            limit: false
+            vids: {  }
+            anyall: ','
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: true
+          validate:
+            type: 'entity:taxonomy_term'
+            fail: 'not found'
+          validate_options:
+            bundles:
+              back: back
+              biceps: biceps
+              body_part: body_part
+              chest: chest
+              legs: legs
+              triceps: triceps
+            access: false
+            operation: view
+            multiple: 0
+          break_phrase: false
+          not: false
       filters:
         status:
           id: status
@@ -160,123 +201,17 @@ display:
           plugin_id: bundle
           value:
             training_plan: training_plan
-          group: 1
-        field_body_part_target_id:
-          id: field_body_part_target_id
-          table: node__field_body_part
-          field: field_body_part_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            79: 79
-            82: 82
-            78: 78
-            80: 80
-            81: 81
-            83: 83
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_body_part_target_id_op
-            label: 'Body part'
-            description: ''
-            use_operator: false
-            operator: field_body_part_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_body_part_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: 'Body part (field_body_part)'
-            description: null
-            identifier: field_body_part_target_id
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1: {  }
-              2: {  }
-              3: {  }
-          reduce_duplicates: false
-          vid: body_part
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-        field_type_of_training_target_id:
-          id: field_type_of_training_target_id
-          table: node__field_type_of_training
-          field: field_type_of_training_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            77: 77
-            76: 76
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_type_of_training_target_id_op
-            label: 'Type of training'
-            description: ''
-            use_operator: false
-            operator: field_type_of_training_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_type_of_training_target_id
-            required: false
-            remember: true
-            multiple: false
-            remember_roles:
-              anonymous: '0'
-              authenticated: '0'
-              content_editor: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: type_of_training
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       style:
         type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
       row:
         type: 'entity:node'
         options:
+          relationship: none
           view_mode: teaser
       query:
         type: views_query
@@ -296,8 +231,6 @@ display:
           admin_label: 'field_exercises: Paragraph'
           plugin_id: standard
           required: false
-      use_ajax: true
-      group_by: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -308,27 +241,16 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
     position: 1
     display_options:
       display_extenders: {  }
-      path: training
-      menu:
-        type: normal
-        title: Training
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: main
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
@@ -336,7 +258,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
