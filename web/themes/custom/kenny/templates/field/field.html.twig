@@ -42,6 +42,7 @@
     entity_type ~ '-' ~ element['#bundle']|clean_class ~ (element['#view_mode'] != 'default' ? '-' ~ element['#view_mode']),
     entity_type ~ '-' ~ element['#bundle']|clean_class ~ (element['#view_mode'] != 'default' ? '-' ~ element['#view_mode']) ~ '__' ~ field_name|clean_class,
     'field',
+    entity_type ~  '-' ~ field_name|clean_class,
     'field--type-' ~ field_type|clean_class,
     'field--label-' ~ label_display,
     label_display == 'inline' ? 'clearfix',

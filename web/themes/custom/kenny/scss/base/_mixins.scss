@@ -10,3 +10,29 @@
   bottom: 0;
   left: 0;
 }
+
+@mixin bodyPartAndTraining {
+  display: flex;
+  position: relative;
+  .field__label {
+    margin-right: 0.7rem;
+    &:after {
+      position: relative;
+      content: ":";
+      left: 3px;
+    }
+  }
+
+  .field__item {
+
+    a {
+      color: cadetblue;
+
+      &:hover {
+        color: deepskyblue;
+      }
+    }
+
+
+  }
+}

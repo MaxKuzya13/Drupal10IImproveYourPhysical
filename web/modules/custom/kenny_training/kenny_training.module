@@ -93,7 +93,7 @@ function kenny_training_node_view(array &$build, NodeInterface $node, EntityView
       '#type' => 'inline_template',
       '#template' => '<div class="{{ class }}">{{ total_weight }}</div>',
       '#context' => [
-          'total_weight' => $total_weight . ' kg',
+          'total_weight' => 'Total weight: ' . $total_weight . ' kg',
           'class' => $bem_block . '__total-weight'
       ],
     ];

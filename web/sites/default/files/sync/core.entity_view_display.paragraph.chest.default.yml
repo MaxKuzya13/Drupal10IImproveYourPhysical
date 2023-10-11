@@ -20,7 +20,7 @@ content:
     region: content
   field_approaches:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -29,7 +29,7 @@ content:
     region: content
   field_exercise:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: false
     third_party_settings: {  }
@@ -37,7 +37,7 @@ content:
     region: content
   field_repetition:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -46,7 +46,7 @@ content:
     region: content
   field_weight:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true

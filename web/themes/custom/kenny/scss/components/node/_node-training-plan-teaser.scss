@@ -1,0 +1,65 @@
+.node-training-plan-teaser {
+
+  &__field-body-part {
+    @include bodyPartAndTraining;
+  }
+
+  &__field-type-of-training {
+    @include bodyPartAndTraining;
+  }
+
+  .node__content {
+    width: 500px;
+  }
+
+  &__field-exercises {
+    display: flex;
+    flex-direction: column;
+
+
+    .field__item {
+
+      .paragraph--view-mode--preview {
+        display: flex;
+        flex-direction: row;
+        gap: 0.3rem;
+
+        .paragraph-field-exercise {
+          width: 200px;
+          margin-right: 2rem;
+          overflow: hidden;
+          display: flex;
+          position: relative;
+
+
+        }
+
+        .paragraph-field-weight, .paragraph-field-repetition {
+          display: flex;
+          position: relative;
+          margin-right: 0.4rem;
+          &:after {
+            position: relative;
+            content: "x";
+            left: 0.4rem;
+          }
+        }
+
+        .paragraph-field-approaches {
+          display: flex;
+          position: relative;
+          margin-right: 0.4rem;
+          &:after {
+            position: relative;
+            content: "|";
+            left: 0.4rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__total-weight {
+    border-top: 1px solid gray;
+  }
+}

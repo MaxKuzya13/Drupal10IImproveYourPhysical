@@ -143,6 +143,85 @@ p {
   min-height: 100vh;
 }
 
+.node-training-plan-teaser__field-body-part {
+  display: flex;
+  position: relative;
+}
+.node-training-plan-teaser__field-body-part .field__label {
+  margin-right: 0.7rem;
+}
+.node-training-plan-teaser__field-body-part .field__label:after {
+  position: relative;
+  content: ":";
+  left: 3px;
+}
+.node-training-plan-teaser__field-body-part .field__item a {
+  color: cadetblue;
+}
+.node-training-plan-teaser__field-body-part .field__item a:hover {
+  color: deepskyblue;
+}
+.node-training-plan-teaser__field-type-of-training {
+  display: flex;
+  position: relative;
+}
+.node-training-plan-teaser__field-type-of-training .field__label {
+  margin-right: 0.7rem;
+}
+.node-training-plan-teaser__field-type-of-training .field__label:after {
+  position: relative;
+  content: ":";
+  left: 3px;
+}
+.node-training-plan-teaser__field-type-of-training .field__item a {
+  color: cadetblue;
+}
+.node-training-plan-teaser__field-type-of-training .field__item a:hover {
+  color: deepskyblue;
+}
+.node-training-plan-teaser .node__content {
+  width: 500px;
+}
+.node-training-plan-teaser__field-exercises {
+  display: flex;
+  flex-direction: column;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise {
+  width: 200px;
+  margin-right: 2rem;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition {
+  display: flex;
+  position: relative;
+  margin-right: 0.4rem;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
+  position: relative;
+  content: "x";
+  left: 0.4rem;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
+  display: flex;
+  position: relative;
+  margin-right: 0.4rem;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches:after {
+  position: relative;
+  content: "|";
+  left: 0.4rem;
+}
+.node-training-plan-teaser__total-weight {
+  border-top: 1px solid gray;
+}
+
 .view-training-page-training {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
@@ -209,4 +288,9 @@ p {
 .view-training-page-training .view-filters .form-wrapper .form-submit:hover {
   border-color: greenyellow;
   cursor: pointer;
+}
+.view-training-page-training .view-content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
 }
