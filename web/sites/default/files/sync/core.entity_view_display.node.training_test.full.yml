@@ -1,0 +1,41 @@
+uuid: f4689f30-b568-4903-8bbd-546f04187d06
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.training_test.field_exercises
+    - field.field.node.training_test.field_training_type
+    - node.type.training_test
+  module:
+    - entity_reference_revisions
+    - user
+id: node.training_test.full
+targetEntityType: node
+bundle: training_test
+mode: full
+content:
+  field_exercises:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_training_type:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

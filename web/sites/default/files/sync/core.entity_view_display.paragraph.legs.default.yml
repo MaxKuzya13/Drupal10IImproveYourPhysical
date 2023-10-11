@@ -13,6 +13,11 @@ targetEntityType: paragraph
 bundle: legs
 mode: default
 content:
+  exercise_weight:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_approaches:
     type: number_integer
     label: above

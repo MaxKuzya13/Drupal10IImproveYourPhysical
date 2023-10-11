@@ -1,0 +1,29 @@
+uuid: f692d014-43b2-41fd-8cc8-a10e73becdf5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_type_of_training
+    - paragraphs.paragraphs_type.training_type
+    - taxonomy.vocabulary.type_of_training
+id: paragraph.training_type.field_type_of_training
+field_name: field_type_of_training
+entity_type: paragraph
+bundle: training_type
+label: 'Type of training'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      type_of_training: type_of_training
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,29 @@
+uuid: 85fa055c-6c58-42b5-ba2f-ab3170a7dcae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body_part
+    - paragraphs.paragraphs_type.training_type
+    - taxonomy.vocabulary.body_part
+id: paragraph.training_type.field_body_part
+field_name: field_body_part
+entity_type: paragraph
+bundle: training_type
+label: 'Body part'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      body_part: body_part
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

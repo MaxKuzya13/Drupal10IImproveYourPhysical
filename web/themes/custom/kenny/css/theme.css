@@ -101,6 +101,9 @@ p {
 .region-header {
   display: flex;
   flex-direction: row;
+  max-width: calc(1170px + 2rem);
+  padding: 0 1rem;
+  margin: 0 auto;
   height: 100px;
   justify-content: space-between;
   border-bottom: 2px solid gray;
@@ -137,11 +140,16 @@ p {
 .app__container {
   display: flex;
   flex-direction: column;
-  max-width: 1170px;
-  margin: 0 auto;
   min-height: 100vh;
 }
 
+.view-training-page-training {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
 .view-training-page-training .view-filters form {
   display: inline-flex;
   border: 1px solid gray;

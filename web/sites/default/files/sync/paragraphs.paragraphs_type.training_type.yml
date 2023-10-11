@@ -1,0 +1,10 @@
+uuid: 46dbd011-9a36-417b-879d-744196910ff3
+langcode: en
+status: true
+dependencies: {  }
+id: training_type
+label: 'Training type'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Kenny - main module.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
+/**
+ * Implements hook_entity_extra_field_info(),
+ */
+function kenny_training_entity_extra_field_info() {
+  $extra = [];
+  $extra['paragraph']['back']['display']['exercise_weight'] = [
+      'label' => t('Weight of exercise'),
+      'weight' => 100,
+      'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['biceps']['display']['exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['chest']['display']['exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['legs']['display']['exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['shoulders']['display']['exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['triceps']['display']['exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['node']['training_plan']['display']['total_weight'] = [
+      'label' => t('Total weight'),
+      'weight' => 100,
+      'visible' => FALSE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode) {
+  $bem_block = Html::getClass( 'paragraph-' . $paragraph->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+  if ($display->getComponent('exercise_weight')) {
+    /** @var \Drupal\kenny_training\Service\WeightManager $exercise */
+    $exercise = \Drupal::service('kenny_training.weight_manager');
+    $exercise_weight = $exercise->getTotalExerciseWeight($paragraph->id());
+    $build['exercise_weight'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ exercise_weight }}</div>',
+      '#context' => [
+          'exercise_weight' => $exercise_weight . ' kg',
+          'class' => $bem_block . '__exercise-weight'
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function kenny_training_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+  $bem_block = Html::getClass( 'node-' . $node->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+  if ($display->getComponent('total_weight') && $node->bundle() == 'training_plan') {
+    /** @var \Drupal\kenny_training\Service\WeightManager $training */
+    $training = \Drupal::service('kenny_training.weight_manager');
+    $total_weight = $training->getTotalWeight($node->id());
+    $build['total_weight'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ total_weight }}</div>',
+      '#context' => [
+          'total_weight' => $total_weight . ' kg',
+          'class' => $bem_block . '__total-weight'
+      ],
+    ];
+  }
+}

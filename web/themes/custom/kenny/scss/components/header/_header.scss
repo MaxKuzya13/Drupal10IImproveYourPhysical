@@ -1,6 +1,9 @@
 .region-header {
   display: flex;
   flex-direction: row;
+  max-width: calc($container-max + 2rem);
+  padding: 0 1rem;
+  margin: 0 auto;
   height: 100px;
   justify-content: space-between;
   border-bottom: 2px solid gray;

@@ -189,7 +189,7 @@ display:
             operator_list: {  }
             identifier: field_body_part_target_id
             required: false
-            remember: false
+            remember: true
             multiple: false
             remember_roles:
               authenticated: authenticated
@@ -217,7 +217,7 @@ display:
           type: select
           hierarchy: false
           limit: true
-          error_message: true
+          error_message: false
         field_type_of_training_target_id:
           id: field_type_of_training_target_id
           table: node__field_type_of_training
@@ -267,7 +267,7 @@ display:
           type: select
           hierarchy: false
           limit: true
-          error_message: true
+          error_message: false
       filter_groups:
         operator: AND
         groups:
@@ -297,7 +297,7 @@ display:
           plugin_id: standard
           required: false
       use_ajax: true
-      group_by: false
+      group_by: true
       header: {  }
       footer: {  }
       display_extenders: {  }

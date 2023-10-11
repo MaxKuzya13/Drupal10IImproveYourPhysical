@@ -1,0 +1,28 @@
+uuid: 6d6a816e-6281-4a37-b555-ed180e6f5f56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.training_type.field_body_part
+    - field.field.paragraph.training_type.field_type_of_training
+    - paragraphs.paragraphs_type.training_type
+id: paragraph.training_type.default
+targetEntityType: paragraph
+bundle: training_type
+mode: default
+content:
+  field_body_part:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_type_of_training:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
