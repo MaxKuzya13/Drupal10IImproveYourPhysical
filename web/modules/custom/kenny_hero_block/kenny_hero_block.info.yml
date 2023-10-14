@@ -1,0 +1,5 @@
+name: 'Kenny Hero Block'
+type: module
+description: 'Module for plugin hero block'
+package: Kenny
+core_version_requirement: ^10
