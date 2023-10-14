@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Main file for custom hooks and functions.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function kenny_hero_block_theme($existing, $type, $theme, $path) {
+  return [
+    'kenny_hero_block' => [
+      'variables' => [
+        'title' => NULL,
+        'subtitle' => NULL,
+        'image' => NULL,
+        'video' => []
+      ],
+      'file' => 'kenny_hero_block.theme.inc',
+      'pattern' => 'kenny_hero_block__'
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function kenny_hero_block_theme_suggestions_kenny_hero_block(array $variables) {
+  $suggestions = [];
+
+  if(!empty($variables['plugin_id'])) {
+    $suggestions[] = 'kenny_hero_block__' . $variables['plugin_id'];
+  }
+
+  if(!empty($variables['image'])) {
+    $suggestions[] = 'kenny_hero_block__image';
+  }
+
+  if(!empty($variables['image'] && !empty($variables['video']))) {
+    $suggestions[] = 'kenny_hero_block__video';
+  }
+
+  if(!empty($variables['image'])) {
+    $suggestions[] = 'kenny_hero_block__' . $variables['plugin_id'] . '__image';
+  }
+
+  if(!empty($variables['image'] && !empty($variables['video']))) {
+    $suggestions[] = 'kenny_hero_block__' . $variables['plugin_id'] . '__video';
+  }
+
+  return $suggestions;
+}

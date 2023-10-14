@@ -1,0 +1,12 @@
+services:
+  condition_manager:
+    class: Drupal\Core\Condition\ConditionManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@state', '@config.factory']
+
+  plugin.manager.kenny_hero_block.entity:
+    class: Drupal\kenny_hero_block\Plugin\KennyHeroBlockPluginManager
+    arguments: [entity, '@container.namespaces', '@cache.discovery', '@module_handler', '@current_route_match', '@condition_manager']
+
+  plugin.manager.kenny_hero_block.path:
+    class: Drupal\kenny_hero_block\Plugin\KennyHeroBlockPluginManager
+    arguments: [path, '@container.namespaces', '@cache.discovery', '@module_handler', '@current_route_match', '@condition_manager']
