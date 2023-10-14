@@ -3,6 +3,7 @@
 $color-text: #fff;
 $color-text-heading: #fff;
 $color-bg: #000000d9;
+$color-violet: #6441A5;
 
 // Fonts
 
@@ -20,3 +21,5 @@ $md: 992px;
 $lg: 1256px;
 
 $container-max: 1170px;
+$container-max-mobile: calc(100vw - 2rem);
+$container-max-mobile-large: calc(100vw - 2rem);

@@ -16,10 +16,16 @@
   position: relative;
   .field__label {
     margin-right: 0.7rem;
+    @include mobile {
+      margin-right: 0.35rem;
+    }
     &:after {
       position: relative;
       content: ":";
       left: 3px;
+      @include mobile {
+        left: 1px;
+      }
     }
   }
 

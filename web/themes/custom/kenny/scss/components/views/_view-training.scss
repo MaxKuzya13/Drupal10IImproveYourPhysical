@@ -4,6 +4,12 @@
   border-radius: 2rem;
   padding: 2rem 1rem;
   margin: 0 auto;
+
+  @include mobileDefault {
+    max-width: $container-max-mobile;
+    padding: 1rem 0.5rem;
+  }
+
   .view-filters {
 
     form {
@@ -11,10 +17,21 @@
       border: 1px solid gray;
       padding: 0.5rem;
       border-radius: 1rem;
+      @include mobile {
+        display: grid;
+        grid-template-columns: 3fr 3fr 1fr;
+        padding: 0.25rem;
+      }
+
 
       .form-item-field-body-part-target-id {
         padding: 0.5rem;
-
+        @include mobile {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 0.25rem;
+        }
 
         .form-select {
           margin-left: 0.3rem;
@@ -24,8 +41,16 @@
           background-color: inherit;
           color: $color-text;
 
+          @include mobile {
+            padding: 0.15rem;
+            margin-left: unset;
+          }
+
           option {
             background-color: $color-bg;
+            @include mobile {
+              font-size: 12px;
+            }
           }
 
           &:hover {
@@ -37,6 +62,12 @@
 
       .form-item-field-type-of-training-target-id {
         padding: 0.5rem;
+        @include mobile {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 0.25rem;
+        }
 
         .form-select {
           margin-left: 0.3rem;
@@ -45,6 +76,11 @@
           border: 1px solid gray;
           background-color: inherit;
           color: $color-text;
+
+          @include mobile {
+            padding: 0.15rem;
+            margin-left: unset;
+          }
 
           &:hover {
             border-color: greenyellow;
@@ -63,6 +99,13 @@
       align-items: center;
       margin-left: 1rem;
       padding-right: 0.5rem;
+      @include mobile {
+        margin-left: unset;
+        padding-right: unset;
+        align-items: end;
+        padding-bottom: 0.15rem;
+        justify-content: center;
+      }
 
       .form-submit {
         background: inherit;
@@ -71,6 +114,10 @@
         border: 1px solid gray;
         border-radius: 1rem;
         color: $color-text;
+
+        @include mobile {
+          padding: 0.2rem 0.5rem;
+        }
 
         &:hover {
           border-color: greenyellow;
@@ -84,5 +131,8 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
   }
 }

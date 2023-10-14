@@ -1,15 +1,32 @@
 .node-training-plan-teaser {
 
+  &__title {
+    font-size: 24px;
+  }
+
+  &__link {
+    color: cadetblue;
+
+    &:hover {
+      color: deepskyblue;
+      cursor: pointer;
+    }
+  }
+
   &__field-body-part {
     @include bodyPartAndTraining;
   }
 
   &__field-type-of-training {
+    border-bottom: 1px solid gray;
     @include bodyPartAndTraining;
+
   }
 
   .node__content {
-    width: 500px;
+    @include mobile {
+      width: calc($container-max-mobile - 1rem);
+    }
   }
 
   &__field-exercises {
@@ -20,9 +37,14 @@
     .field__item {
 
       .paragraph--view-mode--preview {
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         gap: 0.3rem;
+
+        @include mobileDefault {
+          gap: 0.15rem;
+        }
+
 
         .paragraph-field-exercise {
           width: 200px;
@@ -31,17 +53,26 @@
           display: flex;
           position: relative;
 
-
+          @include mobile {
+            width: 45vw;
+            margin-right: 0.25rem;
+          }
         }
 
         .paragraph-field-weight, .paragraph-field-repetition {
           display: flex;
           position: relative;
           margin-right: 0.4rem;
+          @include mobileDefault {
+            margin-right: 0.1rem;
+          }
           &:after {
             position: relative;
             content: "x";
             left: 0.4rem;
+            @include mobileDefault {
+              left: 0.1rem;
+            }
           }
         }
 
@@ -49,10 +80,16 @@
           display: flex;
           position: relative;
           margin-right: 0.4rem;
+          @include mobileDefault {
+            margin-right: 0.1rem;
+          }
           &:after {
             position: relative;
             content: "|";
             left: 0.4rem;
+            @include mobileDefault {
+              left: 0.1rem;
+            }
           }
         }
       }
