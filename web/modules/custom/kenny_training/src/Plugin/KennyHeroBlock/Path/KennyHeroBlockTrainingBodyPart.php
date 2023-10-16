@@ -49,6 +49,8 @@ class KennyHeroBlockTrainingBodyPart extends KennyHeroBlockPathPluginBase {
       case 'legs':
         $subtitle = "The lower extremities, commonly referred to as the legs, are a crucial part of human anatomy. They consist of several key components, including the thigh, calf, ankle, and foot. The femur, or thigh bone, is the longest and strongest bone in the human body, connecting the hip to the knee. The calf muscle, comprising the gastrocnemius and soleus muscles, facilitates movements like walking and running, and it's anchored to the Achilles tendon. The ankle and foot are intricate structures containing numerous bones, ligaments, and tendons, enabling balance and various movements. Understanding the anatomy of the lower limbs is essential for maintaining mobility, stability, and overall physical well-being.";
         break;
+      default:
+        $subtitle = '';
     }
     return $subtitle;
   }
