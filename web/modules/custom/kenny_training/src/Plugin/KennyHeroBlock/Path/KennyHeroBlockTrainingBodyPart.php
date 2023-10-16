@@ -12,7 +12,8 @@ use Symfony\Component\DependencyInjection\Container;
  * @KennyHeroBlockPath(
  *   id = "kenny_hero_block_training_body_part",
  *   match_type = "listed",
- *   match_path = {"/training/*"},
+ *   match_path = {"/training/chest", "/training/back", "/training/biceps",
+ *   "/training/triceps", "/training/shoulders", "/training/legs"}
  * )
  */
 
