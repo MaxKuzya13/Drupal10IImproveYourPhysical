@@ -87,6 +87,121 @@ p {
   line-height: 1.5;
 }
 
+.kenny-hero-block {
+  position: relative;
+  width: calc(1170px + 2rem);
+  height: 500px;
+  margin: 0 auto;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .kenny-hero-block {
+    width: calc(100vw - 2rem);
+    height: 70vh;
+  }
+}
+@media (max-width: 600px) {
+  .kenny-hero-block {
+    width: calc(100vw - 2rem);
+    height: 50vh;
+  }
+}
+.kenny-hero-block__content {
+  height: auto;
+  width: calc(1170px + 2rem);
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .kenny-hero-block__content {
+    width: calc(100vw - 2rem);
+  }
+}
+@media (max-width: 600px) {
+  .kenny-hero-block__content {
+    width: calc(100vw - 2rem);
+  }
+}
+.kenny-hero-block__title {
+  text-align: center;
+}
+.kenny-hero-block__video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.kenny-hero-block__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.kenny-hero-block-training-body-part {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  width: calc(1170px + 2rem);
+  height: 500px;
+  margin: 0 auto;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .kenny-hero-block-training-body-part {
+    width: calc(100vw - 2rem);
+    height: 70vh;
+  }
+}
+@media (max-width: 600px) {
+  .kenny-hero-block-training-body-part {
+    flex-direction: column;
+    gap: 0;
+    width: calc(100vw - 2rem);
+    height: 50vh;
+  }
+}
+.kenny-hero-block-training-body-part__content {
+  height: auto;
+  width: 40rem;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .kenny-hero-block-training-body-part__content {
+    width: 40vw;
+    overflow-y: scroll;
+  }
+}
+@media (max-width: 600px) {
+  .kenny-hero-block-training-body-part__content {
+    width: calc(100vw - 2rem);
+    display: none;
+  }
+}
+.kenny-hero-block-training-body-part__title {
+  margin-top: unset;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .kenny-hero-block-training-body-part__title {
+    margin-bottom: 1rem;
+  }
+}
+.kenny-hero-block-training-body-part__subtitle {
+  text-align: justify;
+}
+.kenny-hero-block-training-body-part__image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .app__content {
   display: flex;
   flex-flow: column;

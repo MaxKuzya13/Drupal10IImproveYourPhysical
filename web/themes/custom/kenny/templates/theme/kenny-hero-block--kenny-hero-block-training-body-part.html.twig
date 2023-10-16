@@ -1,0 +1,22 @@
+{% set bem_block = 'kenny-hero-block-training-body-part' %}
+{% set classes = [
+  bem_block,
+  subtitle ? bem_block ~ '--subtitle' : bem_block ~ '--no-subtitle',
+] %}
+
+
+<div {{ attributes.addClass(classes) }}>
+  <img src="{{ image|image_style('kenny_hero_block_large') }}" alt="{{ title }}" class="{{ bem_block }}__image">
+
+  <div class="{{ bem_block }}__content">
+    {% if title %}
+      <h1 class="{{ bem_block }}__title">{{ title }}</h1>
+    {% endif %}
+
+    {% if subtitle %}
+      <div class="{{ bem_block }}__subtitle">{{ subtitle|raw }}</div>
+    {% endif %}
+  </div>
+</div>
+
+

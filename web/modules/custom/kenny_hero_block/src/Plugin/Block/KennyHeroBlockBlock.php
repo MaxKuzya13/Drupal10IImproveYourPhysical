@@ -70,9 +70,8 @@ final class KennyHeroBlockBlock extends BlockBase implements ContainerFactoryPlu
     $path_plugins = $this->kennyHeroBlockPathManager->getSuitablePlugins();
     $plugins = $entity_plugins + $path_plugins;
     uasort($plugins, '\Drupal\Component\Utility\SortArray::sortByWeightElement');
-    if (!empty($plugins)) {
-      $plugin = end($plugins);
-    }
+
+    $plugin = end($plugins);
 
 
     if ($plugin['plugin_type'] == 'entity') {

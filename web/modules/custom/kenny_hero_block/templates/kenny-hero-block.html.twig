@@ -6,26 +6,29 @@
   not image ? bem_block ~ '--plain',
   subtitle ? bem_block ~ '--subtitle' : bem_block ~ '--no-subtitle',
 ] %}
-<div {{ attributes.addClass(classes) }}>
-  {% if image and video %}
-    <video poster="{{ image|image_style('thumbnail') }}" autoplay loop muted class="{{ bem_block }}__video">
+
+{% if image and video %}
+  <div {{ attributes.addClass(classes) }}>
+    <video autoplay loop muted class="{{ bem_block }}__video">
       {% for type, video_uri in video %}
         <source src="{{ file_url(video_uri) }}" type="{{ type }}">
       {% endfor %}
       {{ 'Your browser does not support the video tag'|t }}
     </video>
-
-  {% elseif image %}
-
-    <img src="{{ image|image_style('thumbnail') }}" alt="{{ title }}" class="{{ bem_block }}__image">
-
-  {% endif %}
-  <div class="{{ bem_block }}__content">
-    <h1 class="{{ bem_block }}__title">{{ title }}</h1>
-
-    {% if subtitle %}
-      <div class="{{ bem_block }}__subtitle">{{ subtitle|raw }}</div>
-    {% endif %}
   </div>
+{% elseif image %}
+  <div {{ attributes.addClass(classes) }}>
+    <img src="{{ image|image_style('kenny_hero_block_large') }}" alt="{{ title }}" class="{{ bem_block }}__image">
+  </div>
+{% endif %}
 
+
+<div class="{{ bem_block }}__content">
+  {% if title %}
+    <h1 class="{{ bem_block }}__title">{{ title }}</h1>
+  {% endif %}
+
+  {% if subtitle %}
+    <div class="{{ bem_block }}__subtitle">{{ subtitle|raw }}</div>
+  {% endif %}
 </div>

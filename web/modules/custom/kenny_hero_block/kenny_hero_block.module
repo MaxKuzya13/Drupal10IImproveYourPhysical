@@ -15,7 +15,8 @@ function kenny_hero_block_theme($existing, $type, $theme, $path) {
         'title' => NULL,
         'subtitle' => NULL,
         'image' => NULL,
-        'video' => []
+        'video' => [],
+        'plugin_id' => NULL,
       ],
       'file' => 'kenny_hero_block.theme.inc',
       'pattern' => 'kenny_hero_block__'
@@ -28,7 +29,6 @@ function kenny_hero_block_theme($existing, $type, $theme, $path) {
  */
 function kenny_hero_block_theme_suggestions_kenny_hero_block(array $variables) {
   $suggestions = [];
-
   if(!empty($variables['plugin_id'])) {
     $suggestions[] = 'kenny_hero_block__' . $variables['plugin_id'];
   }

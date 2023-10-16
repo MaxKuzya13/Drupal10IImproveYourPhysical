@@ -1,0 +1,15 @@
+uuid: 957bc1af-3fcf-41cd-8b74-40252092f248
+langcode: en
+status: true
+dependencies: {  }
+name: kenny_hero_block_large
+label: 'Kenny Hero Block Large 1202x500'
+effects:
+  a31bfc2b-1107-4912-ac41-cb2a6a9307dc:
+    uuid: a31bfc2b-1107-4912-ac41-cb2a6a9307dc
+    id: image_scale
+    weight: 1
+    data:
+      width: 1202
+      height: null
+      upscale: false

@@ -44,7 +44,7 @@ abstract class KennyHeroBlockPluginBase extends PluginBase implements KennyHeroB
 
 
   /**
-   * KlogHeroPluginBase constructor
+   * KennyHeroBlockPluginBase constructor
    *
    * @param array $configuration
    *  The configuration.

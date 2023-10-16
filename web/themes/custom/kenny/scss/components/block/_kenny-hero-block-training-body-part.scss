@@ -1,0 +1,54 @@
+.kenny-hero-block-training-body-part {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  width: calc($container-max + 2rem);
+  height: 500px;
+
+  @include mobileLarge {
+    width: $container-max-mobile-large;
+    height: 70vh;
+  }
+  @include mobile {
+    flex-direction: column;
+    gap: 0;
+    width: $container-max-mobile;
+    height: 50vh;
+  }
+  margin: 0 auto;
+
+  &__content {
+    height: auto;
+    width: 40rem;
+    @include mobileLarge {
+      width: 40vw;
+      overflow-y: scroll;
+    }
+    @include mobile {
+      width: $container-max-mobile;
+      display: none;
+    }
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin-top: unset;
+    @include mobile {
+      margin-bottom: 1rem;
+    }
+    text-align: center;
+  }
+
+  &__subtitle {
+    text-align: justify;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

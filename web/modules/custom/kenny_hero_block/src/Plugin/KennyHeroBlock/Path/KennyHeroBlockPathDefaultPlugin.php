@@ -7,7 +7,7 @@ namespace Drupal\kenny_hero_block\Plugin\KennyHeroBlock\Path;
  *
  * @KennyHeroBlockPath(
  *   id = "kenny_hero_block_path_default",
- *   match_path = {"/training"},
+ *   match_path = {"*"},
  *   weight = -100,
  * )
  */

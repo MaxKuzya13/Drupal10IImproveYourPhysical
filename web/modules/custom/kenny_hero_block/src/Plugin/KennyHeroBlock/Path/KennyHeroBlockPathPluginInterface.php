@@ -6,7 +6,7 @@ namespace Drupal\kenny_hero_block\Plugin\KennyHeroBlock\Path;
 use Drupal\kenny_hero_block\Plugin\KennyHeroBlock\KennyHeroBlockPluginInterface;
 
 /**
- * Interface for KlogHero path plugin type.
+ * Interface for KennyHeroBlock path plugin type.
  */
 interface KennyHeroBlockPathPluginInterface extends KennyHeroBlockPluginInterface {
 

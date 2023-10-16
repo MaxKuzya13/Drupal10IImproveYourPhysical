@@ -6,7 +6,7 @@ use Drupal\kenny_hero_block\Plugin\KennyHeroBlock\KennyHeroBlockPluginBase;
 
 
 /**
- * The base for KlogHero path plugin type.
+ * The base for KennyHeroBlock path plugin type.
  */
 abstract class KennyHeroBlockPathPluginBase extends KennyHeroBlockPluginBase implements KennyHeroBlockPathPluginInterface {
 

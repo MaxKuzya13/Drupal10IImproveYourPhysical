@@ -1,0 +1,47 @@
+.kenny-hero-block {
+  position: relative;
+  width: calc($container-max + 2rem);
+  height: 500px;
+  @include mobileLarge {
+    width: $container-max-mobile-large;
+    height: 70vh;
+  }
+  @include mobile {
+    width: $container-max-mobile;
+    height: 50vh;
+  }
+  margin: 0 auto;
+
+  &__content {
+    height: auto;
+    width: calc($container-max + 2rem);
+    @include mobileLarge {
+      width: $container-max-mobile-large;
+    }
+    @include mobile {
+      width: $container-max-mobile;
+    }
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

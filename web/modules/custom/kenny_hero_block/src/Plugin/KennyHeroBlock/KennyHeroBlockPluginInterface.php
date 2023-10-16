@@ -4,6 +4,9 @@ namespace Drupal\kenny_hero_block\Plugin\KennyHeroBlock;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 
+/**
+ * Common interface for all KennyHeroBlock plugin types.
+ */
 interface KennyHeroBlockPluginInterface extends PluginInspectionInterface {
 
   /**
@@ -23,10 +26,10 @@ interface KennyHeroBlockPluginInterface extends PluginInspectionInterface {
   public function getWeight();
 
   /**
-   * Gets hero subtitle.
+   * Gets hero title.
    *
    * @return string
-   *  The subtitle.
+   *  The title.
    */
   public function getHeroTitle();
 
