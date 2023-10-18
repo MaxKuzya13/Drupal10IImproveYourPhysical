@@ -5,3 +5,11 @@ kenny_measurements.formdemo:
     _title: 'Measurements'
   requirements:
     _permission: 'access content'
+
+kenny_measurements.exercisesdemo:
+  path: '/exercisesdemo'
+  defaults:
+    _form: '\Drupal\kenny_measurements\Form\KennyExercisesForm'
+    _title: 'Exercises'
+  requirements:
+    _permission: 'access content'
