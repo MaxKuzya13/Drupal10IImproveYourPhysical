@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the kenny_measurements module
+ */
+
+function kenny_measurements_schema() {
+  // Create a database table called "kenny_measurements" with the following columns:
+  // 1) id [serial], 2) uid [int], 3) weight [int], 4) height [int], 5) biceps [int],
+  // 6) forearms [int], 7) chest [int], 8) neck [int], 9) waist [int], 10) legs [int],
+  // 11) created [timestamp]
+
+  $schema['kenny_measurements'] = [
+    'description' =>  'A form for filling in your own measurements.',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for the record',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'The {users}.uid that added this measurements',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'weight' => [
+        'description' => 'User`s weight',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'height' => [
+        'description' => 'User`s height',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'biceps' => [
+        'description' => 'User`s biceps',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'forearms' => [
+        'description' => 'User`s forearms',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'chest' => [
+        'description' => 'User`s chest',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'neck' => [
+        'description' => 'User`s neck',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'waist' => [
+        'description' => 'User`s waist',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'legs' => [
+        'description' => 'User`s legs',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'created' => [
+        'description' => 'Timestamp for when measurements was created',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'user' => ['uid'],
+    ]
+
+  ];
+
+  return $schema;
+}

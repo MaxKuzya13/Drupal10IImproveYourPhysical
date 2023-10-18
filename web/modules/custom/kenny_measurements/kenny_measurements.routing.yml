@@ -1,0 +1,7 @@
+kenny_measurements.formdemo:
+  path: '/measurementsdemo'
+  defaults:
+    _form: '\Drupal\kenny_measurements\Form\KennyMeasurementsForm'
+    _title: 'Measurements'
+  requirements:
+    _permission: 'access content'
