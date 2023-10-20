@@ -1,0 +1,4 @@
+kenny_training_script:
+  version: 1.x
+  js:
+    js/kenny_training_script.js: {}

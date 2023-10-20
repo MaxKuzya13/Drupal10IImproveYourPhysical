@@ -7,6 +7,7 @@
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
@@ -97,5 +98,16 @@ function kenny_training_node_view(array &$build, NodeInterface $node, EntityView
           'class' => $bem_block . '__total-weight'
       ],
     ];
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function kenny_training_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Перевірте, чи це ваша форма (form_id).
+  if ($form_id == 'kenny_training_plan_form') {
+    // Підключіть JavaScript файл до вашої форми.
+    $form['#attached']['library'][] = 'kenny_training/kenny_training_script';
   }
 }
