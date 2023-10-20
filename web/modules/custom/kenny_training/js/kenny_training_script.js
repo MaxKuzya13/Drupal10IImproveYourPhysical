@@ -1,41 +1,23 @@
-(function ($) {
-  Drupal.behaviors.kennyTrainingForm = {
+(function ($, Drupal) {
+  Drupal.behaviors.kennyTrainingAjax = {
     attach: function (context, settings) {
-      // Змінні для зберігання списків вправ для кожного поля.
-      var exerciseOptions = {
-        0: ['Вправа 1', 'Вправа 2', 'Вправа 3'], // Початковий список вправ.
-      };
+      // Створення Ajax-запиту при зміні вибору "Choose Muscle group".
+      $('#edit-muscle-groups', context).once('kenny-training-ajax').on('change', function () {
+        var muscleGroupId = $(this).val();
 
-      // Функція для оновлення вправ в залежності від вибору в попередніх полях.
-      function updateExerciseOptions(selectIndex, selectedValue) {
-        var $select = $('select[name="exercises_' + selectIndex + '"]');
-        $select.empty();
-
-        // Заповніть список вправ на основі вибору користувача у попередніх полях.
-        var availableExercises = exerciseOptions[selectIndex];
-        for (var i = 0; i < availableExercises.length; i++) {
-          if (availableExercises[i] !== selectedValue) {
-            $select.append($('<option>', {
-              value: availableExercises[i],
-              text: availableExercises[i],
-            }));
+        // Виконайте Ajax-запит на сервер і передайте обраний muscleGroupId.
+        $.ajax({
+          url: '/training/plan/demo', // Замініть це на ваш шлях до серверного коду.
+          method: 'POST',
+          data: {muscle_group_id: muscleGroupId},
+          success: function (data) {
+            // Оновіть #options для всіх елементів вибору вправи.
+            $('.exercise-select').each(function () {
+              $(this).html(data.options);
+            });
           }
-        }
-      }
-
-      // Додаємо обробник події change для всіх полів вправ.
-      $('select[name^="exercises_"]').once('kennyTrainingForm').on('change', function () {
-        var $this = $(this);
-        var selectedValue = $this.val();
-
-        // Знайдіть індекс поточного поля.
-        var currentIndex = parseInt($this.attr('name').match(/exercises_(\d+)/)[1]);
-
-        // Оновіть наступне поле вправ.
-        if (currentIndex < 5) { // Перевірка на максимальну кількість полів, на ваш вибір.
-          updateExerciseOptions(currentIndex + 1, selectedValue);
-        }
+        });
       });
-    },
+    }
   };
-})(jQuery);
+})(jQuery, Drupal);
