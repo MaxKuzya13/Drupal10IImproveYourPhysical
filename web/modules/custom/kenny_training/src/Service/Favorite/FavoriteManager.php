@@ -51,6 +51,16 @@ class FavoriteManager implements FavoriteManagerInterface {
       ->condition('nid', $nid)
       ->execute();
   }
+
+  public function getFavoriteTrainingPlans($uid) {
+    $database = \Drupal::database();
+    $query = $database->select("kenny_favorite_training", 'kft');
+    $query->addField('kft', 'nid');
+    $query->condition('kft.uid', $uid);
+    $result = $query->execute();
+    return $result->fetchCol();
+
+  }
 }
 
 
