@@ -88,5 +88,35 @@ function kenny_measurements_schema() {
 
   ];
 
+  $schema['kenny_favorite_training'] = [
+    'description' =>  'A form for favorite training',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for the record',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'The {users}.uid thad added training plan to favorite',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'nid' => [
+        'description' => 'The {node}.nid for this training plan',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'user' => ['uid'],
+      'node' => ['nid'],
+    ]
+  ];
+
   return $schema;
 }

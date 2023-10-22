@@ -5,3 +5,19 @@ kenny_training.training_plan_form:
     _title: 'Training plan'
   requirements:
     _permission: 'access content'
+
+kenny_training.favorite_add:
+  path: '/add-to-favorite/{uid}/{nid}'
+  defaults:
+    _controller: '\Drupal\kenny_training\Controller\FavoriteController::addFavorite'
+    _title: 'Add to Favorite'
+  requirements:
+    _permission: 'access content'
+
+kenny_training.favorite_delete:
+  path: '/delete-from-favorite/{uid}/{nid}'
+  defaults:
+    _controller: '\Drupal\kenny_training\Controller\FavoriteController::deleteFavorite'
+    _title: 'Delete from Favorite'
+  requirements:
+    _permission: 'access content'

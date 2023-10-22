@@ -134,7 +134,6 @@ class KennyMeasurementsForm extends FormBase {
         t('Thank you for your measurements')
       );
 
-
     } catch (\Exception $e) {
       \Drupal::messenger()->addError(
         t('Unable to save measurement at this time die to database error.

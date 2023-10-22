@@ -87,7 +87,7 @@ function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragr
 function kenny_training_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
   $bem_block = Html::getClass( 'node-' . $node->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
   if ($display->getComponent('total_weight') && $node->bundle() == 'training_plan') {
-    /** @var \Drupal\kenny_training\Service\WeightManager $training */
+    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
     $training = \Drupal::service('kenny_training.weight_manager');
     $total_weight = $training->getTotalWeight($node->id());
     $build['total_weight'] = [
@@ -99,6 +99,24 @@ function kenny_training_node_view(array &$build, NodeInterface $node, EntityView
       ],
     ];
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function kenny_training_preprocess_node__training_plan__teaser(&$variables) {
+  $current_user = \Drupal::currentUser();
+  $node = $variables['node'];
+
+  $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
+  $is_favorite = $favorite_manager->isFavorite($current_user->id(), $node->id());
+
+  $variables['#attached']['library'][] = 'kenny_training/kenny_training_script';
+
+  $variables['user_id'] = $current_user->id();
+  $variables['node_id'] = $node->id();
+
+  $variables['is_favorite'] = $is_favorite;
 }
 
 /**

@@ -4,12 +4,7 @@ status: true
 dependencies:
   config:
     - system.menu.main
-    - taxonomy.vocabulary.back
     - taxonomy.vocabulary.biceps
-    - taxonomy.vocabulary.chest
-    - taxonomy.vocabulary.legs
-    - taxonomy.vocabulary.shoulders
-    - taxonomy.vocabulary.triceps
   module:
     - taxonomy
     - user
@@ -139,12 +134,7 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            back: back
             biceps: biceps
-            chest: chest
-            legs: legs
-            shoulders: shoulders
-            triceps: triceps
           group: 1
           exposed: true
           expose:
@@ -193,7 +183,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }

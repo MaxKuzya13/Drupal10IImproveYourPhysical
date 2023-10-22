@@ -155,9 +155,8 @@ class KennyTrainingPlanForm extends FormBase {
       ];
 
       return $exerciseField;
-    } else {
-      return [];
     }
+      return [];
 
   }
 
@@ -203,9 +202,6 @@ class KennyTrainingPlanForm extends FormBase {
       // Отримайте значення полів для відповідної вправи.
       $exercise_value = $form_state->getValue('exercise_' . $i);
       $exercise_name = !empty($exercise_value) ? Term::load($exercise_value)->getName() : '';
-      $weight_value = $form_state->getValue('weight_' . $i);
-      $repetition_value = $form_state->getValue('repetition_' . $i);
-      $approaches_value = $form_state->getValue('approaches_' . $i);
       // Перевірте значення полів і за потреби виведіть повідомлення про помилки.
 
       if (!empty($exercise_value)) {
@@ -217,7 +213,6 @@ class KennyTrainingPlanForm extends FormBase {
         $this->validateNonEmptyField($form_state, 'repetition_' . $i, 'Repetition');
         $this->validateNonEmptyField($form_state, 'approaches_' . $i, 'Approaches');
       }
-
     }
   }
 
@@ -263,21 +258,14 @@ class KennyTrainingPlanForm extends FormBase {
     }
   }
 
-
-
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $training_type = $form_state->getValue('training_type');
     $body_part = $form_state->getValue('muscle_groups');
-    $body_part_name = '';
-    if(!empty($body_part)) {
-      $term = Term::load($body_part);
-      if ($term) {
-        $body_part_name = $term->getName();
-      }
-    }
+    $body_part_name = !empty($body_part) ? Term::load($body_part)->getName() : '';
+
     $num_exercises = $form_state->getValue('num_exercises');
     $title = $form_state->getValue('title');
     for ($i = 0; $i < $num_exercises; $i++ ) {
@@ -320,7 +308,10 @@ class KennyTrainingPlanForm extends FormBase {
     $training_plan->save();
     // Виводимо текст допоміжний
     \Drupal::messenger()->addMessage(
-      t('The training plan @title for body part @body_part successfully add', ['@title' => $title, '@body_part' => $body_part_name])
+      t('The training plan @title for body part @body_part successfully add', [
+        '@title' => $title,
+        '@body_part' => $body_part_name
+      ])
     );
   }
 }

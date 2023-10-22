@@ -1,4 +1,8 @@
 services:
   kenny_training.weight_manager:
-    class: Drupal\kenny_training\Service\WeightManager
+    class: Drupal\kenny_training\Service\Weight\WeightManager
     arguments: ['@entity_type.manager']
+
+  kenny_training.favorite_manager:
+    class: Drupal\kenny_training\Service\Favorite\FavoriteManager
+    arguments: [ '@entity_type.manager' ]
