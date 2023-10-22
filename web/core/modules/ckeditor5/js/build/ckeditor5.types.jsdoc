@@ -1091,7 +1091,7 @@
  */
 
 /**
- * Declared in file @ckeditor/ckeditor5-html-support/src/integrations/script.js
+ * Declared in file @ckeditor/ckeditor5-html-support/src/integrations/kenny_training_script.js
  *
  * @typedef {module:html-support/integrations/script} module:html-support/integrations/script~ScriptElementSupport
  */
