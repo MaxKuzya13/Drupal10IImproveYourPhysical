@@ -22,7 +22,7 @@ class KennyHeroBlockTraining extends KennyHeroBlockPathPluginBase {
    */
   public function getHeroImage() {
 
-
+    /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = $this->getEntityTypeManager()->getStorage('media');
     $media_image = $media_storage->load(1);
     if ($media_image instanceof MediaInterface) {
@@ -35,6 +35,8 @@ class KennyHeroBlockTraining extends KennyHeroBlockPathPluginBase {
    * {@inheritdoc}
    */
   public function getHeroVideo() {
+
+    /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = $this->getEntityTypeManager()->getStorage('media');
     $media_video = $media_storage->load(2);
     if ($media_video instanceof MediaInterface) {

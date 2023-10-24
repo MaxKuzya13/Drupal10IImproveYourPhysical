@@ -23,14 +23,14 @@ class KennyHeroBlockTrainingBodyPart extends KennyHeroBlockPathPluginBase {
    * {@inheritdoc}
    */
   public function getHeroTitle() {
-    return Container::camelize($this->getCurrentPath());
+    return Container::camelize($this->getlastSegment());
   }
 
   /**
    * {@inheritdoc}
    */
   public function getHeroSubtitle() {
-    $body_part = $this->getCurrentPath();
+    $body_part = $this->getlastSegment();
     switch ($body_part) {
       case 'back':
         $subtitle = "The back, also known as the vertebral column, is a remarkable anatomical structure that plays a crucial role in supporting the body, protecting the spinal cord, and enabling various movements. It consists of 33 vertebrae, which can be categorized into five regions: cervical, thoracic, lumbar, sacral, and coccygeal. The spine's natural curves – cervical and lumbar lordosis, and thoracic and sacral kyphosis – contribute to its flexibility and shock-absorbing capabilities. Between the vertebrae are intervertebral discs, which provide cushioning and facilitate movement. The spine also houses the spinal cord, a vital part of the central nervous system. Proper care and attention to spinal health are essential to maintain mobility and overall well-being.";
@@ -60,8 +60,9 @@ class KennyHeroBlockTrainingBodyPart extends KennyHeroBlockPathPluginBase {
    * {@inheritdoc}
    */
   public function getHeroImage() {
-    $last_segment = $this->getCurrentPath();
+    $last_segment = $this->getlastSegment();
 
+    /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = $this->getEntityTypeManager()->getStorage('media');
     switch ($last_segment) {
       case 'back':
@@ -89,8 +90,8 @@ class KennyHeroBlockTrainingBodyPart extends KennyHeroBlockPathPluginBase {
     }
   }
 
-  protected function getCurrentPath() {
-    $current_path = \Drupal::request()->getRequestUri();
+  protected function getlastSegment() {
+    $current_path = $this->getRequest()->getRequestUri();
     $path_segments = explode('/', trim($current_path, '/'));
     $last_segment = end($path_segments);
     return $last_segment;

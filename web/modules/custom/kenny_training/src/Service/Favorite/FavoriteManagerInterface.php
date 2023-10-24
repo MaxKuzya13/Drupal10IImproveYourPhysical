@@ -36,4 +36,13 @@ interface FavoriteManagerInterface {
    * @return mixed
    */
   public function deleteFavorite($uid, $nid);
+
+  /**
+   * @param $uid
+   *   Current user id.
+   *
+   * @return array
+   *   Array of node id
+   */
+  public function getFavoriteTrainingPlans($uid);
 }

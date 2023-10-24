@@ -49,6 +49,14 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
    */
   protected $entityTypeManager;
 
+  /**
+   * The node storage.
+   *
+   * @var \Drupal\node\NodeStorageInterface
+   *
+   */
+  protected $nodeStorage;
+
 
   /**
   * Constructs a new FavoriteTrainingBlock.
@@ -74,6 +82,7 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
     $this->currentUser = $current_user;
     $this->requestStack = $request_stack;
     $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
   }
 
   /**
@@ -100,8 +109,7 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
   // For example:
     $uid = $this->currentUser->id();
     $favorite_training_plans = $this->favoriteManager->getFavoriteTrainingPlans($uid);
-    $nodes = $this->entityTypeManager->getStorage('node')
-      ->loadMultiple($favorite_training_plans);
+    $nodes = $this->nodeStorage->loadMultiple($favorite_training_plans);
 
     foreach ($nodes as $node) {
       $output[] = [

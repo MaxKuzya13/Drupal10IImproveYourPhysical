@@ -296,7 +296,7 @@ display:
           admin_label: 'field_exercises: Paragraph'
           plugin_id: standard
           required: false
-      use_ajax: true
+      use_ajax: false
       group_by: true
       header: {  }
       footer: {  }

@@ -2,26 +2,43 @@
 
 namespace Drupal\kenny_training\Service\Favorite;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Database\Connection;
 
 class FavoriteManager implements FavoriteManagerInterface {
 
-  protected $entityTypeManager;
+  /**
+   * The database.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
 
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
-    $this->entityTypeManager = $entityTypeManager;
+  /**
+   * Construct a database instance
+   */
+  public function __construct(Connection $database) {
+    $this->database = $database;
+  }
+
+  /**
+   * Create a new static
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('database')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   public function isFavorite($uid, $nid) {
-    $database = \Drupal::database();
-    $query = $database->select('kenny_favorite_training', 'kft')
+    $database = $this->database->select('kenny_favorite_training', 'kft')
       ->fields('kft', ['id'])
       ->condition('uid', $uid)
       ->condition('nid', $nid);
-    $result = $query->execute();
+    $result = $database->execute();
     return !empty($result->fetchAssoc());
   }
 
@@ -31,8 +48,7 @@ class FavoriteManager implements FavoriteManagerInterface {
   public function setFavorite($uid, $nid) {
     $result = $this->isFavorite($uid, $nid);
     if (empty($result)) {
-      $database = \Drupal::database();
-      $query = $database->insert('kenny_favorite_training')
+      $database = $this->database->insert('kenny_favorite_training')
         ->fields([
           'uid' => $uid,
           'nid' => $nid,
@@ -45,19 +61,21 @@ class FavoriteManager implements FavoriteManagerInterface {
    * {@inheritdoc}
    */
   public function deleteFavorite($uid, $nid) {
-    $database = \Drupal::database();
-    $query = $database->delete('kenny_favorite_training')
+    $database = $this->database->delete('kenny_favorite_training')
       ->condition('uid', $uid)
       ->condition('nid', $nid)
       ->execute();
   }
 
+
+  /**
+   * {@inheritdoc}
+   */
   public function getFavoriteTrainingPlans($uid) {
-    $database = \Drupal::database();
-    $query = $database->select("kenny_favorite_training", 'kft');
-    $query->addField('kft', 'nid');
-    $query->condition('kft.uid', $uid);
-    $result = $query->execute();
+    $database = $this->database->select("kenny_favorite_training", 'kft');
+    $database->addField('kft', 'nid');
+    $database->condition('kft.uid', $uid);
+    $result = $database->execute();
     return $result->fetchCol();
 
   }

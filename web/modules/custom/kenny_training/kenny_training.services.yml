@@ -5,4 +5,4 @@ services:
 
   kenny_training.favorite_manager:
     class: Drupal\kenny_training\Service\Favorite\FavoriteManager
-    arguments: [ '@entity_type.manager' ]
+    arguments: [ '@database' ]

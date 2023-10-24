@@ -25,6 +25,9 @@ class FavoriteController extends ControllerBase {
     $this->favoriteService = $favorite_service;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('kenny_training.favorite_manager')  // Замініть на ім'я вашого сервісу

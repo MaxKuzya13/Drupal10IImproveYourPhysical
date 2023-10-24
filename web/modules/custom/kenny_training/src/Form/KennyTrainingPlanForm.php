@@ -4,13 +4,80 @@ namespace Drupal\kenny_training\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Messenger\MessengerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 class KennyTrainingPlanForm extends FormBase {
+
+  /**
+   * The entity type manager
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+
+  /**
+   * The messenger.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * The taxonomy term storage.
+   *
+   * @var \Drupal\taxonomy\TermStorageInterface
+   *
+   */
+  protected $termStorage;
+
+  /**
+   * The paragraph storage.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $paragraphStorage;
+
+  /**
+   * The node storage.
+   *
+   * @var \Drupal\node\NodeStorageInterface
+   *
+   */
+  protected $nodeStorage;
+
+  /**
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, MessengerInterface $messenger) {
+    $this->entityTypeManager = $entity_type_manager;
+    $this->messenger = $messenger;
+    $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
+    $this->paragraphStorage = $entity_type_manager->getStorage('paragraph');
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
+  }
+
+  /**
+   * Creates an instance of the form
+   *
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('messenger'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -23,13 +90,13 @@ class KennyTrainingPlanForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $training_type = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('type_of_training');
+    $training_type = $this->termStorage->loadTree('type_of_training');
     $training_type_options = ['' => $this->t('- Select -')];
     foreach ($training_type as $term) {
       $training_type_options[$term->tid] = $term->name;
     }
 
-    $body_part = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('body_part');
+    $body_part = $this->termStorage->loadTree('body_part');
     $body_part_options = ['' => $this->t('- Select -')];
     foreach ($body_part as $term) {
       $body_part_options[$term->tid] = $term->name;
@@ -98,12 +165,12 @@ class KennyTrainingPlanForm extends FormBase {
   public function chooseExerciseAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     $body_part_id = $form_state->getValue('muscle_groups');
-    $term = Term::load($body_part_id);
+    /** @var \Drupal\taxonomy\TermStorageInterface $term */
+    $term = $this->termStorage->load($body_part_id);
     $vocabulary_name = strtolower($term->getName());
 
-    $exercises_terms = \Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadTree($vocabulary_name);
+    /** @var \Drupal\taxonomy\TermStorageInterface $exercises_terms */
+    $exercises_terms = $this->termStorage->loadTree($vocabulary_name);
 
     $exercises_options = ['' => $this->t('- Select -')];
     foreach ($exercises_terms as $exercises_term) {
@@ -132,12 +199,12 @@ class KennyTrainingPlanForm extends FormBase {
   public function createExerciseSelectField(&$form, $form_state, $index) {
     if (!empty($form_state->getValue('muscle_groups'))) {
       $body_part_id = $form_state->getValue('muscle_groups');
-      $term = Term::load($body_part_id);
+
+      /** @var \Drupal\taxonomy\TermStorageInterface $term */
+      $term = $this->termStorage->load($body_part_id);
       $vocabulary_name = strtolower($term->getName());
 
-      $exercises_terms = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->loadTree($vocabulary_name);
+      $exercises_terms = $this->termStorage->loadTree($vocabulary_name);
 
       $exercises_options = ['' => $this->t('- Select -')];
       foreach ($exercises_terms as $exercises_term) {
@@ -201,7 +268,7 @@ class KennyTrainingPlanForm extends FormBase {
     for ($i = 0; $i < $num_exercises; $i++) {
       // Отримайте значення полів для відповідної вправи.
       $exercise_value = $form_state->getValue('exercise_' . $i);
-      $exercise_name = !empty($exercise_value) ? Term::load($exercise_value)->getName() : '';
+      $exercise_name = !empty($exercise_value) ? $this->termStorage->load($exercise_value)->getName() : '';
       // Перевірте значення полів і за потреби виведіть повідомлення про помилки.
 
       if (!empty($exercise_value)) {
@@ -264,7 +331,7 @@ class KennyTrainingPlanForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $training_type = $form_state->getValue('training_type');
     $body_part = $form_state->getValue('muscle_groups');
-    $body_part_name = !empty($body_part) ? Term::load($body_part)->getName() : '';
+    $body_part_name = !empty($body_part) ? $this->termStorage->load($body_part)->getName() : '';
 
     $num_exercises = $form_state->getValue('num_exercises');
     $title = $form_state->getValue('title');
@@ -277,7 +344,7 @@ class KennyTrainingPlanForm extends FormBase {
       }
     }
 
-    $training_plan = Node::create([
+    $training_plan = $this->nodeStorage->create([
       'type' => 'training_plan',
       'title' => $title,
       'field_body_part' => $body_part,
@@ -289,7 +356,7 @@ class KennyTrainingPlanForm extends FormBase {
       if (!empty($exercise[$i])) {
         $paragraph_type = strtolower($body_part_name);
 
-        $paragraph = Paragraph::create([
+        $paragraph = $this->paragraphStorage->create([
           'type' => $paragraph_type,
           'field_exercise' => $exercise[$i],
           'field_weight' => $weight[$i],
@@ -307,7 +374,7 @@ class KennyTrainingPlanForm extends FormBase {
 
     $training_plan->save();
     // Виводимо текст допоміжний
-    \Drupal::messenger()->addMessage(
+    $this->messenger->addMessage(
       t('The training plan @title for body part @body_part successfully add', [
         '@title' => $title,
         '@body_part' => $body_part_name

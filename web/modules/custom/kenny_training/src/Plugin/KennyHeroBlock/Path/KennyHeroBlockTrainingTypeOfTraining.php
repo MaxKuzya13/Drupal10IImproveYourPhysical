@@ -2,9 +2,14 @@
 
 namespace Drupal\kenny_training\Plugin\KennyHeroBlock\Path;
 
+use Drupal\Core\Controller\TitleResolverInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\kenny_hero_block\Plugin\KennyHeroBlock\Path\KennyHeroBlockPathPluginBase;
 use Drupal\media\MediaInterface;
+use Drupal\media\MediaStorage;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Hero block for training path for each type of training
@@ -19,12 +24,14 @@ use Symfony\Component\DependencyInjection\Container;
 
 class KennyHeroBlockTrainingTypeOfTraining extends KennyHeroBlockPathPluginBase {
 
+
   /**
    * {@inheritdoc}
    */
   public function getHeroImage() {
-    $last_segment = $this->getCurrentPath();
-
+    $last_segment = $this->getLastSegment();
+    dump($last_segment);
+    /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = $this->getEntityTypeManager()->getStorage('media');
     switch ($last_segment) {
       case 'intensive':
@@ -40,8 +47,13 @@ class KennyHeroBlockTrainingTypeOfTraining extends KennyHeroBlockPathPluginBase 
     }
   }
 
-  protected function getCurrentPath() {
-    $current_path = \Drupal::request()->getRequestUri();
+  /**
+   * Get last segment of current path
+   *
+   * @return false|string
+   */
+  protected function getLastSegment() {
+    $current_path = $this->getRequest()->getRequestUri();
     $path_segments = explode('/', trim($current_path, '/'));
     $last_segment = end($path_segments);
     return $last_segment;

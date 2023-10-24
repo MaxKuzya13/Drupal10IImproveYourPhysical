@@ -7,10 +7,60 @@
 
 namespace Drupal\kenny_measurements\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class KennyMeasurementsForm extends FormBase {
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected AccountInterface $currentUser;
+
+  /**
+   * The time created.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $currentTime;
+
+  /**
+   * The database.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected Connection $database;
+
+  /**
+   * The messenger.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  public function __construct(AccountInterface $current_user, TimeInterface $current_time, Connection $database, MessengerInterface $messenger ) {
+    $this->currentUser = $current_user;
+    $this->currentTime = $current_time;
+    $this->database = $database;
+    $this->messenger = $messenger;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('current_user'),
+      $container->get('datetime.time'),
+      $container->get('database'),
+      $container->get('messenger'),
+
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -93,7 +143,9 @@ class KennyMeasurementsForm extends FormBase {
 
     foreach ($fields_to_check as $field_name => $field_label) {
       if (!$this->isFloatValue($form_state, $field_name)) {
-        $form_state->setErrorByName($field_name, $this->t('@label must be an float with "." instead ","', ['@label' => $field_label]));
+        $form_state->setErrorByName($field_name, $this->t('@label must be an float with "." instead ","', [
+          '@label' => $field_label
+        ]));
       }
     }
 
@@ -104,8 +156,8 @@ class KennyMeasurementsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $uid = \Drupal::currentUser()->id();
-    $current_time = \Drupal::time()->getRequestTime();
+    $uid = $this->currentUser->id();
+    $current_time = $this->currentTime->getRequestTime();
 
     $values = [
       'uid' => $uid,
@@ -122,7 +174,7 @@ class KennyMeasurementsForm extends FormBase {
     try {
 
       // Start to build
-      $query = \Drupal::database()->insert('kenny_measurements');
+      $query = $this->database->insert('kenny_measurements');
 
       // Specify the fields a query will insert into.
       $query->fields($values);
@@ -130,12 +182,12 @@ class KennyMeasurementsForm extends FormBase {
       // Execute the query
       $query->execute();
 
-      \Drupal::messenger()->addMessage(
+      $this->messenger->addMessage(
         t('Thank you for your measurements')
       );
 
     } catch (\Exception $e) {
-      \Drupal::messenger()->addError(
+      $this->messenger->addError(
         t('Unable to save measurement at this time die to database error.
           Please try again.')
       );

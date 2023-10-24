@@ -19,7 +19,7 @@ class WeightManager implements WeightManagerInterface {
     /**
      * The paragraph storage.
      *
-     * @var \Drupal\Core\Entity\EntityStorageInterface
+     * @var \Drupal\Core\Entity\EntityTypeManagerInterface
      */
     protected $paragraphStorage;
 
@@ -41,6 +41,7 @@ class WeightManager implements WeightManagerInterface {
      */
     public function getTotalExerciseWeight($pid) {
 
+      /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $paragraph */
       $paragraph = $this->paragraphStorage->load($pid);
       if ($paragraph instanceof ParagraphInterface) {
         $weight = $paragraph->get('field_weight')->value;
@@ -58,6 +59,8 @@ class WeightManager implements WeightManagerInterface {
      * {@inheritdoc}
      */
     public function getTotalWeight($nid) {
+
+      /** @var \Drupal\node\NodeStorageInterface $node */
       $node = $this->nodeStorage->load($nid);
       if ($node instanceof NodeInterface) {
         $exercises = $node->get('field_exercises')->referencedEntities();
