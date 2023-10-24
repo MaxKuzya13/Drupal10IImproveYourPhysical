@@ -1,0 +1,21 @@
+uuid: 83579508-39f8-4cf0-ba4e-c4a42d3e0850
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_training_date
+    - node.type.training_plan
+  module:
+    - datetime
+id: node.training_plan.field_training_date
+field_name: field_training_date
+entity_type: node
+bundle: training_plan
+label: 'Training date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -28,8 +28,10 @@ module:
   help: 0
   history: 0
   image: 0
+  jquery_ui: 0
   kenny_hero_block: 0
   kenny_measurements: 0
+  kenny_settings: 0
   kenny_training: 0
   layout_builder: 0
   layout_discovery: 0
@@ -62,6 +64,7 @@ module:
   pathauto: 1
   views: 10
   paragraphs: 11
+  tvi: 15
   standard: 1000
 theme:
   olivero: 0

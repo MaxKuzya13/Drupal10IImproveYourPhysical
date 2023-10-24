@@ -26,10 +26,12 @@
         "drupal/devel": "^5.0",
         "drupal/field_group": "^3.4",
         "drupal/imagemagick": "^3.4",
+        "drupal/jquery_ui": "^1.6",
         "drupal/paragraphs": "^1.16",
         "drupal/pathauto": "^1.11",
         "drupal/photoswipe": "^4.0",
         "drupal/redirect": "^1.9",
+        "drupal/tvi": "^2.0@alpha",
         "drupal/twig_tweak": "^3.2",
         "drupal/views_conditional": "^1.5",
         "drush/drush": "^12.2"

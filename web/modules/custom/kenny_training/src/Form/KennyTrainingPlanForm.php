@@ -4,10 +4,12 @@ namespace Drupal\kenny_training\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\datetime\Plugin\views\sort\Date;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
@@ -102,10 +104,13 @@ class KennyTrainingPlanForm extends FormBase {
       $body_part_options[$term->tid] = $term->name;
     }
 
-    $form['title'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Name of training'),
-      '#reqired' => TRUE,
+    $form['date'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Date'),
+      '#date_date_format' => 'd.m.Y',
+      '#date_year_range' => '0:+10',
+      '#date_increment' => 15,
+      '#required' => TRUE,
     ];
 
     $form['training_type'] = [
@@ -330,11 +335,19 @@ class KennyTrainingPlanForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $training_type = $form_state->getValue('training_type');
+    $training_type_name = !empty($training_type) ? $this->termStorage
+      ->load($training_type)->getName() : '';
     $body_part = $form_state->getValue('muscle_groups');
-    $body_part_name = !empty($body_part) ? $this->termStorage->load($body_part)->getName() : '';
+    $body_part_name = !empty($body_part) ? $this->termStorage
+      ->load($body_part)->getName() : '';
+    $date = $form_state->getValue('date');
+    $drupal_date = strtotime($date);
+    $formatted_date = date('d F Y', $drupal_date);
+
+    $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
 
     $num_exercises = $form_state->getValue('num_exercises');
-    $title = $form_state->getValue('title');
+
     for ($i = 0; $i < $num_exercises; $i++ ) {
       if (!empty($form_state->getValue('exercise_' . $i))) {
         $exercise[$i] = $form_state->getValue('exercise_' . $i);
@@ -349,6 +362,7 @@ class KennyTrainingPlanForm extends FormBase {
       'title' => $title,
       'field_body_part' => $body_part,
       'field_type_of_training' => $training_type,
+      'field_training_date' => $date,
     ]);
 
 

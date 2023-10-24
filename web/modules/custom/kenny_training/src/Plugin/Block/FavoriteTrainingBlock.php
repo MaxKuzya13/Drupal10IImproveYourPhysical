@@ -104,24 +104,18 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
   * {@inheritdoc}
   */
   public function build() {
-  // Your logic to retrieve and display favorite training plans goes here.
-  // You can use $this->favoriteManager to interact with the favorite data.
-  // For example:
+
     $uid = $this->currentUser->id();
     $favorite_training_plans = $this->favoriteManager->getFavoriteTrainingPlans($uid);
-    $nodes = $this->nodeStorage->loadMultiple($favorite_training_plans);
 
-    foreach ($nodes as $node) {
-      $output[] = [
-        '#theme' => 'node--favorite-teaser', // Вам потрібно вказати тему, яку ви бажаєте використовувати для відображення ноди.
-        '#node' => $node,
-      ];
-    }
+    $view_name = 'favorite_training_plan';
+    $display_id = 'block_favorite_training_plan';
 
-    return $output;
+    $output = views_embed_view($view_name, $display_id);
 
 
-  // You can then build and return a render array based on the retrieved data.
+
+
   }
 
   /**z

@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.node.training_plan.field_body_part
     - field.field.node.training_plan.field_exercises
+    - field.field.node.training_plan.field_training_date
     - field.field.node.training_plan.field_type_of_training
     - node.type.training_plan
   module:
+    - datetime
     - paragraphs
     - user
 id: node.training_plan.default
@@ -29,6 +31,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_training_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_type_of_training:
     type: entity_reference_label

@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.node.training_plan.field_body_part
     - field.field.node.training_plan.field_exercises
+    - field.field.node.training_plan.field_training_date
     - field.field.node.training_plan.field_type_of_training
     - node.type.training_plan
   module:
+    - datetime
     - paragraphs
     - path
 id: node.training_plan.default
@@ -44,6 +46,12 @@ content:
       features:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
+    third_party_settings: {  }
+  field_training_date:
+    type: datetime_default
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_type_of_training:
     type: options_select

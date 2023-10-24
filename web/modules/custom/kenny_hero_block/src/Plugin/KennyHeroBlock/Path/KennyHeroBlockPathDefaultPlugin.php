@@ -13,4 +13,7 @@ namespace Drupal\kenny_hero_block\Plugin\KennyHeroBlock\Path;
  */
 class KennyHeroBlockPathDefaultPlugin extends KennyHeroBlockPathPluginBase {
 
+  public function getPageTitle() {
+    return NULL;
+  }
 }
