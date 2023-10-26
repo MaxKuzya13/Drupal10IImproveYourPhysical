@@ -2,11 +2,7 @@ kenny_training_script:
   version: 1.x
   js:
     js/kenny_training_script.js: {}
-    js/jquery-ui.js: {}
-  css:
-    theme:
-      css/jquery-ui.css: {}
+
   dependencies:
     - core/jquery
     - core/drupal
-

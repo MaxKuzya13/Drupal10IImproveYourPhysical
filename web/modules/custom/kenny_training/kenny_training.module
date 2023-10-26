@@ -10,6 +10,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_entity_extra_field_info(),
@@ -129,3 +130,21 @@ function kenny_training_form_alter(&$form, FormStateInterface $form_state, $form
     $form['#attached']['library'][] = 'kenny_training/kenny_training_script';
   }
 }
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function kenny_training_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($view->id() == "favorite_training_plan" && $display_id == 'page_favorite_training_plan') {
+    $current_user = \Drupal::currentUser()->id();
+    $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
+    $favorite_training_plan_ids = $favorite_manager->getFavoriteTrainingPlans($current_user);
+
+    $nid_argument_value = implode('+', $favorite_training_plan_ids);
+
+    $view->setArguments([$nid_argument_value]);
+    $view->execute();
+  }
+
+}
+

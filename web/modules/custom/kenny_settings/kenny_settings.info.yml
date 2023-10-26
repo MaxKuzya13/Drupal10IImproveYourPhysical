@@ -1,5 +1,0 @@
-name: 'Kenny Settings'
-type: module
-description: 'Module for rewrite settings'
-package: Kenny
-core_version_requirement: ^10

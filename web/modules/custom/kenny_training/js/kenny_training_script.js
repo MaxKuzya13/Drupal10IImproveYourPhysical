@@ -11,6 +11,7 @@
       favoriteActionUrl += uid + '/' + nid;
 
       $.ajax({
+
         type: "POST",
         url: favoriteActionUrl,
         success: function () {
@@ -20,6 +21,14 @@
           } else if (button.hasClass('remove-favorite')) {
             button.removeClass('remove-favorite').addClass('add-favorite');
             button.text('Add to favorite');
+
+            if (window.location.pathname === '/favorite-training-plan') {
+              // Видалення батьківського елемента
+              var teaserElement = button.closest('.node-training-plan-teaser');
+              if (teaserElement.length > 0) {
+                teaserElement.css('display', 'none');
+              }
+            }
           }
         }
       });

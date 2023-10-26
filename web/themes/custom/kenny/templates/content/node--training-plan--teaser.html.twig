@@ -82,7 +82,7 @@
 
 {% set favorite_classes = [
   'favorite-button',
-  is_favourite ? 'remove-favorite' : 'add-favorite'
+  is_favorite ? 'remove-favorite' : 'add-favorite'
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
@@ -115,7 +115,7 @@
       <div class="node__content-favorite">
         {{ content.total_weight}}
 
-          <button{{ attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
+          <button{{ content_attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
           {{ is_favorite ? 'Remove from favorite' : "Add to favorite" }}
           </button>
 

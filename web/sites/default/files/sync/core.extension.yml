@@ -31,7 +31,6 @@ module:
   jquery_ui: 0
   kenny_hero_block: 0
   kenny_measurements: 0
-  kenny_settings: 0
   kenny_training: 0
   layout_builder: 0
   layout_discovery: 0
