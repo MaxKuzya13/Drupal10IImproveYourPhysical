@@ -21,3 +21,11 @@ kenny_training.favorite_delete:
     _title: 'Delete from Favorite'
   requirements:
     _permission: 'access content'
+
+kenny_training.test:
+  path: '/test/path'
+  defaults:
+    _controller: '\Drupal\kenny_training\Controller\TestController::handleAjaxRequest'
+    _title: 'Rewrite period'
+  requirements:
+    _permission: 'access content'

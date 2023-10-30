@@ -27,3 +27,14 @@ theme:
   css:
     theme:
       css/theme.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+kenny_script:
+  version: 1.x
+  js:
+    js/kenny_script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

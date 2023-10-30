@@ -1,0 +1,25 @@
+uuid: 247ff892-d05c-409e-849e-8f6c97df86c1
+langcode: en
+status: true
+dependencies:
+  module:
+    - kenny_training
+    - system
+  theme:
+    - kenny
+id: kenny_trainingplanteaserblock
+theme: kenny
+region: content
+weight: -5
+provider: null
+plugin: training_plan_teaser_block
+settings:
+  id: training_plan_teaser_block
+  label: 'Training Plan Teaser Block'
+  label_display: '0'
+  provider: kenny_training
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /test-page

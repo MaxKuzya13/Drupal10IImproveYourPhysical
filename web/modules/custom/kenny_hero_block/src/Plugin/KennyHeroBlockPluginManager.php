@@ -141,6 +141,7 @@ class KennyHeroBlockPluginManager extends DefaultPluginManager {
         $request_path_condition = $this->conditionManager
           ->createInstance('request_path')
           ->setConfig('pages', $pages)
+          ->setConfig('pages', $pages)
           ->setConfig('negate', $plugin['match_type'] == 'unlisted');
 
         if($request_path_condition->execute()) {

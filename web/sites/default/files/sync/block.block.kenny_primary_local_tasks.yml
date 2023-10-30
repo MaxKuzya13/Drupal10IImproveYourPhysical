@@ -9,7 +9,7 @@ _core:
 id: kenny_primary_local_tasks
 theme: kenny
 region: content
-weight: -7
+weight: -8
 provider: null
 plugin: local_tasks_block
 settings:

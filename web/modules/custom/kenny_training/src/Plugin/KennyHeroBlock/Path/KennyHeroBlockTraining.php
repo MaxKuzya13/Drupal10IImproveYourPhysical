@@ -11,7 +11,7 @@ use Drupal\media\MediaInterface;
  * @KennyHeroBlockPath(
  *   id = "kenny_hero_block_training",
  *   match_type = "listed",
- *   match_path = {"/training"},
+ *   match_path = {"/training", "/training/all"},
  * )
  */
 

@@ -115,9 +115,9 @@
       <div class="node__content-favorite">
         {{ content.total_weight}}
 
-          <button{{ content_attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
-          {{ is_favorite ? 'Remove from favorite' : "Add to favorite" }}
-          </button>
+        <button{{ content_attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
+        {{ is_favorite ? 'Remove from favorite' : "Add to favorite" }}
+        </button>
 
       </div>
     {% endblock %}

@@ -30,7 +30,6 @@ class KennyHeroBlockTrainingTypeOfTraining extends KennyHeroBlockPathPluginBase 
    */
   public function getHeroImage() {
     $last_segment = $this->getLastSegment();
-    dump($last_segment);
     /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = $this->getEntityTypeManager()->getStorage('media');
     switch ($last_segment) {

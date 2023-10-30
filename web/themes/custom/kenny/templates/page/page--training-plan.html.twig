@@ -1,0 +1,29 @@
+{% set classes = 'app' %}
+
+
+<div class="{{ classes }}">
+    <div class="{{ classes }}__container">
+        <header class="{{ classes }}__header">
+            {{ page.header }}
+        </header>
+
+
+        <main {{ attributes.addClass(classes ~ '__content') }} >
+            <div class="main-layout__inner">
+              <div class="training-plan__bodypart">
+
+              </div>
+
+              <div class="content-container">
+                {{ page.content }}
+              </div>
+
+            </div>
+        </main>
+
+        <footer class="{{ classes }}__footer">
+            {{ page.footer }}
+        </footer>
+    </div>
+
+</div>{# /.layout-container #}
