@@ -4,12 +4,10 @@ namespace Drupal\kenny_training\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\datetime\Plugin\views\sort\Date;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
@@ -54,12 +52,12 @@ class KennyTrainingPlanForm extends FormBase {
   protected $nodeStorage;
 
   /**
+   * KennyTrainingPlanForm constructor
+   *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, MessengerInterface $messenger) {
     $this->entityTypeManager = $entity_type_manager;

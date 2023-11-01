@@ -6,3 +6,10 @@ services:
   kenny_training.favorite_manager:
     class: Drupal\kenny_training\Service\Favorite\FavoriteManager
     arguments: [ '@database' ]
+
+  kenny_training.difference_manager:
+    class: Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager
+
+  kenny_training.filter_date:
+    class: Drupal\kenny_training\Service\FilterDate\FilterDate
+    arguments: [ '@entity_type.manager']

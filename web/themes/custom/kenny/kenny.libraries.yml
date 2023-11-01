@@ -38,3 +38,11 @@ kenny_script:
   dependencies:
     - core/jquery
     - core/drupal
+
+kenny_filter_date:
+  version: 1.x
+  js:
+    js/kenny_filter_date.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

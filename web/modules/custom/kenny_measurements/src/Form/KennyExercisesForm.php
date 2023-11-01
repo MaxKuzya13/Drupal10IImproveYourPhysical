@@ -39,11 +39,11 @@ class KennyExercisesForm extends FormBase {
   protected $vocabularyStorage;
 
   /**
-   * Construct some service.
+   * KennyExercisesForm constructor.
    *
-   * @param EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param MessengerInterface $messenger
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, MessengerInterface $messenger) {
@@ -54,8 +54,7 @@ class KennyExercisesForm extends FormBase {
   }
 
   /**
-   * @param ContainerInterface $container
-   * @return KennyExercisesForm|static
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(

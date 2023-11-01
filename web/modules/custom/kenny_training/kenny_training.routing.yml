@@ -22,10 +22,10 @@ kenny_training.favorite_delete:
   requirements:
     _permission: 'access content'
 
-kenny_training.test:
-  path: '/test/path'
+kenny_training.filter_date:
+  path: '/change-filter-date/{selected}'
   defaults:
-    _controller: '\Drupal\kenny_training\Controller\TestController::handleAjaxRequest'
-    _title: 'Rewrite period'
-  requirements:
-    _permission: 'access content'
+    _controller: '\Drupal\kenny_training\Controller\FilterDateController::changeSelectedDate'
+    _title: 'Change timeline'
+    requirements:
+      _permission: 'access content'

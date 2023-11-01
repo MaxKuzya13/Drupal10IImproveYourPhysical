@@ -45,6 +45,18 @@ class KennyMeasurementsForm extends FormBase {
    */
   protected $messenger;
 
+  /**
+   * KennyMeasurementsForm constructor
+   *
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
+   * @param \Drupal\Component\Datetime\TimeInterface $current_time
+   *   The current time.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
+   */
   public function __construct(AccountInterface $current_user, TimeInterface $current_time, Connection $database, MessengerInterface $messenger ) {
     $this->currentUser = $current_user;
     $this->currentTime = $current_time;

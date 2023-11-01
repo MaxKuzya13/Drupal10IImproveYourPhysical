@@ -1,0 +1,26 @@
+uuid: 0521f8d4-dfd1-4692-a8b9-909e9c6916b2
+langcode: en
+status: true
+dependencies:
+  module:
+    - kenny_training
+    - system
+  theme:
+    - kenny
+id: kenny_filter_training_date_block
+theme: kenny
+region: content
+weight: 0
+provider: null
+plugin: kenny_filter_training_date_block
+settings:
+  id: kenny_filter_training_date_block
+  label: 'Kenny Filter Training Date Block'
+  label_display: visible
+  provider: kenny_training
+  selected_period: 'Save block'
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /filter-test

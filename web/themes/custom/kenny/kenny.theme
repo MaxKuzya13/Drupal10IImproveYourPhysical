@@ -12,4 +12,11 @@ function kenny_preprocess_page(&$variables) {
     if (\Drupal::routeMatch()->getRouteName() == 'view.taxonomy_term.page_taxonomy') {
       $variables['#attached']['library'][] = 'kenny/kenny_script';
     }
+
+    $node = \Drupal::routeMatch()->getParameter('node');
+
+    $variables['#attached']['library'][] = 'kenny/kenny_filter_date';
+
+
 }
+

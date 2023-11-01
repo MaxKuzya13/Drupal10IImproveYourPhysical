@@ -1,0 +1,25 @@
+
+{%
+  set classes = [
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div id="training-filter-buttons">
+    <button class="filter-button" data-period="1-month">1 Month</button>
+    <button class="filter-button" data-period="3-month">3 Months</button>
+    <button class="filter-button" data-period="6-month">6 Months</button>
+    <button class="filter-button" data-period="1-year">1 Year</button>
+  </div>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</div>

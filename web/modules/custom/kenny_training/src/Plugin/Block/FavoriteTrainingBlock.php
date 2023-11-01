@@ -25,27 +25,27 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
   /**
    * The favorite manager interface
    *
-   * @var Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface
+   * @var \Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface
    */
   protected $favoriteManager;
 
   /**
    * The current user
    *
-   * @var Drupal\Core\Session\AccountInterface
+   * @var \Drupal\Core\Session\AccountInterface
    */
   protected $currentUser;
 
   /**
    * The request stack
    *
-   * @var Symfony\Component\HttpFoundation\RequestStack
+   * @var \Symfony\Component\HttpFoundation\RequestStack
    */
   protected $requestStack;
   /**
    * The entity type manager
    *
-   * @var Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 

@@ -13,6 +13,11 @@ targetEntityType: paragraph
 bundle: biceps
 mode: default
 content:
+  difference:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   exercise_weight:
     settings: {  }
     third_party_settings: {  }

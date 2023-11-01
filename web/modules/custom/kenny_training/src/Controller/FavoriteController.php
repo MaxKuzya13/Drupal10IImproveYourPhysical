@@ -13,8 +13,7 @@ class FavoriteController extends ControllerBase {
   /**
    * The favorite manager service interface.
    *
-   * @var Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface $favoriteService
-   *
+   * @var \Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface $favoriteService
    */
   protected FavoriteManagerInterface $favoriteService;
 
@@ -34,6 +33,16 @@ class FavoriteController extends ControllerBase {
     );
   }
 
+  /**
+   * Add node to favorite.
+   *
+   * @param integer $uid
+   *   The user identification.
+   * @param integer $nid
+   *   The node identification.
+   * @return JsonResponse
+   *  Return result in json format.
+   */
   public function addFavorite($uid, $nid) {
 
     $result = $this->favoriteService->setFavorite($uid, $nid);
@@ -42,6 +51,16 @@ class FavoriteController extends ControllerBase {
     return new JsonResponse(['status' => 'success']);
   }
 
+  /**
+   * Delete node from favorite.
+   *
+   * @param integer $uid
+   *   The user identification.
+   * @param integer $nid
+   *   The node identification.
+   * @return JsonResponse
+   *   Return result in json format.
+   */
   public function deleteFavorite($uid, $nid) {
 
     $result = $this->favoriteService->deleteFavorite($uid, $nid);

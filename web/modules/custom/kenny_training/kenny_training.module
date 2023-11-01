@@ -60,6 +60,48 @@ function kenny_training_entity_extra_field_info() {
       'visible' => FALSE,
   ];
 
+
+  // ---------------------------------------------------------------- //
+  // Поле для відносного розрахунку щодо минулого тренування //
+  $extra['paragraph']['back']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['biceps']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['chest']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['legs']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['shoulders']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  $extra['paragraph']['triceps']['display']['difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+
+  // -------------------------------------------------------------------//
+
   return $extra;
 }
 
@@ -69,7 +111,7 @@ function kenny_training_entity_extra_field_info() {
 function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode) {
   $bem_block = Html::getClass( 'paragraph-' . $paragraph->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
   if ($display->getComponent('exercise_weight')) {
-    /** @var \Drupal\kenny_training\Service\WeightManager $exercise */
+    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $exercise */
     $exercise = \Drupal::service('kenny_training.weight_manager');
     $exercise_weight = $exercise->getTotalExerciseWeight($paragraph->id());
     $build['exercise_weight'] = [
@@ -78,6 +120,20 @@ function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragr
       '#context' => [
           'exercise_weight' => $exercise_weight . ' kg',
           'class' => $bem_block . '__exercise-weight'
+      ],
+    ];
+  }
+
+  if ($display->getComponent('difference')) {
+    /** @var \Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager $paragraph */
+    $difference_manager = \Drupal::service('kenny_training.difference_manager');
+    $exercise = $difference_manager->getCurrentParagraph($paragraph->id());
+    $build['difference'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ difference }}</div>',
+      '#context' => [
+        'difference' => $exercise . ' kg',
+        'class' => $bem_block . '__difference'
       ],
     ];
   }
