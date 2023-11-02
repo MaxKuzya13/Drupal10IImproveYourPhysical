@@ -119,7 +119,7 @@ function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragr
       '#template' => '<div class="{{ class }}">{{ exercise_weight }}</div>',
       '#context' => [
           'exercise_weight' => $exercise_weight . ' kg',
-          'class' => $bem_block . '__exercise-weight'
+          'class' => $bem_block . '__exercise-weight',
       ],
     ];
   }
@@ -132,8 +132,8 @@ function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragr
       '#type' => 'inline_template',
       '#template' => '<div class="{{ class }}">{{ difference }}</div>',
       '#context' => [
-        'difference' => $exercise . ' kg',
-        'class' => $bem_block . '__difference'
+        'difference' => $exercise['weight'] . ' kg',
+        'class' => $bem_block . '__difference-' . $exercise['class']
       ],
     ];
   }
