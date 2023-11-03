@@ -18,6 +18,7 @@ settings:
   label: 'Kenny Filter Training Date Block'
   label_display: visible
   provider: kenny_training
+  period: default
   selected_period: 'Save block'
 visibility:
   request_path:

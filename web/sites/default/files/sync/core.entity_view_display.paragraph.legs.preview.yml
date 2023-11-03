@@ -1,18 +1,30 @@
-uuid: 6192ef85-2966-46f9-9817-7fe45f04db80
+uuid: f6ff6534-fb69-477a-b6b7-2d847db2c23e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.back.field_approaches
-    - field.field.paragraph.back.field_exercise
-    - field.field.paragraph.back.field_repetition
-    - field.field.paragraph.back.field_weight
-    - paragraphs.paragraphs_type.back
-id: paragraph.back.default
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.legs.field_approaches
+    - field.field.paragraph.legs.field_exercise
+    - field.field.paragraph.legs.field_repetition
+    - field.field.paragraph.legs.field_weight
+    - paragraphs.paragraphs_type.legs
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.legs.preview
 targetEntityType: paragraph
-bundle: back
-mode: default
+bundle: legs
+mode: preview
 content:
+  difference:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   exercise_weight:
     settings: {  }
     third_party_settings: {  }
@@ -53,10 +65,4 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  total_weight:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-hidden:
-  difference: true
+hidden: {  }

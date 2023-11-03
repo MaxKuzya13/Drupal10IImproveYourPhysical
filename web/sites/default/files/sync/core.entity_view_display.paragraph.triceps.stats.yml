@@ -1,23 +1,25 @@
-uuid: 6192ef85-2966-46f9-9817-7fe45f04db80
+uuid: e8467c05-ebf8-4b76-9ea7-f5e08fb99b67
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.back.field_approaches
-    - field.field.paragraph.back.field_exercise
-    - field.field.paragraph.back.field_repetition
-    - field.field.paragraph.back.field_weight
-    - paragraphs.paragraphs_type.back
-id: paragraph.back.default
+    - core.entity_view_mode.paragraph.stats
+    - field.field.paragraph.triceps.field_approaches
+    - field.field.paragraph.triceps.field_exercise
+    - field.field.paragraph.triceps.field_repetition
+    - field.field.paragraph.triceps.field_weight
+    - paragraphs.paragraphs_type.triceps
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.triceps.stats
 targetEntityType: paragraph
-bundle: back
-mode: default
+bundle: triceps
+mode: stats
 content:
-  exercise_weight:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_approaches:
     type: number_integer
     label: hidden
@@ -53,10 +55,6 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  total_weight:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
 hidden:
   difference: true
+  exercise_weight: true

@@ -1,23 +1,25 @@
-uuid: 6192ef85-2966-46f9-9817-7fe45f04db80
+uuid: 35be943e-9bfc-428c-bbb4-c91ff02cb51a
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.stats
     - field.field.paragraph.back.field_approaches
     - field.field.paragraph.back.field_exercise
     - field.field.paragraph.back.field_repetition
     - field.field.paragraph.back.field_weight
     - paragraphs.paragraphs_type.back
-id: paragraph.back.default
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.back.stats
 targetEntityType: paragraph
 bundle: back
-mode: default
+mode: stats
 content:
-  exercise_weight:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_approaches:
     type: number_integer
     label: hidden
@@ -60,3 +62,4 @@ content:
     region: content
 hidden:
   difference: true
+  exercise_weight: true

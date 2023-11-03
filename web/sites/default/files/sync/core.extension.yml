@@ -35,8 +35,8 @@ module:
   jquery_ui_touch_punch: 0
   kenny_hero_block: 0
   kenny_measurements: 0
+  kenny_stats: 0
   kenny_training: 0
-  kenny_training_stats: 0
   layout_builder: 0
   layout_discovery: 0
   link: 0
