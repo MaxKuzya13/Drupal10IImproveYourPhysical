@@ -1,0 +1,25 @@
+uuid: 1f5022b1-4ecf-4f4b-b183-73be960b4de4
+langcode: en
+status: true
+dependencies:
+  module:
+    - kenny_stats
+    - system
+  theme:
+    - kenny
+id: kenny_stats_by_exercise_block
+theme: kenny
+region: content
+weight: 0
+provider: null
+plugin: kenny_stats_block
+settings:
+  id: kenny_stats_block
+  label: 'Kenny Stats by exercise Block'
+  label_display: visible
+  provider: kenny_stats
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /kenny-stats

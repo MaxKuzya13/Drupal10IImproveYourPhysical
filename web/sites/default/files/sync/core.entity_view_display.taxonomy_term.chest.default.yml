@@ -1,0 +1,31 @@
+uuid: be4e0133-c708-431d-819d-55a37c100930
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.chest.field_video
+    - taxonomy.vocabulary.chest
+  module:
+    - text
+id: taxonomy_term.chest.default
+targetEntityType: taxonomy_term
+bundle: chest
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_video:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

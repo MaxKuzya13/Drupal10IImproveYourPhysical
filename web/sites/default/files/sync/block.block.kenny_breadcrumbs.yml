@@ -1,4 +1,4 @@
-uuid: 57545cf5-d3be-4c89-ba7e-faa858088f73
+uuid: 287092e3-5a18-45a7-af21-ecc84bd725ac
 langcode: en
 status: false
 dependencies:
@@ -7,11 +7,11 @@ dependencies:
   theme:
     - kenny
 _core:
-  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+  default_config_hash: NjcxOBrPOiK5-38t56DwFBDVY4yer7YSlbRWXFuHe7A
 id: kenny_breadcrumbs
 theme: kenny
 region: header
-weight: -3
+weight: -4
 provider: null
 plugin: system_breadcrumb_block
 settings:
@@ -19,8 +19,4 @@ settings:
   label: Breadcrumbs
   label_display: '0'
   provider: system
-visibility:
-  request_path:
-    id: request_path
-    negate: false
-    pages: /training/intensive
+visibility: {  }

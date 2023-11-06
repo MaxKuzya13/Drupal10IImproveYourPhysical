@@ -1,0 +1,25 @@
+uuid: a5e38618-263a-46ae-8baf-5f90c4b9a2cc
+langcode: en
+status: true
+dependencies:
+  module:
+    - kenny_training
+    - system
+  theme:
+    - kenny
+id: kenny_favorite_training_block
+theme: kenny
+region: content
+weight: -1
+provider: null
+plugin: kenny_favorite_training_block
+settings:
+  id: kenny_favorite_training_block
+  label: 'Kenny Favorite Training Block'
+  label_display: visible
+  provider: kenny_training
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /favorite-training-plan

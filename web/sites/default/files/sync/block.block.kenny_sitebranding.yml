@@ -1,0 +1,23 @@
+uuid: f8cb5286-11f4-4acf-b4c1-137ec5e3968e
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kenny
+id: kenny_sitebranding
+theme: kenny
+region: header
+weight: -7
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: false
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

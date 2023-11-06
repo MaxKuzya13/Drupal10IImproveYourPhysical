@@ -1,0 +1,20 @@
+uuid: 8ecbcaef-b95f-4e7a-b154-af7f573b70fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kenny
+id: kenny_poweredbydrupal
+theme: kenny
+region: footer
+weight: -5
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

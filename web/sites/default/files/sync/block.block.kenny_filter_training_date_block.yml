@@ -1,4 +1,4 @@
-uuid: 0521f8d4-dfd1-4692-a8b9-909e9c6916b2
+uuid: 171295a3-bc85-40fe-ba86-7351a1fcb6d2
 langcode: en
 status: true
 dependencies:
@@ -19,7 +19,6 @@ settings:
   label_display: visible
   provider: kenny_training
   period: default
-  selected_period: 'Save block'
 visibility:
   request_path:
     id: request_path

@@ -1,15 +1,15 @@
-uuid: b05d8cde-e210-4eae-ad3f-c715d6c1c717
+uuid: a8c5b65a-4284-400a-9774-61992d72c0bd
 langcode: en
 status: true
 dependencies:
   theme:
     - kenny
 _core:
-  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+  default_config_hash: ACjBZI5shAMiiUpsz-inLYVXDqNNXRnSzAWV3kV_8Hw
 id: kenny_primary_local_tasks
 theme: kenny
 region: content
-weight: -8
+weight: -5
 provider: null
 plugin: local_tasks_block
 settings:

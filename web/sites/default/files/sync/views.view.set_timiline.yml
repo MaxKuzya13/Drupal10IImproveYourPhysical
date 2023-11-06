@@ -223,7 +223,15 @@ display:
                   min: ''
                   max: ''
                   value: '- 1 year'
-                  type: date
+                  type: offset
+              5:
+                title: '3 Day'
+                operator: '>='
+                value:
+                  min: ''
+                  max: ''
+                  value: '- 3 day'
+                  type: offset
       style:
         type: default
       row:
@@ -239,6 +247,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -252,8 +261,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_1:
-    id: page_1
+  page_set_timeline:
+    id: page_set_timeline
     display_title: Page
     display_plugin: page
     position: 1

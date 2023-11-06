@@ -1,0 +1,20 @@
+uuid: 01bfaf5c-0bc0-40ad-9185-572936c607d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - kenny
+id: kenny_userlogin
+theme: kenny
+region: footer
+weight: -7
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: '0'
+  provider: user
+visibility: {  }

@@ -2,17 +2,16 @@ kenny_training_script:
   version: 1.x
   js:
     js/kenny_training_script.js: {}
-
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once
 
 
 kenny_training_test:
   version: 1.x
   js:
     js/kenny_training_test.js: {}
-
   dependencies:
     - core/jquery
     - core/drupal

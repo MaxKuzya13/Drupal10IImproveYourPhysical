@@ -1,4 +1,4 @@
-uuid: e127040b-44c7-4243-9919-7aa8c6b12c35
+uuid: 41cfbf9f-d29a-41a7-9def-fd38febaa9ba
 langcode: en
 status: true
 dependencies:
@@ -7,11 +7,11 @@ dependencies:
   theme:
     - kenny
 _core:
-  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+  default_config_hash: a0Yyx1GeyKarZ4T_yXQBR_ZFKnXiFLtxAb6gWLd8nr0
 id: kenny_content
 theme: kenny
 region: content
-weight: -2
+weight: 0
 provider: null
 plugin: system_main_block
 settings:

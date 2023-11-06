@@ -46,3 +46,4 @@ kenny_filter_date:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once

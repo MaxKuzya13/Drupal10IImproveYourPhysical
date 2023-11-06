@@ -1,0 +1,4 @@
+services:
+  kenny_stats.exercise_stats:
+    class: Drupal\kenny_stats\Service\KennyStatsByExercise
+    arguments: ['@entity_type.manager']

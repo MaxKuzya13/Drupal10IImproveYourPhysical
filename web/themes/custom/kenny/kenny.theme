@@ -13,6 +13,10 @@ function kenny_preprocess_page(&$variables) {
       $variables['#attached']['library'][] = 'kenny/kenny_script';
     }
 
+    if (\Drupal::routeMatch()->getRouteName() == 'view.set_timiline.page_set_timeline') {
+      $variables['#attached']['library'][] = 'kenny/kenny_filter_date';
+    }
+
     $node = \Drupal::routeMatch()->getParameter('node');
 
     $variables['#attached']['library'][] = 'kenny/kenny_filter_date';

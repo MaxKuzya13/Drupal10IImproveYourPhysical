@@ -1,0 +1,30 @@
+{% set classes = 'app' %}
+
+
+<div class="{{ classes }}">
+    <div class="{{ classes }}__container">
+        <header class="{{ classes }}__header">
+            {{ page.header }}
+        </header>
+
+
+        <main {{ attributes.addClass(classes ~ '__content') }} >
+          <ul class="set-timeline">
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 'All'}) }}">All time</a></li>
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 1}) }}">1 Month</a></li>
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 2}) }}">3 Month</a></li>
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 3}) }}">6 Month</a></li>
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 4}) }}">1 Year</a></li>
+            <li><a class="date_item" href="{{ path('view.set_timiline.page_set_timeline', {'field_training_date_value': 5}) }}">3 Day</a></li>
+          </ul>
+          <div class="main-layout__inner">
+            {{ page.content }}
+          </div>
+        </main>
+
+        <footer class="{{ classes }}__footer">
+            {{ page.footer }}
+        </footer>
+    </div>
+
+</div>{# /.layout-container #}

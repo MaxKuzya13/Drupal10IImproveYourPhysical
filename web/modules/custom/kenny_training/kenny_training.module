@@ -168,7 +168,6 @@ function kenny_training_preprocess_node__training_plan__teaser(&$variables) {
 
   $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
   $is_favorite = $favorite_manager->isFavorite($current_user->id(), $node->id());
-
   $variables['#attached']['library'][] = 'kenny_training/kenny_training_script';
 
   $variables['user_id'] = $current_user->id();
