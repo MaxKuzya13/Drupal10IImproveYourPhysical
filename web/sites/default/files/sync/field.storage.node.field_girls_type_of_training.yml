@@ -1,0 +1,20 @@
+uuid: e7d0129b-2319-4702-8061-58e31938ece3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_girls_type_of_training
+field_name: field_girls_type_of_training
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

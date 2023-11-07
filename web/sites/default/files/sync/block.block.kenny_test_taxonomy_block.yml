@@ -1,0 +1,25 @@
+uuid: 42403d10-834a-4323-9b24-65358fbe7cf8
+langcode: en
+status: true
+dependencies:
+  module:
+    - kenny_girls_training
+    - system
+  theme:
+    - kenny
+id: kenny_test_taxonomy_block
+theme: kenny
+region: content
+weight: 0
+provider: null
+plugin: kenny_test_taxonomy_block
+settings:
+  id: kenny_test_taxonomy_block
+  label: 'Kenny Test Taxonomy Block'
+  label_display: visible
+  provider: kenny_girls_training
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /test-taxonomy

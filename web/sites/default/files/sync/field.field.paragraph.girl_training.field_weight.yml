@@ -1,0 +1,23 @@
+uuid: 8a08baf0-2e6f-44b4-8dba-07a2dde58bf6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weight
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.field_weight
+field_name: field_weight
+entity_type: paragraph
+bundle: girl_training
+label: Weight
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

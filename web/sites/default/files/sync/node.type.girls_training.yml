@@ -1,0 +1,18 @@
+uuid: da81d734-673b-4170-9109-f00967864daa
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Girls Training'
+type: girls_training
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

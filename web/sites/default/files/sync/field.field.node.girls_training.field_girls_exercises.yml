@@ -1,0 +1,55 @@
+uuid: d53a7d34-5b60-4860-ba80-798c3947be75
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_girls_exercises
+    - node.type.girls_training
+    - paragraphs.paragraphs_type.girl_training
+  module:
+    - entity_reference_revisions
+id: node.girls_training.field_girls_exercises
+field_name: field_girls_exercises
+entity_type: node
+bundle: girls_training
+label: 'Girls Exercises'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      girl_training: girl_training
+    negate: 0
+    target_bundles_drag_drop:
+      back:
+        weight: 10
+        enabled: false
+      biceps:
+        weight: 11
+        enabled: false
+      chest:
+        weight: 12
+        enabled: false
+      girl_training:
+        weight: 13
+        enabled: true
+      legs:
+        weight: 14
+        enabled: false
+      shoulders:
+        weight: 15
+        enabled: false
+      training_type:
+        weight: 16
+        enabled: false
+      triceps:
+        weight: 17
+        enabled: false
+      upper_body:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions

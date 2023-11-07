@@ -1,0 +1,24 @@
+uuid: 044123e4-67c0-42aa-944c-29d1cef72e62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_girls_training_date
+    - node.type.girls_training
+  module:
+    - datetime
+id: node.girls_training.field_girls_training_date
+field_name: field_girls_training_date
+entity_type: node
+bundle: girls_training
+label: 'Girls Training date'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

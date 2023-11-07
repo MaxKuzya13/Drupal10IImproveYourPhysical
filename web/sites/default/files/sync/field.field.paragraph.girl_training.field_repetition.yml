@@ -1,0 +1,23 @@
+uuid: e548108f-bd10-4465-bcfb-c67a4921f175
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_repetition
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.field_repetition
+field_name: field_repetition
+entity_type: paragraph
+bundle: girl_training
+label: Repetition
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

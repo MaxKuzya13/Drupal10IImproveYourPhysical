@@ -1,0 +1,29 @@
+uuid: 7bffa0eb-ab9e-4875-8f5a-75bb343a54cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_girls_type_of_training
+    - node.type.girls_training
+    - taxonomy.vocabulary.girls_type_of_training
+id: node.girls_training.field_girls_type_of_training
+field_name: field_girls_type_of_training
+entity_type: node
+bundle: girls_training
+label: 'Girls Type of Training'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      girls_type_of_training: girls_type_of_training
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

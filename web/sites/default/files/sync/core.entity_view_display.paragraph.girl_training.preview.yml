@@ -1,0 +1,52 @@
+uuid: d81b6162-88ce-4975-845e-8ad9cdb61642
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.girl_training.field_approaches
+    - field.field.paragraph.girl_training.field_girl_exercise
+    - field.field.paragraph.girl_training.field_repetition
+    - field.field.paragraph.girl_training.field_weight
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.preview
+targetEntityType: paragraph
+bundle: girl_training
+mode: preview
+content:
+  field_approaches:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_girl_exercise:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_repetition:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

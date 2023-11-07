@@ -1,0 +1,7 @@
+kenny_girls_training.girls_training_form:
+  path: '/training-girls/plan/demo'
+  defaults:
+    _form: '\Drupal\kenny_girls_training\Form\KennyGirlsTrainingForm'
+    _title: 'Training girls plan'
+  requirements:
+    _permission: 'access content'

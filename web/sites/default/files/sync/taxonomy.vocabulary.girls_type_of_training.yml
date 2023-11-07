@@ -1,0 +1,8 @@
+uuid: 08652726-fce9-4906-ae73-3ad4a660a03e
+langcode: en
+status: true
+dependencies: {  }
+name: 'Girls Type of Training'
+vid: girls_type_of_training
+description: 'Type of training for girls'
+weight: 0

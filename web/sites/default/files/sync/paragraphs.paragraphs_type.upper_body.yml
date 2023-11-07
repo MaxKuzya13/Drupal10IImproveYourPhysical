@@ -1,0 +1,10 @@
+uuid: 6fce5fa3-4724-4190-9276-c9dc7c5a5c85
+langcode: en
+status: true
+dependencies: {  }
+id: upper_body
+label: 'Upper Body'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

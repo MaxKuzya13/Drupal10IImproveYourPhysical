@@ -1,0 +1,45 @@
+uuid: cfeec32d-e2c7-4187-a953-acf5d03bc950
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.stats
+    - field.field.paragraph.girl_training.field_approaches
+    - field.field.paragraph.girl_training.field_girl_exercise
+    - field.field.paragraph.girl_training.field_repetition
+    - field.field.paragraph.girl_training.field_weight
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.stats
+targetEntityType: paragraph
+bundle: girl_training
+mode: stats
+content:
+  field_approaches:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_repetition:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_girl_exercise: true

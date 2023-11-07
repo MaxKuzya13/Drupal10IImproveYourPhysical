@@ -1,0 +1,20 @@
+uuid: e6c76c5b-c44c-4ad2-bf95-d1fa42a50503
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_girls_training_date
+field_name: field_girls_training_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

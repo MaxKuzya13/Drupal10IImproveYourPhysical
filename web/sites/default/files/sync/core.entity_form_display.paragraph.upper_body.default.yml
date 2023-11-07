@@ -1,0 +1,14 @@
+uuid: 1eb903de-9dfc-4774-9f9e-b6d30b1b380a
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.upper_body
+id: paragraph.upper_body.default
+targetEntityType: paragraph
+bundle: upper_body
+mode: default
+content: {  }
+hidden:
+  created: true
+  status: true

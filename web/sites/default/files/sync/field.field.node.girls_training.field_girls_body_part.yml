@@ -1,0 +1,29 @@
+uuid: 0e4d440b-ed28-4abe-9299-a279c28c18ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_girls_body_part
+    - node.type.girls_training
+    - taxonomy.vocabulary.girls_body_part
+id: node.girls_training.field_girls_body_part
+field_name: field_girls_body_part
+entity_type: node
+bundle: girls_training
+label: 'Girls Body Part'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      girls_body_part: girls_body_part
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

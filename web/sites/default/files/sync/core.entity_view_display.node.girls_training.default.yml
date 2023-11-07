@@ -1,0 +1,59 @@
+uuid: e7af3a3c-4b18-4fc9-8ef0-c27917e7cf8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.girls_training.field_girls_body_part
+    - field.field.node.girls_training.field_girls_exercises
+    - field.field.node.girls_training.field_girls_training_date
+    - field.field.node.girls_training.field_girls_type_of_training
+    - node.type.girls_training
+  module:
+    - datetime
+    - entity_reference_revisions
+    - user
+id: node.girls_training.default
+targetEntityType: node
+bundle: girls_training
+mode: default
+content:
+  field_girls_body_part:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_girls_exercises:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: preview
+      link: ''
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_girls_training_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_girls_type_of_training:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

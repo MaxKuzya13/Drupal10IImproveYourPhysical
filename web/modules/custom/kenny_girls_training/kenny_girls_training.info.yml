@@ -1,0 +1,5 @@
+name: 'Kenny Girls Training'
+type: module
+description: 'Main Module for girls training'
+package: Kenny
+core_version_requirement: ^10

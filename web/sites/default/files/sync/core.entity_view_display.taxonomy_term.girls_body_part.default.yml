@@ -1,0 +1,21 @@
+uuid: a9bb1298-1374-443d-95d2-f1ce04149100
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_body_part
+  module:
+    - text
+id: taxonomy_term.girls_body_part.default
+targetEntityType: taxonomy_term
+bundle: girls_body_part
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

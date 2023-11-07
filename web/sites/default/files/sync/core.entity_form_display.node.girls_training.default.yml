@@ -1,0 +1,112 @@
+uuid: d747e6dd-511f-4e1c-af8e-4bde9bb1d511
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.girls_training.field_girls_body_part
+    - field.field.node.girls_training.field_girls_exercises
+    - field.field.node.girls_training.field_girls_training_date
+    - field.field.node.girls_training.field_girls_type_of_training
+    - node.type.girls_training
+  module:
+    - datetime
+    - paragraphs
+    - path
+id: node.girls_training.default
+targetEntityType: node
+bundle: girls_training
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_girls_body_part:
+    type: options_select
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_girls_exercises:
+    type: paragraphs
+    weight: 10
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_girls_training_date:
+    type: datetime_default
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_girls_type_of_training:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

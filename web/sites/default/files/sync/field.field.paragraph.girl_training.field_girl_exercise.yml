@@ -1,0 +1,29 @@
+uuid: 40b9da7a-f596-4243-ac18-3efaabd56162
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_girl_exercise
+    - paragraphs.paragraphs_type.girl_training
+    - taxonomy.vocabulary.girls_training
+id: paragraph.girl_training.field_girl_exercise
+field_name: field_girl_exercise
+entity_type: paragraph
+bundle: girl_training
+label: 'Girl exercise'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      girls_training: girls_training
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

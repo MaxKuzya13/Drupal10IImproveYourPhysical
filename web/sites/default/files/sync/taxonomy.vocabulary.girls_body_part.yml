@@ -1,0 +1,8 @@
+uuid: 7c7944a4-a919-4e2e-a3af-af699174b353
+langcode: en
+status: true
+dependencies: {  }
+name: 'Girls Body Part'
+vid: girls_body_part
+description: 'Body part for training'
+weight: 0

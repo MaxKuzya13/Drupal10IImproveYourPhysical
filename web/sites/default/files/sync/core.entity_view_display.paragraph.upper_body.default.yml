@@ -1,0 +1,12 @@
+uuid: b4c375a4-7564-4cb8-9343-51c8d3dc11b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.upper_body
+id: paragraph.upper_body.default
+targetEntityType: paragraph
+bundle: upper_body
+mode: default
+content: {  }
+hidden: {  }

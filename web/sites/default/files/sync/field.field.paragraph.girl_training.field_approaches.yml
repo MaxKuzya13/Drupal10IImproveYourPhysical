@@ -1,0 +1,23 @@
+uuid: a40f687d-df97-433e-aa9b-8b5e0eef5ca7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_approaches
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.field_approaches
+field_name: field_approaches
+entity_type: paragraph
+bundle: girl_training
+label: Approaches
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

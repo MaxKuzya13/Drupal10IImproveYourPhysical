@@ -1,0 +1,10 @@
+uuid: 813ee6e5-4181-467f-a62f-305f027435ff
+langcode: en
+status: true
+dependencies: {  }
+id: girl_training
+label: 'Girl training'
+icon_uuid: null
+icon_default: null
+description: 'Paragraph with exercise for girls training'
+behavior_plugins: {  }

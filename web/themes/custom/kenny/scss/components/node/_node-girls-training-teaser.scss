@@ -1,0 +1,95 @@
+.node-girls-training-teaser {
+
+  &__title {
+    font-size: 24px;
+  }
+
+  &__link {
+    color: cadetblue;
+
+    &:hover {
+      color: deepskyblue;
+      cursor: pointer;
+    }
+  }
+
+  &__field-girls-body-part {
+    @include bodyPartAndTraining;
+  }
+
+  &__field-girls-type-of-training {
+    border-bottom: 1px solid gray;
+    @include bodyPartAndTraining;
+
+  }
+
+  .node__content {
+    @include mobile {
+      width: calc($container-max-mobile - 1rem);
+    }
+  }
+
+  &__field-girls-exercises {
+    display: flex;
+    flex-direction: column;
+
+
+    .field__item {
+
+      .paragraph--view-mode--preview {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 0.3rem;
+
+        @include mobileDefault {
+          gap: 0.15rem;
+        }
+
+
+        .paragraph-field-exercise {
+          width: 200px;
+          margin-right: 2rem;
+          overflow: hidden;
+          display: flex;
+          position: relative;
+
+          @include mobile {
+            width: 45vw;
+            margin-right: 0.25rem;
+          }
+        }
+
+        .paragraph-field-weight, .paragraph-field-repetition {
+          display: flex;
+          position: relative;
+          margin-right: 0.4rem;
+          @include mobileDefault {
+            margin-right: 0.1rem;
+          }
+          &:after {
+            position: relative;
+            content: "x";
+            left: 0.4rem;
+            @include mobileDefault {
+              left: 0.1rem;
+            }
+          }
+        }
+
+        .paragraph-field-approaches {
+          display: flex;
+          position: relative;
+          margin-right: 0.4rem;
+          @include mobileDefault {
+            margin-right: 0.1rem;
+          }
+
+        }
+      }
+    }
+  }
+
+  &__total-weight {
+    border-top: 1px solid gray;
+  }
+}
