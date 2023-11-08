@@ -1,0 +1,9 @@
+kenny_girls_script:
+  version: 1.x
+  js:
+    js/kenny_girls_script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+

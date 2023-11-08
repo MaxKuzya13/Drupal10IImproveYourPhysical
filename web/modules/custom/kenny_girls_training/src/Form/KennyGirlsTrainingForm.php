@@ -19,7 +19,6 @@ class KennyGirlsTrainingForm extends FormBase {
    */
   protected $entityTypeManager;
 
-
   /**
    * The messenger.
    *
@@ -50,7 +49,12 @@ class KennyGirlsTrainingForm extends FormBase {
    */
   protected $nodeStorage;
 
-  protected $numExercise = 3;
+//  /**
+//   * The number of field for exercises.
+//   *
+//   * @var int
+//   */
+//  protected int $numExercise = 10;
 
   /**
    * KennyTrainingPlanForm constructor
@@ -99,12 +103,11 @@ class KennyGirlsTrainingForm extends FormBase {
     }
 
     $body_part = $this->termStorage->loadTree('girls_body_part');
+    // Get list of body part taxonomy
     $body_part_options = ['' => $this->t('- Select -')];
     foreach ($body_part as $term) {
       $body_part_options[$term->tid] = $term->name;
     }
-
-    $current_date = date('d.m.Y');
 
     $form['date'] = [
       '#type' => 'date',
@@ -125,13 +128,6 @@ class KennyGirlsTrainingForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['num_groups'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Number of Muscle Groups'),
-      '#options' => ['' => '- Select -', 1 => '1', 'full_body' => 'Full Body'],
-      '#required' => TRUE,
-    ];
-
     $form['muscle_groups'] = [
       '#type' => 'select',
       '#title' => 'Choose Muscle group',
@@ -144,17 +140,34 @@ class KennyGirlsTrainingForm extends FormBase {
       ]
     ];
 
+    // Get count of fields
+//    $num_exercises = $this->numExercise;
+//    $num_exercises_options = [];
+    $num_exercises = 7;
+//    for ($i = 0; $i < 11; $i++) {
+//      $num_exercises_options[] = $i;
+//    }
+
+//    $form['num_exercises'] = [
+//      '#type' => 'select',
+//      '#title' => 'Choose Count of Field',
+//      '#options' => $num_exercises_options,
+//      '#default_value' => $num_exercises,
+//      '#ajax' => [
+//        'callback' => '::changeNumExercisesCallback',
+//        'wrapper' => 'exercise-selection',
+//        'event' => 'change',
+//      ],
+//    ];
+    $form['num_exercises'] = [
+      '#type' => 'hidden',
+      '#value' => $num_exercises,
+    ];
+
     // Container for exercise selection.
     $form['exercise_selection'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'exercise-selection'],
-    ];
-
-
-    $num_exercises = $this->numExercise;
-    $form['num_exercises'] = [
-      '#type' => 'hidden',
-      '#value' => $num_exercises,
     ];
 
     for ($i = 0; $i < $num_exercises; $i++) {
@@ -163,7 +176,6 @@ class KennyGirlsTrainingForm extends FormBase {
       $form['exercise_selection']['repetition_' . $i] = $this->createExerciseField($form_state,'repetition_' . $i, 'Repetition');
       $form['exercise_selection']['approaches_' . $i] = $this->createExerciseField($form_state,'approaches_' . $i, 'Approaches');
     }
-
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -174,29 +186,67 @@ class KennyGirlsTrainingForm extends FormBase {
 
   }
 
+//  /**
+//   * Get count of field to exercises.
+//   *
+//   * @param array $form
+//   *    An associative array containing the structure of the form.
+//   * @param \Drupal\Core\Form\FormStateInterface $form_state
+//   *    The current state of the form.
+//   * @return AjaxResponse
+//   */
+//  public function changeNumExercisesCallback(array &$form, FormStateInterface $form_state) {
+//    $response = new AjaxResponse();
+//    $num_exercises = $form_state->getValue('num_exercises');
+//
+//    // Очищаємо попередні поля для вправ і додаємо нові поля.
+//    $form['exercise_selection'] = [
+//      '#type' => 'container',
+//      '#attributes' => ['id' => 'exercise-selection'],
+//    ];
+//
+//    for ($i = 0; $i < $num_exercises; $i++) {
+//      $form['exercise_selection']['exercises_' . $i] = $this->createExerciseSelectField($form, $form_state, $i);
+//      $form['exercise_selection']['weight_' . $i] = $this->createExerciseField($form_state, 'weight_' . $i, 'Weight', ' kg');
+//      $form['exercise_selection']['repetition_' . $i] = $this->createExerciseField($form_state,'repetition_' . $i, 'Repetition');
+//      $form['exercise_selection']['approaches_' . $i] = $this->createExerciseField($form_state,'approaches_' . $i, 'Approaches');
+//    }
+//
+//    // Оновлюємо контейнер з полями відповіді AJAX.
+//    $response->addCommand(new HtmlCommand('#exercise-selection', $form['exercise_selection']));
+//
+//    return $response;
+//  }
+//
   /**
-   * Create field for exercise
+   * Create selected options for exercises.
    *
-   * @param integer $index
-   *   The exercise index
+   * @param array $form
+   *    An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *    The current state of the form.
+   * @param $index
+   *   The index by
    * @return array
-   *   Form element
    */
   public function createExerciseSelectField(&$form, $form_state, $index) {
 
     if (!empty($form_state->getValue('muscle_groups'))) {
 
       $choose_body_part_id = $form_state->getValue('muscle_groups');
-      /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
 
+      /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
       $choose_body_part_name = $this->termStorage->load($choose_body_part_id)->getName();
 
-      $body_part = $this->getAllBodyPart();
+      if ($choose_body_part_name == 'Full Body') {
+        $exercises_id = $this->getAllExercises();
+      } else {
+        $body_part = $this->getAllBodyPart();
+        $body_part_id = $this->getMatchBodyPart($body_part, $choose_body_part_name);
+        $exercises_id = $this->getExercisesList($body_part_id);
+      }
 
-      $body_part_id = $this->getMatchBodyPart($body_part, $choose_body_part_name);
-
-      $exercises_id = $this->getExercisesList($body_part_id);
-
+      /** @var \Drupal\taxonomy\TermStorageInterface $exercises_terms */
       $exercises_terms = $this->termStorage->loadMultiple($exercises_id);
 
       $exercises_options = ['' => $this->t('- Select -')];
@@ -251,20 +301,34 @@ class KennyGirlsTrainingForm extends FormBase {
     return [];
   }
 
+  /**
+   * List of exercises by body part.
+   *
+   * @param array $form
+   *     An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *     The current state of the form.
+   * @return AjaxResponse
+   */
   public function chooseExerciseAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
 
     $choose_body_part_id = $form_state->getValue('muscle_groups');
     /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
 
+    /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
     $choose_body_part_name = $this->termStorage->load($choose_body_part_id)->getName();
 
+    // id`s body part in Training Girls Taxonomy.
     $body_part = $this->getAllBodyPart();
 
+    // Id of body part that matches.
     $body_part_id = $this->getMatchBodyPart($body_part, $choose_body_part_name);
 
+    // Id`s exercises for current body part.
     $exercises_id = $this->getExercisesList($body_part_id);
 
+    /** @var \Drupal\taxonomy\TermStorageInterface $exercises_terms */
     $exercises_terms = $this->termStorage->loadMultiple($exercises_id);
 
     $exercises_options = ['' => $this->t('- Select -')];
@@ -273,24 +337,49 @@ class KennyGirlsTrainingForm extends FormBase {
       $exercises_options[$exercises_term->id()] = $exercises_term->getName();
     }
 
+    // Value of exercise
     $num_exercises = $form_state->getValue('num_exercises');
     for ($i = 0; $i < $num_exercises; $i++) {
       $form['exercise_selection']['exercises_' . $i]['exercise']['#options'] = $exercises_options;
       $response->addCommand(new HtmlCommand('#exercise-selection', $form['exercise_selection']));
     }
 
+
     return $response;
   }
 
-  protected function getAllBodyPart() {
+  /**
+   * All exercises.
+   *
+   * @return array
+   */
+  protected function getAllExercises() {
+    /** @var \Drupal\taxonomy\TermStorageInterface $taxonomy */
     $taxonomy = $this->termStorage->loadTree('girls_training');
 
+    $all_exercise = [];
+
+    foreach ($taxonomy as $tax) {
+      if($tax->depth == 2) {
+        $all_exercise[] = $tax->tid;
+      }
+    }
+    return $all_exercise;
+  }
+
+  /**
+   * All body part
+   *
+   * @return array
+   */
+  protected function getAllBodyPart() {
+    /** @var \Drupal\taxonomy\TermStorageInterface $taxonomy */
+    $taxonomy = $this->termStorage->loadTree('girls_training');
     $top_level_term_ids = [];
 
-    foreach ($taxonomy as $termik) {
-
-      if ($termik->parents[0] == 0) {
-        $top_level_term_ids[] = $termik->tid;
+    foreach ($taxonomy as $term) {
+      if ($term->parents[0] == 0) {
+        $top_level_term_ids[] = $term->tid;
       }
     }
 
@@ -298,8 +387,18 @@ class KennyGirlsTrainingForm extends FormBase {
   }
 
 
+  /**
+   * Get the match body part id.
+   *
+   * @param array $body_part
+   *   List of id`s body part
+   * @param string $choose_body_part_name
+   *   The name of the chosen body part.
+   * @return int|string|null
+   */
   protected function getMatchBodyPart($body_part, $choose_body_part_name) {
     foreach ($body_part as $body_id) {
+      /** @var \Drupal\taxonomy\TermStorageInterface $body_part_name */
       $body_part_name = $this->termStorage->load($body_id)->getName();
       if ($body_part_name == $choose_body_part_name) {
         $id = $this->termStorage->load($body_id)->id();
@@ -310,19 +409,33 @@ class KennyGirlsTrainingForm extends FormBase {
     return null;
   }
 
+  /**
+   * List of exercises by chosen body part.
+   *
+   * @param int $body_part_id
+   *   The id of chosen body part.
+   * @return array
+   */
   protected function getExercisesList($body_part_id) {
+    /** @var \Drupal\taxonomy\TermStorageInterface $girls_training */
     $girls_training = $this->termStorage->loadTree('girls_training');
     $exercises = [];
+    $muscle_part = '';
     $muscle_parts = [];
 
     foreach ($girls_training as $girl_term) {
 
+      // Get a list of muscles that should be excluded from
+      // the list of exercises
       if ($girl_term->parents[0] == $body_part_id) {
         $muscle_part = $girl_term->tid;
         $muscle_parts[] = $muscle_part;
       }
-      if ($girl_term->parents[0] == $muscle_part) {
-        $exercises[] = $girl_term->tid;
+
+      if (!empty($muscle_part)) {
+        if ($girl_term->parents[0] == $muscle_part) {
+          $exercises[] = $girl_term->tid;
+        }
       }
     }
 
@@ -406,6 +519,67 @@ class KennyGirlsTrainingForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // TODO: Implement submitForm() method.
+    $training_type = $form_state->getValue('training_type');
+    $training_type_name = !empty($training_type) ? $this->termStorage
+      ->load($training_type)->getName() : '';
+
+    $body_part = $form_state->getValue('muscle_groups');
+    $body_part_name = !empty($body_part) ? $this->termStorage
+      ->load($body_part)->getName() : '';
+
+    $date = $form_state->getValue('date');
+    $drupal_date = strtotime($date);
+    $formatted_date = date('d F Y', $drupal_date);
+
+    $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
+
+    $num_exercises = $form_state->getValue('num_exercises');
+
+    for ($i = 0; $i < $num_exercises; $i++ ) {
+      if (!empty($form_state->getValue('exercise_' . $i))) {
+        $exercise[$i] = $form_state->getValue('exercise_' . $i);
+        $weight[$i] = $form_state->getValue('weight_' . $i);
+        $repetition[$i] = $form_state->getValue('repetition_' . $i);
+        $approaches[$i] = $form_state->getValue('approaches_' . $i);
+//        dump($exercise, $weight, $repetition, $approaches);
+
+      }
+    }
+
+    $girls_training = $this->nodeStorage->create([
+      'type' => 'girls_training',
+      'title' => $title,
+      'field_girls_body_part' => $body_part,
+      'field_girls_type_of_training' => $training_type,
+      'field_girls_training_date' => $date,
+    ]);
+
+    for ($i = 0; $i < $num_exercises; $i++) {
+      if (!empty($exercise[$i])) {
+
+        $paragraph = $this->paragraphStorage->create([
+          'type' => 'girl_training',
+          'field_girl_exercise' => $exercise[$i],
+          'field_weight' => $weight[$i],
+          'field_repetition' => $repetition[$i],
+          'field_approaches' => $approaches[$i],
+        ]);
+
+        // Зберігаємо параграф.
+        $paragraph->save();
+
+        // Додаємо параграф до поля "field_exercises" вузла "Training Plan."
+        $girls_training->field_girls_exercises[] = $paragraph;
+      }
+    }
+
+    $girls_training->save();
+    // Виводимо текст допоміжний
+    $this->messenger->addMessage(
+      t('The training @title for @body_part successfully add', [
+        '@title' => $title,
+        '@body_part' => $body_part_name
+      ])
+    );
   }
 }
