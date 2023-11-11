@@ -126,8 +126,13 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
         $start_date->modify('-10 year');
     }
 
+    $force = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => 'Force', 'vid' => 'type_of_training']);
+    $force = array_keys($force);
+
     $nids = $node_storage->getQuery()
       ->condition('type', 'training_plan')
+      ->condition('field_type_of_training', $force)
       ->exists('field_exercises')
       ->accessCheck(FALSE)
       ->condition('field_exercises.entity:paragraph.field_exercise', $exercise_id)
@@ -269,9 +274,12 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   protected function getLastParagraph($exercise_id) {
 
     $node_storage = $this->entityTypeManager->getStorage('node');
-
+    $force = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => 'Force', 'vid' => 'type_of_training']);
+    $force = array_keys($force);
     $nids = $node_storage->getQuery()
       ->condition('type', 'training_plan')
+      ->condition('field_type_of_training', $force)
       ->exists('field_exercises')
       ->accessCheck(FALSE)
       ->condition('field_exercises.entity:paragraph.field_exercise', $exercise_id)
