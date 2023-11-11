@@ -15,10 +15,17 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    */
   protected $entityTypeManager;
 
+  /**
+   * @param EntityTypeManagerInterface $entity_type_manager
+   */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
+  /**
+   * @param ContainerInterface $container
+   * @return static
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
@@ -30,58 +37,17 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    */
   public function getParagraph($body_part, $exercises_array) {
 
-    $lower_body_part = strtolower($body_part);
-    switch ($lower_body_part) {
-      case 'chest':
-        $exercise_id = $exercises_array['chest'];
+    $lower_body_part = strtolower(str_replace(' ', '_', $body_part));
 
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
+    $key = $lower_body_part;
+    $exercise_id = $exercises_array[$key] ?? null;
 
-      case 'biceps':
-        $exercise_id = $exercises_array['biceps'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'shoulders':
-        $exercise_id = $exercises_array['shoulders'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'legs':
-        $exercise_id = $exercises_array['legs'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'triceps':
-        $exercise_id = $exercises_array['triceps'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'back':
-        $exercise_id = $exercises_array['back'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
+    if ($exercise_id) {
+      return $this->getLastParagraph($exercise_id);
     }
 
-    return $last_paragraph;
+    return '';
+
   }
 
   /**

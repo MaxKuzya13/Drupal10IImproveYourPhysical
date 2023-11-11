@@ -42,6 +42,14 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
   protected $statsByExercise;
 
 
+  /**
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param EntityTypeManagerInterface $entity_type_manager
+   * @param ConfigFactoryInterface $config_factory
+   * @param KennyGirlsStatsByExerciseInterface $stats_by_exercise
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyGirlsStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
@@ -49,6 +57,9 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
     $this->statsByExercise = $stats_by_exercise;
   }
 
+  /**
+   *
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
@@ -61,6 +72,9 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
   }
 
 
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
 
     $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\TestDateForm');
@@ -74,7 +88,6 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
     $config = $this->configFactory->get('kenny_girls_stats.settings');
 
     $exercises_array = $config->get();
-
 
 
     foreach ($exercises_array as $exercise_name => $exercise_id) {

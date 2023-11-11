@@ -43,6 +43,14 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   protected $statsByExercise;
 
 
+  /**
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param EntityTypeManagerInterface $entity_type_manager
+   * @param ConfigFactoryInterface $config_factory
+   * @param KennyStatsByExerciseInterface $stats_by_exercise
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
@@ -50,6 +58,13 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $this->statsByExercise = $stats_by_exercise;
   }
 
+  /**
+   * @param ContainerInterface $container
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @return KennyStatsBlock|static
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
@@ -62,9 +77,13 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   }
 
 
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
 
     $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\TestDateForm');
+    $output['form'] = $form;
     // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
     $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
     $limit = !empty($value) ? $value : '1 year';
@@ -74,7 +93,6 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $config = $this->configFactory->get('kenny_stats.settings');
     $exercises_array = $this->statsByExercise->getExercisesArray($config);
 
-    $output = [];
 
     $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadTree('body_part');
@@ -105,7 +123,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
           ];
         }
         // Відображення параграфа, якщо він існує.
-        $output['form'] = $form;
+
         $output['paragraph_' . $lower_body_part] = [
           '#prefix' => '<p>' . $body_part . '</p>',
           'paragraph' => $this->entityTypeManager

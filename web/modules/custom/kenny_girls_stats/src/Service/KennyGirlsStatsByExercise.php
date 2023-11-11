@@ -15,10 +15,17 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
    */
   protected $entityTypeManager;
 
+  /**
+   * @param EntityTypeManagerInterface $entity_type_manager
+   */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
+  /**
+   * @param ContainerInterface $container
+   * @return static
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
