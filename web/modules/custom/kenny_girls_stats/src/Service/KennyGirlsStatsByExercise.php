@@ -15,7 +15,7 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
    */
   protected $entityTypeManager;
 
-  public function __construct( EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
@@ -28,60 +28,40 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
-  public function getParagraph($body_part, $exercises_array) {
+  public function getLastParagraph($exercise_id) {
 
-    $lower_body_part = strtolower($body_part);
-    switch ($lower_body_part) {
-      case 'chest':
-        $exercise_id = $exercises_array['chest'];
+    $node_storage = $this->entityTypeManager->getStorage('node');
 
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
+    $nids = $node_storage->getQuery()
+      ->condition('type', 'girls_training')
+      ->exists('field_girls_exercises')
+      ->accessCheck(FALSE)
+      ->condition('field_girls_exercises.entity:paragraph.field_girl_exercise', $exercise_id)
+      ->sort('field_girls_training_date', 'DESC')
+      ->range(0, 1)
+      ->execute();
+
+    if (!empty($nids)) {
+      $latest_node_id = reset($nids);
+      $latest_node = $node_storage->load($latest_node_id);
+
+      $paragraphs = $latest_node->get('field_girls_exercises')->referencedEntities();
+
+      foreach ($paragraphs as $paragraph) {
+        $field_exercise_value = $paragraph->get('field_girl_exercise')->target_id;
+        $pid = $paragraph->id();
+        if ($field_exercise_value == $exercise_id) {
+          $last_paragraph = $this->entityTypeManager->getStorage('paragraph')
+            ->load($pid);
+          return $last_paragraph;
         }
-        break;
 
-      case 'biceps':
-        $exercise_id = $exercises_array['biceps'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'shoulders':
-        $exercise_id = $exercises_array['shoulders'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'legs':
-        $exercise_id = $exercises_array['legs'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'triceps':
-        $exercise_id = $exercises_array['triceps'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
-
-      case 'back':
-        $exercise_id = $exercises_array['back'];
-
-        if ($exercise_id) {
-          $last_paragraph = $this->getLastParagraph($exercise_id);
-        }
-        break;
+      }
     }
 
-    return $last_paragraph;
+    return null;
+
+
   }
 
   /**
@@ -90,7 +70,7 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
   public function getRelativeParagraph($paragraph, $limit) {
 
     if ($paragraph instanceof Paragraph) {
-      $exercise_id = $paragraph->get('field_exercise')->target_id;
+      $exercise_id = $paragraph->get('field_girl_exercise')->target_id;
     }
 
     $node_storage = $this->entityTypeManager->getStorage('node');
@@ -98,6 +78,10 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
     $start_date = clone $current_date;
 
     switch ($limit) {
+
+      case '1 day':
+        $start_date->modify('-1 day');
+        break;
 
       case '1 month':
         $start_date->modify('-1 month');
@@ -124,12 +108,12 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
     }
 
     $nids = $node_storage->getQuery()
-      ->condition('type', 'training_plan')
-      ->exists('field_exercises')
+      ->condition('type', 'girls_training')
+      ->exists('field_girls_exercises')
       ->accessCheck(FALSE)
-      ->condition('field_exercises.entity:paragraph.field_exercise', $exercise_id)
-      ->condition('field_training_date', $start_date->format('Y-m-d'),'>=')
-      ->sort('field_training_date', 'ASC')
+      ->condition('field_girls_exercises.entity:paragraph.field_girl_exercise', $exercise_id)
+      ->condition('field_girls_training_date', $start_date->format('Y-m-d'),'>=')
+      ->sort('field_girls_training_date', 'ASC')
       ->range(0, 1)
       ->execute();
 
@@ -138,10 +122,10 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
       $first_node_id = reset($nids);
       $first_node = $node_storage->load($first_node_id);
 
-      $paragraphs = $first_node->get('field_exercises')->referencedEntities();
+      $paragraphs = $first_node->get('field_girls_exercises')->referencedEntities();
 
       foreach ($paragraphs as $paragraph) {
-        $field_exercise_value = $paragraph->get('field_exercise')->target_id;
+        $field_exercise_value = $paragraph->get('field_girl_exercise')->target_id;
         $pid = $paragraph->id();
         if ($field_exercise_value == $exercise_id) {
           $first_paragraph = $this->entityTypeManager->getStorage('paragraph')
@@ -154,33 +138,7 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
     return null;
   }
 
-  /**
-   * Get list of body part and exercise id.
-   *
-   * @param $config
-   *   Current config.
-   * @return array
-   */
-  public function getExercisesArray($config) {
 
-    $body_parts = $this->entityTypeManager->getStorage('taxonomy_term')
-      ->loadTree('body_part');
-
-    // Get array of body part
-    $body_part_names = [];
-    foreach ($body_parts as $body_part) {
-      $name = $body_part->name;
-      $body_part_names[] = strtolower(str_replace(' ', '_', $name));
-    }
-
-    // Get array of body part name => tid
-    $exercises_array = [];
-    foreach ($body_part_names as $exercise) {
-      $exercises_array[$exercise] = $config->get($exercise);
-    }
-
-    return $exercises_array;
-  }
 
   /**
    * {@inheritdoc }
@@ -257,48 +215,5 @@ class KennyGirlsStatsByExercise implements KennyGirlsStatsByExerciseInterface {
     return null;
   }
 
-  /**
-   * Loading last paragraph.
-   *
-   * @param int $exercise_id
-   *   Exercise id.
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getLastParagraph($exercise_id) {
-
-    $node_storage = $this->entityTypeManager->getStorage('node');
-
-    $nids = $node_storage->getQuery()
-      ->condition('type', 'training_plan')
-      ->exists('field_exercises')
-      ->accessCheck(FALSE)
-      ->condition('field_exercises.entity:paragraph.field_exercise', $exercise_id)
-      ->sort('field_training_date', 'DESC')
-      ->range(0, 1)
-      ->execute();
-
-    if (!empty($nids)) {
-      $latest_node_id = reset($nids);
-      $latest_node = $node_storage->load($latest_node_id);
-
-      $paragraphs = $latest_node->get('field_exercises')->referencedEntities();
-
-      foreach ($paragraphs as $paragraph) {
-        $field_exercise_value = $paragraph->get('field_exercise')->target_id;
-        $pid = $paragraph->id();
-        if ($field_exercise_value == $exercise_id) {
-          $last_paragraph = $this->entityTypeManager->getStorage('paragraph')
-            ->load($pid);
-          return $last_paragraph;
-        }
-
-      }
-    }
-
-    return null;
-
-  }
 
 }

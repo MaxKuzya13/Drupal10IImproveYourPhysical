@@ -63,70 +63,75 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
   public function build() {
 
-    $limit = '3 month';
+    $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\TestDateForm');
+    $output['form'] = $form;
+    // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
+    $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
+    $limit = !empty($value) ? $value : '1 year';
+    // Знищити значення в сесії, оскільки ми його вже отримали.
+    unset($_SESSION['kenny_stats_form_value']);
 
     $config = $this->configFactory->get('kenny_girls_stats.settings');
-    dump($config);
+
+    $exercises_array = $config->get();
 
 
 
-//    $exercises_array = $this->statsByExercise->getExercisesArray($config);
-//
-//    $output = [];
-//
-//    $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
-//      ->loadTree('body_part');
-//
-//    foreach ($body_part_list as $term) {
-//      $body_part = $term->name;
-//      $lower_body_part = strtolower(str_replace(' ', '', $body_part));
-//
-//      // Отримайте параграф для поточного "Body part".
-//      $paragraph = $this->statsByExercise->getParagraph($body_part, $exercises_array);
-//
+    foreach ($exercises_array as $exercise_name => $exercise_id) {
+      $paragraph = $this->statsByExercise->getLastParagraph($exercise_id);
+      $reformated_exercise_name = ucwords(str_replace('_', ' ', $exercise_name));
+
+      if (!is_null($paragraph)) {
+        $relative_paragraph = $this->statsByExercise->getRelativeParagraph($paragraph, $limit);
+
+        if (!empty($relative_paragraph)) {
+          $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
+          $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
+            '@weight_class' => $result['weight_class'],
+            '@absolute_weight' => $result['absolute_weight'],
+            '@correlation_weight' => $result['correlation_weight'],
+
+          ]);
+        } else {
+          $relative_output = [
+            '#prefix' => '<p>' . 'No relative training by ' . $reformated_exercise_name . '</p>',
+          ];
+        }
+
+        $output['paragraph_' . $exercise_name] = [
+          '#prefix' => '<p>' . $reformated_exercise_name . '</p>',
+          'paragraph' => $this->entityTypeManager
+            ->getViewBuilder('paragraph')
+            ->view($paragraph, 'stats'),
+          'relative_paragraph' => !$relative_paragraph ? $relative_output : $this->entityTypeManager
+            ->getViewBuilder('paragraph')
+            ->view($relative_paragraph, 'stats'),
+          'working_weight' => $relative_paragraph ? [
+            '#markup' => '<p>' . $workWeightText . '</p>',
+          ] : [],
+        ];
+      } else {
+        // Відобразити повідомлення про відсутність тренувань для "Body part".
+
+       $output['paragraph_' . $exercise_name] = [
+          '#prefix' => '<p>' . 'No training by ' . $reformated_exercise_name . '</p>',
+        ];
+      }
+
+
+    }
+    return $output;
+
+
+
+
+
 //      $media = $this->statsByExercise->getMedia($body_part);
 //
-//      if (!is_null($paragraph)) {
-//        $relative_paragraph = $this->statsByExercise->getRelativeParagraph($paragraph, $limit);
-//
-//        if (!empty($relative_paragraph)) {
-//          $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
-//          $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
-//            '@weight_class' => $result['weight_class'],
-//            '@absolute_weight' => $result['absolute_weight'],
-//            '@correlation_weight' => $result['correlation_weight'],
-//
-//          ]);
-//        } else {
-//          $relative_output = [
-//            '#prefix' => '<p>' . 'No relative training by ' . $body_part . '</p>',
-//          ];
-//        }
-//        // Відображення параграфа, якщо він існує.
-//        $output['paragraph_' . $lower_body_part] = [
-//          '#prefix' => '<p>' . $body_part . '</p>',
-//          'paragraph' => $this->entityTypeManager
-//            ->getViewBuilder('paragraph')
-//            ->view($paragraph, 'stats'),
-//          'relative_paragraph' => !$relative_paragraph ? $relative_output : $this->entityTypeManager
-//            ->getViewBuilder('paragraph')
-//            ->view($relative_paragraph, 'stats'),
-//          'working_weight' => $relative_paragraph ? [
-//            '#markup' => '<p>' . $workWeightText . '</p>',
-//          ] : [],
 //          'media_paragraph' => $this->entityTypeManager
 //            ->getViewBuilder('media')
 //            ->view($media, 'full')
-//        ];
-//
-//      } else {
-//        // Відобразити повідомлення про відсутність тренувань для "Body part".
-//        $output['paragraph_' . $lower_body_part] = [
-//          '#prefix' => '<p>' . 'No training by ' . $body_part . '</p>',
-//        ];
-//      }
-//    }
-//    return $output;
+
   }
 
 

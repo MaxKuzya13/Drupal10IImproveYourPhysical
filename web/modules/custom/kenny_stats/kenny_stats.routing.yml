@@ -5,3 +5,4 @@ kenny_stats.stats_exercise:
     _form: 'Drupal\kenny_stats\Form\StatsExerciseForm'
   requirements:
     _permission: 'administer site configuration'
+

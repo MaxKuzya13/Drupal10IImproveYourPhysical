@@ -98,6 +98,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     $start_date = clone $current_date;
 
     switch ($limit) {
+      case '1 day':
+        $start_date->modify('-1 day');
+        break;
 
       case '1 month':
         $start_date->modify('-1 month');
@@ -174,6 +177,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     foreach ($body_part_names as $exercise) {
       $exercises_array[$exercise] = $config->get($exercise);
     }
+
 
     return $exercises_array;
   }

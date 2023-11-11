@@ -64,7 +64,12 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
   public function build() {
 
-    $limit = '3 month';
+    $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\TestDateForm');
+    // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
+    $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
+    $limit = !empty($value) ? $value : '1 year';
+    // Знищити значення в сесії, оскільки ми його вже отримали.
+    unset($_SESSION['kenny_stats_form_value']);
 
     $config = $this->configFactory->get('kenny_stats.settings');
     $exercises_array = $this->statsByExercise->getExercisesArray($config);
@@ -100,6 +105,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
           ];
         }
         // Відображення параграфа, якщо він існує.
+        $output['form'] = $form;
         $output['paragraph_' . $lower_body_part] = [
           '#prefix' => '<p>' . $body_part . '</p>',
           'paragraph' => $this->entityTypeManager

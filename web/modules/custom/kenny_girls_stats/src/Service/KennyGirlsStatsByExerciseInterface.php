@@ -4,17 +4,15 @@ namespace Drupal\kenny_girls_stats\Service;
 
 interface KennyGirlsStatsByExerciseInterface {
 
+
   /**
-   * Get last paragraph
+   * Return last paragraph.
    *
-   * @param string $body_part
-   *   The name of body part
-   *
-   * @param array $exercises_array
-   *    The array of term name and term id
-   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
+   * @param int $exercise_id
+   *   Term id
+   * @return mixed
    */
-  public function getParagraph($body_part, $exercises_array);
+  public function getLastParagraph($exercise_id);
 
   /**
    * Get relative paragraph.
@@ -27,14 +25,6 @@ interface KennyGirlsStatsByExerciseInterface {
    */
   public function getRelativeParagraph($paragraph, $limit);
 
-  /**
-   * Get list of body part and exercise id.
-   *
-   * @param $config
-   *   Current config.
-   * @return array
-   */
-  public function getExercisesArray($config);
 
   /**
    * Get stats results.
