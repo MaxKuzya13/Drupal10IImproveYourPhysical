@@ -1,0 +1,5 @@
+kenny_girls_stats.girls_stats_exercise:
+  title: Girls stats exercise
+  parent: system.admin_config_system
+  route_name: kenny_girls_stats.girls_stats_exercise
+  weight: 10

@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\kenny_stats\Service\KennyGirlsStatsByExerciseInterface;
+use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -37,12 +38,12 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   /**
    * The stats by exercise.
    *
-   * @var \Drupal\kenny_stats\Service\KennyGirlsStatsByExercise;
+   * @var \Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
    */
-  protected KennyGirlsStatsByExerciseInterface $statsByExercise;
+  protected $statsByExercise;
 
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyGirlsStatsByExerciseInterface $stats_by_exercise) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;

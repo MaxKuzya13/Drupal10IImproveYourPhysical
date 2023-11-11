@@ -1,0 +1,32 @@
+# Schema for the configuration files of the Kenny Girls Stats module.
+kenny_girls_stats.settings:
+  type: config_object
+  label: 'Kenny Girls Stats settings'
+  mapping:
+    inner_thigh:
+      type: string
+      label: 'Inner Thigh exercise'
+    quadriceps:
+      type: string
+      label: 'Quadriceps exercise'
+    hamstring:
+      type: string
+      label: 'Hamstring exercise'
+    shoulders:
+      type: string
+      label: 'Shoulders exercise'
+    triceps:
+      type: string
+      label: 'Triceps exercise'
+    biceps:
+      type: string
+      label: 'Biceps exercise'
+    back:
+      type: string
+      label: 'Back exercise'
+    chest:
+      type: string
+      label: 'Chest exercise'
+    glutes:
+      type: string
+      label: 'Glutes exercise'

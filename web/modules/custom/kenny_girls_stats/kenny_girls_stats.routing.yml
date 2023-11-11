@@ -1,0 +1,7 @@
+kenny_girls_stats.girls_stats_exercise:
+  path: '/admin/config/system/girls-stats-exercise'
+  defaults:
+    _title: 'Girls stats exercise'
+    _form: 'Drupal\kenny_girls_stats\Form\GirlsStatsExerciseForm'
+  requirements:
+    _permission: 'administer site configuration'

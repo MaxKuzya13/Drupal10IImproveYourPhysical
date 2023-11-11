@@ -30,6 +30,7 @@ final class StatsExerciseForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
     $chest_exercises_options = $this->getExercisesOptions('chest');
+    dump($chest_exercises_options);
     $biceps_exercises_options = $this->getExercisesOptions('biceps');
     $shoulders_exercises_options = $this->getExercisesOptions('shoulders');
     $legs_exercises_options = $this->getExercisesOptions('legs');

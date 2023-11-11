@@ -1,0 +1,4 @@
+services:
+  kenny_girls_stats.exercise_stats:
+    class: Drupal\kenny_girls_stats\Service\KennyGirlsStatsByExercise
+    arguments: ['@entity_type.manager']
