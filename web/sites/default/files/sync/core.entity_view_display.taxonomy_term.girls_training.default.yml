@@ -1,0 +1,31 @@
+uuid: a19b0c26-4603-42a1-a6c0-3ab4617be66e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.girls_training.field_video_training
+    - taxonomy.vocabulary.girls_training
+  module:
+    - text
+id: taxonomy_term.girls_training.default
+targetEntityType: taxonomy_term
+bundle: girls_training
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_video_training:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

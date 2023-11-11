@@ -9,9 +9,12 @@ interface KennyStatsByExerciseInterface {
    *
    * @param string $body_part
    *   The name of body part
+   *
+   * @param array $exercises_array
+   *    The array of term name and term id
    * @return \Drupal\Core\Entity\EntityInterface|mixed|null
    */
-  public function getParagraph($body_part);
+  public function getParagraph($body_part, $exercises_array);
 
   /**
    * Get relative paragraph.
@@ -23,6 +26,15 @@ interface KennyStatsByExerciseInterface {
    * @return \Drupal\Core\Entity\EntityInterface|null
    */
   public function getRelativeParagraph($paragraph, $limit);
+
+  /**
+   * Get list of body part and exercise id.
+   *
+   * @param $config
+   *   Current config.
+   * @return array
+   */
+  public function getExercisesArray($config);
 
   /**
    * Get stats results.

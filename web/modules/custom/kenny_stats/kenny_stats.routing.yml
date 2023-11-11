@@ -1,0 +1,7 @@
+kenny_stats.stats_exercise:
+  path: '/admin/config/system/stats-exercise'
+  defaults:
+    _title: 'Stats exercise'
+    _form: 'Drupal\kenny_stats\Form\StatsExerciseForm'
+  requirements:
+    _permission: 'administer site configuration'

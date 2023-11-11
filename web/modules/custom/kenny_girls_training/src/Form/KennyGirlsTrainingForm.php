@@ -4,6 +4,7 @@ namespace Drupal\kenny_girls_training\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -130,35 +131,19 @@ class KennyGirlsTrainingForm extends FormBase {
 
     $form['muscle_groups'] = [
       '#type' => 'select',
-      '#title' => 'Choose Muscle group',
+      '#title' => 'Select Muscle group',
       '#options' => $body_part_options,
       '#prefix' => '<div id="muscle-groups-wrapper">',
       '#suffix' => '</div>',
       '#ajax' => [
-        'callback' => '::chooseExerciseAjax',
+        'callback' => '::selectExerciseAjax',
         'event' => 'change',
       ]
     ];
 
-    // Get count of fields
-//    $num_exercises = $this->numExercise;
-//    $num_exercises_options = [];
-    $num_exercises = 7;
-//    for ($i = 0; $i < 11; $i++) {
-//      $num_exercises_options[] = $i;
-//    }
 
-//    $form['num_exercises'] = [
-//      '#type' => 'select',
-//      '#title' => 'Choose Count of Field',
-//      '#options' => $num_exercises_options,
-//      '#default_value' => $num_exercises,
-//      '#ajax' => [
-//        'callback' => '::changeNumExercisesCallback',
-//        'wrapper' => 'exercise-selection',
-//        'event' => 'change',
-//      ],
-//    ];
+    $num_exercises = 10;
+
     $form['num_exercises'] = [
       '#type' => 'hidden',
       '#value' => $num_exercises,
@@ -177,6 +162,12 @@ class KennyGirlsTrainingForm extends FormBase {
       $form['exercise_selection']['approaches_' . $i] = $this->createExerciseField($form_state,'approaches_' . $i, 'Approaches');
     }
 
+    $form['add_field'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Add field'),
+      '#attributes' => ['id' => 'add-field']
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
@@ -186,38 +177,6 @@ class KennyGirlsTrainingForm extends FormBase {
 
   }
 
-//  /**
-//   * Get count of field to exercises.
-//   *
-//   * @param array $form
-//   *    An associative array containing the structure of the form.
-//   * @param \Drupal\Core\Form\FormStateInterface $form_state
-//   *    The current state of the form.
-//   * @return AjaxResponse
-//   */
-//  public function changeNumExercisesCallback(array &$form, FormStateInterface $form_state) {
-//    $response = new AjaxResponse();
-//    $num_exercises = $form_state->getValue('num_exercises');
-//
-//    // Очищаємо попередні поля для вправ і додаємо нові поля.
-//    $form['exercise_selection'] = [
-//      '#type' => 'container',
-//      '#attributes' => ['id' => 'exercise-selection'],
-//    ];
-//
-//    for ($i = 0; $i < $num_exercises; $i++) {
-//      $form['exercise_selection']['exercises_' . $i] = $this->createExerciseSelectField($form, $form_state, $i);
-//      $form['exercise_selection']['weight_' . $i] = $this->createExerciseField($form_state, 'weight_' . $i, 'Weight', ' kg');
-//      $form['exercise_selection']['repetition_' . $i] = $this->createExerciseField($form_state,'repetition_' . $i, 'Repetition');
-//      $form['exercise_selection']['approaches_' . $i] = $this->createExerciseField($form_state,'approaches_' . $i, 'Approaches');
-//    }
-//
-//    // Оновлюємо контейнер з полями відповіді AJAX.
-//    $response->addCommand(new HtmlCommand('#exercise-selection', $form['exercise_selection']));
-//
-//    return $response;
-//  }
-//
   /**
    * Create selected options for exercises.
    *
@@ -233,16 +192,16 @@ class KennyGirlsTrainingForm extends FormBase {
 
     if (!empty($form_state->getValue('muscle_groups'))) {
 
-      $choose_body_part_id = $form_state->getValue('muscle_groups');
+      $selected_body_part_id = $form_state->getValue('muscle_groups');
 
-      /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
-      $choose_body_part_name = $this->termStorage->load($choose_body_part_id)->getName();
+      /** @var \Drupal\taxonomy\TermStorageInterface $selected_body_part_name */
+      $selected_body_part_name = $this->termStorage->load($selected_body_part_id)->getName();
 
-      if ($choose_body_part_name == 'Full Body') {
+      if ($selected_body_part_name == 'Full Body') {
         $exercises_id = $this->getAllExercises();
       } else {
         $body_part = $this->getAllBodyPart();
-        $body_part_id = $this->getMatchBodyPart($body_part, $choose_body_part_name);
+        $body_part_id = $this->getMatchBodyPart($body_part, $selected_body_part_name);
         $exercises_id = $this->getExercisesList($body_part_id);
       }
 
@@ -258,7 +217,7 @@ class KennyGirlsTrainingForm extends FormBase {
       $exerciseField = [
         'exercise_' . $index => [
           '#type' => 'select',
-          '#title' => $this->t('Choose Exercise'),
+          '#title' => $this->t('Select an Exercise'),
           '#options' => $exercises_options,
           '#prefix' => '<div class="exercise-item" id="exercises_' . $index . '">',
           '#suffix' => '</div>',
@@ -310,20 +269,20 @@ class KennyGirlsTrainingForm extends FormBase {
    *     The current state of the form.
    * @return AjaxResponse
    */
-  public function chooseExerciseAjax(array &$form, FormStateInterface $form_state) {
+  public function selectExerciseAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
 
-    $choose_body_part_id = $form_state->getValue('muscle_groups');
-    /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
+    $selected_body_part_id = $form_state->getValue('muscle_groups');
+    /** @var \Drupal\taxonomy\TermStorageInterface $selected_body_part_name */
 
-    /** @var \Drupal\taxonomy\TermStorageInterface $choose_body_part_name */
-    $choose_body_part_name = $this->termStorage->load($choose_body_part_id)->getName();
+    /** @var \Drupal\taxonomy\TermStorageInterface $selected_body_part_name */
+    $selected_body_part_name = $this->termStorage->load($selected_body_part_id)->getName();
 
     // id`s body part in Training Girls Taxonomy.
     $body_part = $this->getAllBodyPart();
 
     // Id of body part that matches.
-    $body_part_id = $this->getMatchBodyPart($body_part, $choose_body_part_name);
+    $body_part_id = $this->getMatchBodyPart($body_part, $selected_body_part_name);
 
     // Id`s exercises for current body part.
     $exercises_id = $this->getExercisesList($body_part_id);
@@ -392,15 +351,15 @@ class KennyGirlsTrainingForm extends FormBase {
    *
    * @param array $body_part
    *   List of id`s body part
-   * @param string $choose_body_part_name
+   * @param string $selectedbody_part_name
    *   The name of the chosen body part.
    * @return int|string|null
    */
-  protected function getMatchBodyPart($body_part, $choose_body_part_name) {
+  protected function getMatchBodyPart($body_part, $selected_body_part_name) {
     foreach ($body_part as $body_id) {
       /** @var \Drupal\taxonomy\TermStorageInterface $body_part_name */
       $body_part_name = $this->termStorage->load($body_id)->getName();
-      if ($body_part_name == $choose_body_part_name) {
+      if ($body_part_name == $selected_body_part_name) {
         $id = $this->termStorage->load($body_id)->id();
         return $id;
       }

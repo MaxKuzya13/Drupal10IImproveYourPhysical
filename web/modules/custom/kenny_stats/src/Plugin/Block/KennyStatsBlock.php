@@ -2,16 +2,11 @@
 
 namespace Drupal\kenny_stats\Plugin\Block;
 
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
-use Drupal\media\MediaInterface;
-use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\paragraphs\ParagraphInterface;
+use Drupal\kenny_stats\Service\KennyGirlsStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,15 +28,24 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   protected $entityTypeManager;
 
   /**
+   * The Config Factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The stats by exercise.
    *
-   * @var \Drupal\kenny_stats\Service\KennyStatsByExercise;
+   * @var \Drupal\kenny_stats\Service\KennyGirlsStatsByExercise;
    */
-  protected KennyStatsByExerciseInterface $statsByExercise;
+  protected KennyGirlsStatsByExerciseInterface $statsByExercise;
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, KennyStatsByExerciseInterface $stats_by_exercise) {
+
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyGirlsStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
+    $this->configFactory = $config_factory;
     $this->statsByExercise = $stats_by_exercise;
   }
 
@@ -51,6 +55,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
+      $container->get('config.factory'),
       $container->get('kenny_stats.exercise_stats'),
     );
   }
@@ -58,7 +63,10 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
   public function build() {
 
-    $limit = '1 month';
+    $limit = '3 month';
+
+    $config = $this->configFactory->get('kenny_stats.settings');
+    $exercises_array = $this->statsByExercise->getExercisesArray($config);
 
     $output = [];
 
@@ -70,37 +78,42 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $lower_body_part = strtolower(str_replace(' ', '', $body_part));
 
       // Отримайте параграф для поточного "Body part".
-      $paragraph = $this->statsByExercise->getParagraph($body_part);
+      $paragraph = $this->statsByExercise->getParagraph($body_part, $exercises_array);
 
       $media = $this->statsByExercise->getMedia($body_part);
 
       if (!is_null($paragraph)) {
         $relative_paragraph = $this->statsByExercise->getRelativeParagraph($paragraph, $limit);
-        $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
-        $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
-          '@weight_class' => $result['weight_class'],
-          '@absolute_weight' => $result['absolute_weight'],
-          '@correlation_weight' => $result['correlation_weight'],
 
-        ]);
+        if (!empty($relative_paragraph)) {
+          $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
+          $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
+            '@weight_class' => $result['weight_class'],
+            '@absolute_weight' => $result['absolute_weight'],
+            '@correlation_weight' => $result['correlation_weight'],
 
-
+          ]);
+        } else {
+          $relative_output = [
+            '#prefix' => '<p>' . 'No relative training by ' . $body_part . '</p>',
+          ];
+        }
         // Відображення параграфа, якщо він існує.
         $output['paragraph_' . $lower_body_part] = [
           '#prefix' => '<p>' . $body_part . '</p>',
           'paragraph' => $this->entityTypeManager
             ->getViewBuilder('paragraph')
             ->view($paragraph, 'stats'),
-          'relative_paragraph' => $this->entityTypeManager
+          'relative_paragraph' => !$relative_paragraph ? $relative_output : $this->entityTypeManager
             ->getViewBuilder('paragraph')
             ->view($relative_paragraph, 'stats'),
-          'working_weight' => [
+          'working_weight' => $relative_paragraph ? [
             '#markup' => '<p>' . $workWeightText . '</p>',
-          ],
+          ] : [],
           'media_paragraph' => $this->entityTypeManager
             ->getViewBuilder('media')
             ->view($media, 'full')
-          ];
+        ];
 
       } else {
         // Відобразити повідомлення про відсутність тренувань для "Body part".

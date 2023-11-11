@@ -1,0 +1,58 @@
+uuid: 15abfdb7-f905-4555-b782-9196fb477ed5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.girls_training.field_video_training
+    - taxonomy.vocabulary.girls_training
+  module:
+    - media_library
+    - path
+    - text
+id: taxonomy_term.girls_training.default
+targetEntityType: taxonomy_term
+bundle: girls_training
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_video_training:
+    type: media_library_widget
+    weight: 101
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  tvi:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

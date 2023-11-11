@@ -1,5 +1,0 @@
-name: 'Kenny Training Stats'
-type: module
-description: 'Module for stats'
-package: Kenny
-core_version_requirement: ^10

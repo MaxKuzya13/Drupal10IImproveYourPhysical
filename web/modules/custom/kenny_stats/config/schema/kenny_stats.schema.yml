@@ -1,0 +1,23 @@
+# Schema for the configuration files of the Kenny Stats module.
+kenny_stats.settings:
+  type: config_object
+  label: 'Kenny Stats settings'
+  mapping:
+    chest:
+      type: string
+      label: 'Chest exercise'
+    biceps:
+      type: string
+      label: 'Biceps exercise'
+    shoulders:
+      type: string
+      label: 'Shoulders exercise'
+    legs:
+      type: string
+      label: 'Legs exercise'
+    triceps:
+      type: string
+      label: 'Triceps exercise'
+    back:
+      type: string
+      label: 'Back exercise'
