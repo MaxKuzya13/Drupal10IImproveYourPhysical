@@ -10,7 +10,7 @@ dependencies:
 id: kenny_girls_stats_by_exercise_block
 theme: kenny
 region: content
-weight: 0
+weight: -1
 provider: null
 plugin: kenny_girls_stats_block
 settings:

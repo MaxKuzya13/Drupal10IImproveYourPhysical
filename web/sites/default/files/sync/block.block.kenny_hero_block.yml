@@ -9,7 +9,7 @@ dependencies:
 id: kenny_hero_block
 theme: kenny
 region: content
-weight: -2
+weight: -5
 provider: null
 plugin: kenny_hero_block
 settings:

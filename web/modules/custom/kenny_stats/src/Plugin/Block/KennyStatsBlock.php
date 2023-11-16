@@ -44,12 +44,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
   /**
-   * @param array $configuration
-   * @param $plugin_id
-   * @param $plugin_definition
-   * @param EntityTypeManagerInterface $entity_type_manager
-   * @param ConfigFactoryInterface $config_factory
-   * @param KennyStatsByExerciseInterface $stats_by_exercise
+   * Constructor for KennyStatsBlock.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -59,11 +54,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   }
 
   /**
-   * @param ContainerInterface $container
-   * @param array $configuration
-   * @param $plugin_id
-   * @param $plugin_definition
-   * @return KennyStatsBlock|static
+   * Container for KennyStatsBlock
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
@@ -93,7 +84,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $config = $this->configFactory->get('kenny_stats.settings');
     $exercises_array = $this->statsByExercise->getExercisesArray($config);
 
-
+    /** @var \Drupal\taxonomy\TermStorageInterface $body_part_list */
     $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadTree('body_part');
 
@@ -101,13 +92,13 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $body_part = $term->name;
       $lower_body_part = strtolower(str_replace(' ', '', $body_part));
 
-      // Отримайте параграф для поточного "Body part".
+      // Отримати параграф для поточного "Body part".
       $paragraph = $this->statsByExercise->getParagraph($body_part, $exercises_array);
 
       $media = $this->statsByExercise->getMedia($body_part);
 
       if (!is_null($paragraph)) {
-        $relative_paragraph = $this->statsByExercise->getRelativeParagraph($paragraph, $limit);
+        $relative_paragraph = $this->statsByExercise->getCurrentParagraph('man', '', $paragraph, $limit);
 
         if (!empty($relative_paragraph)) {
           $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);

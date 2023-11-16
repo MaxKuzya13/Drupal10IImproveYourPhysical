@@ -6,7 +6,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\kenny_girls_stats\Service\KennyGirlsStatsByExerciseInterface;
+use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -37,7 +37,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
   /**
    * The stats by exercise.
    *
-   * @var \Drupal\kenny_girls_stats\Service\KennyGirlsStatsByExerciseInterface;
+   * @var \Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
    */
   protected $statsByExercise;
 
@@ -48,9 +48,9 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
    * @param $plugin_definition
    * @param EntityTypeManagerInterface $entity_type_manager
    * @param ConfigFactoryInterface $config_factory
-   * @param KennyGirlsStatsByExerciseInterface $stats_by_exercise
+   * @param KennyStatsByExerciseInterface $stats_by_exercise
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyGirlsStatsByExerciseInterface $stats_by_exercise) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
@@ -67,7 +67,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
       $plugin_definition,
       $container->get('entity_type.manager'),
       $container->get('config.factory'),
-      $container->get('kenny_girls_stats.exercise_stats'),
+      $container->get('kenny_stats.exercise_stats'),
     );
   }
 
@@ -91,11 +91,11 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
 
     foreach ($exercises_array as $exercise_name => $exercise_id) {
-      $paragraph = $this->statsByExercise->getLastParagraph($exercise_id);
+      $paragraph = $this->statsByExercise->getCurrentParagraph('girl', $exercise_id);
       $reformated_exercise_name = ucwords(str_replace('_', ' ', $exercise_name));
 
       if (!is_null($paragraph)) {
-        $relative_paragraph = $this->statsByExercise->getRelativeParagraph($paragraph, $limit);
+        $relative_paragraph = $this->statsByExercise->getCurrentParagraph('girl', '', $paragraph, $limit);
 
         if (!empty($relative_paragraph)) {
           $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);

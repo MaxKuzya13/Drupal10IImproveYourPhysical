@@ -9,7 +9,7 @@ _core:
 id: kenny_local_actions
 theme: kenny
 region: content
-weight: -3
+weight: -6
 provider: null
 plugin: local_actions_block
 settings:

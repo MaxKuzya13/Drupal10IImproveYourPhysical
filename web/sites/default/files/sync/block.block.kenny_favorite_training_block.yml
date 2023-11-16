@@ -10,7 +10,7 @@ dependencies:
 id: kenny_favorite_training_block
 theme: kenny
 region: content
-weight: -1
+weight: -3
 provider: null
 plugin: kenny_favorite_training_block
 settings:

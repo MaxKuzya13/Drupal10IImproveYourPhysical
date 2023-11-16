@@ -5,9 +5,18 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.girls_training
+    - taxonomy.vocabulary.girls_body_part
+    - taxonomy.vocabulary.girls_type_of_training
+  content:
+    - 'taxonomy_term:girls_body_part:27560e25-37b4-42a7-84e5-d9af803a3106'
+    - 'taxonomy_term:girls_body_part:33974e1d-6a3b-4722-9c12-9f4c36c23e6b'
+    - 'taxonomy_term:girls_body_part:6b8eb6f9-d80d-4ab2-92ff-61da5b321f47'
+    - 'taxonomy_term:girls_type_of_training:86881b5c-fa50-42ab-9b33-a0186e9a35d8'
+    - 'taxonomy_term:girls_type_of_training:ba43dc99-b595-4858-b417-91f0bf8ac9cc'
   module:
     - node
     - paragraphs
+    - taxonomy
     - user
 id: girls_training
 label: 'Girls Training'
@@ -147,6 +156,57 @@ display:
           plugin_id: bundle
           value:
             girls_training: girls_training
+        field_girls_body_part_target_id:
+          id: field_girls_body_part_target_id
+          table: node__field_girls_body_part
+          field: field_girls_body_part_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            169: 169
+            168: 168
+            167: 167
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_girls_body_part_target_id_op
+            label: 'Girls Body Part (field_girls_body_part)'
+            description: ''
+            use_operator: false
+            operator: field_girls_body_part_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_girls_body_part_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: girls_body_part
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       style:
         type: default
       row:
@@ -180,24 +240,162 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_girls_training:
-    id: page_girls_training
-    display_title: Page
-    display_plugin: page
+  training_girls_block:
+    id: training_girls_block
+    display_title: 'Training Girls Block'
+    display_plugin: block
     position: 1
     display_options:
+      title: 'Training Girls'
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            girls_training: girls_training
+        field_girls_body_part_target_id:
+          id: field_girls_body_part_target_id
+          table: node__field_girls_body_part
+          field: field_girls_body_part_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            169: 169
+            168: 168
+            167: 167
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_girls_body_part_target_id_op
+            label: 'Body Part'
+            description: ''
+            use_operator: false
+            operator: field_girls_body_part_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_girls_body_part_target_id
+            required: false
+            remember: true
+            multiple: false
+            remember_roles:
+              anonymous: anonymous
+              authenticated: authenticated
+              content_editor: content_editor
+              administrator: administrator
+            reduce: true
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: girls_body_part
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_girls_type_of_training_target_id:
+          id: field_girls_type_of_training_target_id
+          table: node__field_girls_type_of_training
+          field: field_girls_type_of_training_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            166: 166
+            165: 165
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_girls_type_of_training_target_id_op
+            label: 'Type of training'
+            description: ''
+            use_operator: false
+            operator: field_girls_type_of_training_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_girls_type_of_training_target_id
+            required: false
+            remember: true
+            multiple: false
+            remember_roles:
+              anonymous: anonymous
+              authenticated: authenticated
+              content_editor: content_editor
+              administrator: administrator
+            reduce: true
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: girls_type_of_training
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        title: false
+        use_ajax: false
+        filters: false
+        filter_groups: false
+      use_ajax: true
+      display_description: ''
       display_extenders: {  }
-      path: girls-training
+      block_description: 'Training Girls Block'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }

@@ -10,7 +10,7 @@ dependencies:
 id: kenny_filter_training_date_block
 theme: kenny
 region: content
-weight: 0
+weight: -2
 provider: null
 plugin: kenny_filter_training_date_block
 settings:

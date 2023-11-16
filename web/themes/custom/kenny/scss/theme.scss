@@ -13,8 +13,10 @@
 
 // Block
 
+@import "components/block/kenny-girls-training-plan-form";
 @import "components/block/kenny-hero-block";
 @import "components/block/kenny-hero-block-training-body-part";
+@import "components/block/training-girls-block";
 
 // Comment
 
@@ -44,7 +46,7 @@
 
 // Media
 
-
+@import "components/media/media-page-exercises-girls";
 
 // Node
 @import "components/node/node-training-plan-teaser";

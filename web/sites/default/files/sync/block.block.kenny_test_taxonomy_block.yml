@@ -10,7 +10,7 @@ dependencies:
 id: kenny_test_taxonomy_block
 theme: kenny
 region: content
-weight: 0
+weight: 1
 provider: null
 plugin: kenny_test_taxonomy_block
 settings:

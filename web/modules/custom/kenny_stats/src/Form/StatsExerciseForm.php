@@ -75,7 +75,15 @@ final class StatsExerciseForm extends ConfigFormBase {
     return parent::buildForm($form, $form_state);
   }
 
+  /**
+   * @param string $taxonomy_name
+   *   The name of taxonomy term.
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   protected function getExercisesOptions($taxonomy_name) {
+    /** @var \Drupal\taxonomy\TermStorageInterface $body_part_exercises */
     $body_part_exercises = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
       ->loadTree($taxonomy_name);
 
@@ -87,13 +95,6 @@ final class StatsExerciseForm extends ConfigFormBase {
     return $body_part_exercises_options;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
-
-    parent::validateForm($form, $form_state);
-  }
 
   /**
    * {@inheritdoc}

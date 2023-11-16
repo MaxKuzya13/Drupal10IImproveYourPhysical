@@ -1,0 +1,54 @@
+.kenny-girls-training-plan-form {
+  max-width: calc($container-max + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto 2rem auto;
+
+  @include mobileDefault {
+    max-width: $container-max-mobile;
+    padding: 1rem 0.5rem;
+  }
+
+  .exercise-container {
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    overflow: hidden;
+    @include mobileDefault {
+      max-width: $container-max-mobile;
+    }
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .exercise-item {
+      width: 100%;
+    }
+
+    .form-item {
+      label {
+        display: flex;
+        align-items: center;
+        @include mobileDefault {
+          font-size: 10px;
+        }
+      }
+      select {
+        min-width: 40px;
+        width: 100%;
+      }
+    }
+  }
+
+  .js-form-type-textfield {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: inherit;
+
+    input {
+      width: 10vw;
+    }
+
+  }
+}

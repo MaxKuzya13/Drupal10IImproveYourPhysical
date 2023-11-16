@@ -12,20 +12,22 @@ interface KennyStatsByExerciseInterface {
    *
    * @param array $exercises_array
    *    The array of term name and term id
-   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
+   * @return \Drupal\paragraphs\ParagraphInterface|string
    */
   public function getParagraph($body_part, $exercises_array);
 
   /**
-   * Get relative paragraph.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $paragraph
-   *   The current paragraph.
-   * @param int $limit
-   *   The limit by time.
-   * @return \Drupal\Core\Entity\EntityInterface|null
+   * @param string $training_people
+   *   Male or female.
+   * @param int $exercise_id
+   *   Exercise term id.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph.
+   * @param string $limit
+   *   The timeline limit.
+   * @return mixed
    */
-  public function getRelativeParagraph($paragraph, $limit);
+  public function getCurrentParagraph($training_people, $exercise_id = '', $paragraph = '', $limit = '');
 
   /**
    * Get list of body part and exercise id.
@@ -50,7 +52,7 @@ interface KennyStatsByExerciseInterface {
   /**
    * @param string $body_part
    *    The name of body part
-   * @return \Drupal\media\MediaStorage |mixed|null
+   * @return \Drupal\media\MediaStorage|mixed|null
    */
   public function getMedia($body_part);
 }
