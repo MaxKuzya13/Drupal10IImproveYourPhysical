@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\kenny_training\Service\TrainingMethods\TrainingMethodsInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
@@ -172,10 +173,14 @@ class KennyTrainingPlanForm extends FormBase {
           '#attributes' => ['class' => ['exercise-container']],
         ];
 
-        $form['exercise_selection'][$exercise_container_id]['exercises'] = $this->createExerciseSelectField($form, $form_state, $i);
-        $form['exercise_selection'][$exercise_container_id]['weight'] = $this->createExerciseField($form_state, 'weight', 'Weight');
-        $form['exercise_selection'][$exercise_container_id]['repetition'] = $this->createExerciseField($form_state,'repetition', 'X');
-        $form['exercise_selection'][$exercise_container_id]['approaches'] = $this->createExerciseField($form_state,'approaches', 'X');
+        $form['exercise_selection'][$exercise_container_id]['exercises'] = $this
+          ->createExerciseSelectField($form, $form_state, $i);
+        $form['exercise_selection'][$exercise_container_id]['weight'] = $this
+          ->createExerciseField($form_state, 'weight', 'Weight');
+        $form['exercise_selection'][$exercise_container_id]['repetition'] = $this
+          ->createExerciseField($form_state,'repetition', 'X');
+        $form['exercise_selection'][$exercise_container_id]['approaches'] = $this
+          ->createExerciseField($form_state,'approaches', 'X');
       }
     }
 
@@ -279,6 +284,7 @@ class KennyTrainingPlanForm extends FormBase {
    *   Form element
    */
   public function createExerciseSelectField(&$form, $form_state, $index) {
+
     if (!empty($form_state->getValue('muscle_groups'))) {
       $body_part_id = $form_state->getValue('muscle_groups');
 

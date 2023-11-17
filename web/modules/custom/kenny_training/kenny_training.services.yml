@@ -1,16 +1,17 @@
 services:
-  kenny_training.weight_manager:
-    class: Drupal\kenny_training\Service\Weight\WeightManager
-    arguments: ['@entity_type.manager']
+
+  kenny_training.difference_manager:
+    class: Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager
+    arguments: [ '@entity_type.manager' ]
 
   kenny_training.favorite_manager:
     class: Drupal\kenny_training\Service\Favorite\FavoriteManager
     arguments: [ '@database' ]
 
-  kenny_training.difference_manager:
-    class: Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager
-    arguments: ['@entity_type.manager']
-
   kenny_training.filter_date:
     class: Drupal\kenny_training\Service\FilterDate\FilterDate
     arguments: [ '@entity_type.manager']
+
+  kenny_training.weight_manager:
+    class: Drupal\kenny_training\Service\Weight\WeightManager
+    arguments: [ '@entity_type.manager' ]

@@ -11,6 +11,7 @@ dependencies:
     - 'taxonomy_term:girls_body_part:27560e25-37b4-42a7-84e5-d9af803a3106'
     - 'taxonomy_term:girls_body_part:33974e1d-6a3b-4722-9c12-9f4c36c23e6b'
     - 'taxonomy_term:girls_body_part:6b8eb6f9-d80d-4ab2-92ff-61da5b321f47'
+    - 'taxonomy_term:girls_body_part:93f7e783-6339-4c12-ad03-0cc0af1312a6'
     - 'taxonomy_term:girls_type_of_training:86881b5c-fa50-42ab-9b33-a0186e9a35d8'
     - 'taxonomy_term:girls_type_of_training:ba43dc99-b595-4858-b417-91f0bf8ac9cc'
   module:
@@ -287,6 +288,7 @@ display:
             169: 169
             168: 168
             167: 167
+            170: 170
           group: 1
           exposed: true
           expose:

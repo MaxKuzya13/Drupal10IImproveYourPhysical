@@ -57,25 +57,8 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    */
   public function getCurrentParagraph($training_people, $exercise_id = '', $paragraph = '', $limit = '') {
 
-
-    if ($training_people == 'man') {
-      $training = 'training_plan';
-      $type_of_training = 'type_of_training';
-      $field_type_of_training = 'field_type_of_training';
-      $field_exercises = 'field_exercises';
-      $field_exercise = 'field_exercise';
-      $condition_exercises = 'field_exercises.entity:paragraph.field_exercise';
-      $field_training_date = 'field_training_date';
-
-    } elseif ($training_people == 'girl') {
-      $training = 'girls_training';
-      $type_of_training = 'girls_type_of_training';
-      $field_type_of_training = 'field_girls_type_of_training';
-      $field_exercises = 'field_girls_exercises';
-      $field_exercise = 'field_girl_exercise';
-      $condition_exercises = 'field_girls_exercises.entity:paragraph.field_girl_exercise';
-      $field_training_date = 'field_girls_training_date';
-    }
+    $input_array = $this->getMainFields($training_people);
+    extract($input_array);
 
     $force = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
@@ -89,37 +72,8 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       /** @var \Drupal\node\NodeStorageInterface $node_storage */
       $node_storage = $this->entityTypeManager->getStorage('node');
-      $current_date = new \DateTime('now', new \DateTimeZone('UTC'));
-      $start_date = clone $current_date;
 
-      switch ($limit) {
-        case '1 day':
-          $start_date->modify('-1 day');
-          break;
-
-        case '1 month':
-          $start_date->modify('-1 month');
-          break;
-
-        case '3 month':
-          $start_date->modify('-3 month');
-          break;
-
-        case '6 month':
-          $start_date->modify('-6 month');
-          break;
-
-        case '1 year':
-          $start_date->modify('-1 year');
-          break;
-
-        case 'default':
-          $start_date->modify('-2 year');
-          break;
-
-        default:
-          $start_date->modify('-10 year');
-      }
+      $start_date = $this->switchDate($limit);
     }
 
     if (!isset($start_date)) {
@@ -278,5 +232,288 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     return null;
   }
 
+  // -------------------------------------------------------------------------
+  // Блок по статистиці загальній, кількість тренувань, скільки на яку групу м'язів,
+  // скільки по інтенсивності,
 
+  public function getNumberOfTraining($training_people, $limit) {
+
+    $start_date = $this->switchDate($limit);
+
+    $input_array = $this->getMainFields($training_people);
+    extract($input_array);
+
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $node_storage->getQuery()
+      ->condition('type', $training)
+      ->exists($field_exercises)
+      ->accessCheck(FALSE)
+      ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+    $nids = $query->execute();
+
+    if (!empty($nids)) {
+      $ouput['count'] = count($nids);
+      return  $ouput;
+    }
+
+    return 0;
+  }
+
+  public function getNumberOfTrainingByTrainingType($training_people, $limit, $name_type_of_training) {
+
+    $start_date = $this->switchDate($limit);
+
+    $input_array = $this->getMainFields($training_people);
+    extract($input_array);
+
+    if ($name_type_of_training == 'force') {
+      $type_of_training_id = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
+      $type_of_training_id = reset($type_of_training_id)->id();
+    } else {
+      $type_of_training_id = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
+      $type_of_training_id = reset($type_of_training_id)->id();
+    }
+
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $node_storage->getQuery()
+      ->condition('type', $training)
+      ->condition($field_type_of_training, $type_of_training_id)
+      ->exists($field_exercises)
+      ->accessCheck(FALSE)
+      ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+    $nids = $query->execute();
+
+    if (!empty($nids)) {
+      return count($nids);
+    }
+
+    return 0;
+
+  }
+
+  public function getNumberOfTrainingByBodyPart($training_people, $limit) {
+
+    $start_date = $this->switchDate($limit);
+
+    $input_array = $this->getMainFields($training_people);
+    extract($input_array);
+
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+
+    $force_id = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
+    $force_id = reset($force_id)->id();
+
+    $intensive_id = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
+    $intensive_id = reset($intensive_id)->id();
+
+    if ($training_people == 'girl') {
+      $taxonomy_tree = $term_storage->loadTree('girls_body_part');
+    } else {
+      $taxonomy_tree = $term_storage->loadTree('body_part');
+    }
+
+
+    $output = [];
+    foreach ($taxonomy_tree as $term) {
+
+      $query = $node_storage->getQuery()
+      ->condition('type', $training)
+      ->condition($field_body_part, $term->tid)
+      ->exists($field_exercises)
+      ->accessCheck(FALSE)
+      ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+      $nids = $query->execute();
+      if (!empty($nids)) {
+        $output[$term->name] = count($nids);
+      } else {
+        $output[$term->name] = 0;
+      }
+
+      $query_force = $node_storage->getQuery()
+        ->condition('type', $training)
+        ->condition($field_body_part, $term->tid)
+        ->condition($field_type_of_training, $force_id)
+        ->exists($field_exercises)
+        ->accessCheck(FALSE)
+        ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+      $force_ids = $query_force->execute();
+      if (!empty($force_ids)) {
+        $output[$term->name . ' Force'] = count($force_ids);
+      } else {
+        $output[$term->name . ' Force'] = 0;
+      }
+
+      $query_intensive = $node_storage->getQuery()
+        ->condition('type', $training)
+        ->condition($field_body_part, $term->tid)
+        ->condition($field_type_of_training, $intensive_id)
+        ->exists($field_exercises)
+        ->accessCheck(FALSE)
+        ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+      $intensive_ids = $query_intensive->execute();
+      if (!empty($intensive_ids)) {
+        $output[$term->name . ' Intensive'] = count($intensive_ids);
+      } else {
+        $output[$term->name . ' Intensive'] = 0;
+      }
+
+
+    }
+    return $output;
+
+  }
+
+  public function mostPopularExercise($training_people, $limit) {
+
+    $start_date = $this->switchDate($limit);
+
+    $input_array = $this->getMainFields($training_people);
+    extract($input_array);
+
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
+
+//    $force_id = $this->entityTypeManager->getStorage('taxonomy_term')
+//      ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
+//    $force_id = reset($force_id)->id();
+//
+//    $intensive_id = $this->entityTypeManager->getStorage('taxonomy_term')
+//      ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
+//    $intensive_id = reset($intensive_id)->id();
+
+    if ($training_people == 'girl') {
+      $taxonomy_tree = $term_storage->loadTree('girls_body_part');
+    } else {
+      $taxonomy_tree = $term_storage->loadTree('body_part');
+    }
+//
+//    $output = [];
+    $count_tid = [];
+
+    foreach ($taxonomy_tree as $term) {
+      $query = $node_storage->getQuery()
+        ->condition('type', $training)
+        ->condition($field_body_part, $term->tid)
+        ->exists($field_exercises)
+        ->accessCheck(FALSE)
+        ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+      $nids = $query->execute();
+
+
+      if (!empty($nids)) {
+        foreach ($nids as $nid) {
+          $node = $node_storage->load($nid);
+          $paragraphs = $node->get($field_exercises)->referencedEntities();
+
+          foreach ($paragraphs as $paragraph) {
+            $count_tid[] = $paragraph->get($field_exercise)->target_id;
+          }
+        }
+
+
+//        $paragraphs = $nodes->get($field_exercises)->referencedEntities();
+
+      }
+    }
+
+    $value_counts = array_count_values($count_tid);
+
+    $max_count = max($value_counts);
+
+    $max_value_keys = array_keys($value_counts, max($value_counts));
+
+    $exercise_info = [
+      'count' => $max_count,
+      'exercises_names' => [],
+    ];
+
+    $exercise_names = [];
+
+    if (is_array($max_value_keys)) {
+      foreach ($max_value_keys as $tid) {
+        $exercise_storage = $term_storage->load($tid);
+        $exercise_names[] = $exercise_storage->getName();
+
+      }
+    }
+    $exercise_info['exercises_names'] = $exercise_names;
+    return $exercise_info;
+  }
+
+  protected function getMainFields($training_people) {
+    if ($training_people == 'man') {
+      $output['training'] = 'training_plan';
+      $output['type_of_training'] = 'type_of_training';
+      $output['field_type_of_training'] = 'field_type_of_training';
+      $output['field_body_part'] = 'field_body_part';
+      $output['field_exercises'] = 'field_exercises';
+      $output['field_exercise'] = 'field_exercise';
+      $output['condition_exercises'] = 'field_exercises.entity:paragraph.field_exercise';
+      $output['field_training_date'] = 'field_training_date';
+
+    } elseif ($training_people == 'girl') {
+      $output['training'] = 'girls_training';
+      $output['type_of_training'] = 'girls_type_of_training';
+      $output['field_type_of_training'] = 'field_girls_type_of_training';
+      $output['field_body_part'] = 'field_girls_body_part';
+      $output['field_exercises'] = 'field_girls_exercises';
+      $output['field_exercise'] = 'field_girl_exercise';
+      $output['condition_exercises'] = 'field_girls_exercises.entity:paragraph.field_girl_exercise';
+      $output['field_training_date'] = 'field_girls_training_date';
+    }
+
+    return $output;
+  }
+
+
+  protected function switchDate($limit) {
+    $current_date = new \DateTime('now', new \DateTimeZone('UTC'));
+    $start_date = clone $current_date;
+
+    switch ($limit) {
+      case '1 day':
+        $start_date->modify('-1 day');
+        break;
+
+      case '1 month':
+        $start_date->modify('-1 month');
+        break;
+
+      case '3 month':
+        $start_date->modify('-3 month');
+        break;
+
+      case '6 month':
+        $start_date->modify('-6 month');
+        break;
+
+      case '1 year':
+        $start_date->modify('-1 year');
+        break;
+
+      case 'default':
+        $start_date->modify('-2 year');
+        break;
+
+      default:
+        $start_date->modify('-10 year');
+    }
+
+    return $start_date;
+  }
 }

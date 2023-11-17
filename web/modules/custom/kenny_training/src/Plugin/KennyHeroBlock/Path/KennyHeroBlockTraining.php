@@ -17,6 +17,7 @@ use Drupal\media\MediaInterface;
 
 class KennyHeroBlockTraining extends KennyHeroBlockPathPluginBase {
 
+
   /**
    * {@inheritdoc}
    */

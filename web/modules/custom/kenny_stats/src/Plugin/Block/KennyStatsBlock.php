@@ -88,6 +88,39 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadTree('body_part');
 
+
+    //------------------------------------------
+    $training_people = 'man';
+
+    $count_of_training = $this->statsByExercise->getNumberOfTraining($training_people, $limit);
+    $count_of_force_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'force');
+    $count_of_intensive_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'intensive');
+
+    $output['count_of_training'] = [
+      '#markup' => "<span>" . 'A total of ' . $count_of_training['count'] . ' training were held in the last ' . $limit . "</span>"
+    ];
+
+    $output['count_of_force_training'] = [
+      '#markup' => "</br>" . "<span>" . 'Force training : ' . $count_of_force_training . "</span>"
+    ];
+
+    $output['count_of_intensive_training'] = [
+      '#markup' => "</br>" . "<span>" . 'Intensive training : ' . $count_of_intensive_training . "</span>"
+    ];
+
+    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($training_people, $limit);
+
+    $count_output = array_keys($count_by_body_part);
+
+    foreach ($count_output as $type) {
+      $key = strtolower(str_replace(' ', '_', $type));
+
+      $output["count_of_{$key}"] = [
+        '#markup' => "</br>" . "<span>" . "{$type} training : " . $count_by_body_part[$type] . "</span>"
+      ];
+    }
+    //------------------------------------------
+
     foreach ($body_part_list as $term) {
       $body_part = $term->name;
       $lower_body_part = strtolower(str_replace(' ', '', $body_part));

@@ -1,11 +1,3 @@
-kenny_training.training_plan_form:
-  path: '/training/plan/demo'
-  defaults:
-    _form: '\Drupal\kenny_training\Form\KennyTrainingPlanForm'
-    _title: 'Training plan'
-  requirements:
-    _permission: 'access content'
-
 kenny_training.favorite_add:
   path: '/add-to-favorite/{uid}/{nid}'
   defaults:
