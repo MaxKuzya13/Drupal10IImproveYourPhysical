@@ -97,8 +97,9 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $count_of_intensive_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'intensive');
 
     $output['count_of_training'] = [
-      '#markup' => "<span>" . 'A total of ' . $count_of_training['count'] . ' training were held in the last ' . $limit . "</span>"
+      '#markup' => "<span>" . 'The total number of training per ' . $limit . ' : ' . $count_of_training['count'] . "</span>"
     ];
+
 
     $output['count_of_force_training'] = [
       '#markup' => "</br>" . "<span>" . 'Force training : ' . $count_of_force_training . "</span>"
@@ -117,6 +118,20 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
       $output["count_of_{$key}"] = [
         '#markup' => "</br>" . "<span>" . "{$type} training : " . $count_by_body_part[$type] . "</span>"
+      ];
+    }
+
+    $most_popular_exercise = $this->statsByExercise->mostPopularExercise($training_people, $limit);
+
+    $output["most_popular_exercise"] = [
+      '#markup' => "</br>" . "<span>" . 'Most popular exercise : '  . "</span>"
+    ];
+
+    foreach ($most_popular_exercise['exercises_names'] as $exercise) {
+      $type = strtolower(str_replace(' ', '_', $exercise));
+
+      $output["most_popular_exercise_{$type}"] = [
+        '#markup' => "<span>" . $exercise . ' (' . $most_popular_exercise['count'] . ') ' . "</span>"
       ];
     }
     //------------------------------------------

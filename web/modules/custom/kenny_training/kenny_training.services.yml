@@ -1,5 +1,4 @@
 services:
-
   kenny_training.difference_manager:
     class: Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager
     arguments: [ '@entity_type.manager' ]
@@ -15,3 +14,9 @@ services:
   kenny_training.weight_manager:
     class: Drupal\kenny_training\Service\Weight\WeightManager
     arguments: [ '@entity_type.manager' ]
+
+#  kenny_training.event_subscriber:
+#    class: Drupal\kenny_training\EventSubscriber\KennyTrainingSubscriber
+#    arguments: ['@entity_type.manager', '@messenger', '@current_user']
+#    tags:
+#      - { name: event_subscriber }

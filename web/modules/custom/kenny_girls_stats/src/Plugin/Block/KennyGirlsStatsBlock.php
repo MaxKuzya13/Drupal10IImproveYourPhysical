@@ -90,6 +90,8 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
     $exercises_array = $config->get();
 
+    //------------------------------------------
+
     $count_of_training = $this->statsByExercise->getNumberOfTraining($training_people, $limit);
     $count_of_force_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'force');
     $count_of_intensive_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'intensive');
@@ -133,6 +135,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
         '#markup' => "<span>" . $exercise . ' (' . $most_popular_exercise['count'] . ') ' . "</span>"
       ];
     }
+    //------------------------------------------
 
     foreach ($exercises_array as $exercise_name => $exercise_id) {
       $paragraph = $this->statsByExercise->getCurrentParagraph($training_people, $exercise_id);
