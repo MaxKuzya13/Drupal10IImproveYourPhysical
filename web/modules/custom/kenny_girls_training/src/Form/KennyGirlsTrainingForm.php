@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\kenny_training\Event\KennyPreprocessEvent;
+use Drupal\kenny_training\Event\HelloWorldControllerEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class KennyGirlsTrainingForm extends FormBase {

@@ -19,5 +19,13 @@ kenny_training.filter_date:
   defaults:
     _controller: '\Drupal\kenny_training\Controller\FilterDateController::changeSelectedDate'
     _title: 'Change timeline'
-    requirements:
-      _permission: 'access content'
+  requirements:
+    _permission: 'access content'
+
+kenny_training.hello_world:
+  path: '/hello'
+  defaults:
+    _controller: '\Drupal\kenny_training\Controller\ExampleController::build'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'access content'

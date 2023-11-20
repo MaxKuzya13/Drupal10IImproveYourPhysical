@@ -8,7 +8,7 @@
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\kenny_training\Event\KennyPreprocessEvent;
+use Drupal\kenny_training\Event\HelloWorldControllerEvent;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\views\ViewExecutable;
@@ -205,5 +205,64 @@ function kenny_training_views_pre_view(ViewExecutable $view, $display_id, array 
 
 }
 
+/**
+ * Implements hook_mail().
+ */
+function kenny_training_mail($key, &$message, $params) {
+  $options = [
+    'langcode' => $message['langcode'],
+  ];
+
+  switch ($key) {
+    case 'create_training':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = $params['subject'];
+      $message['body'][] = t('Created new training. Muscle Group: @body_part; Type of training: @type_of_training; Date: @date', [
+        '@body_part' => $params['body_part'],
+        '@type_of_training' => $params['type_of_training'],
+        '@date' => $params['date']
+      ]);
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function kenny_training_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'girls_training'){
+    $user = $entity->getOwner();
+
+    // Отримуємо ім'я користувача.
+    $username = $user->getAccountName();
+
+    // Отримуємо значення полів вмісту.
+    $body_part = $entity->get('field_girls_body_part')->entity->getName();
+    $type_of_training = $entity->get('field_girls_type_of_training')->entity->getName();
+
+    $date = $entity->get('field_girls_training_date')->value;
+
+    // Отримуємо адресу отримувача з конфігурації сайту.
+    $email = 'maxit2301@gmail.com';
+    // Змініть ці дані на власні.
+    $from = 'maxit2301@gmail.com';
+    $subject = 'Created new training';
+
+    $module = 'kenny_training';
+    $key = 'create_training';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $params['subject'] = $subject;
+    $params['body_part'] = $body_part;
+    $params['type_of_training'] = $type_of_training;
+    $params['date'] = $date;
+
+    try {
+      \Drupal::service('plugin.manager.mail')->mail($module, $key, $email, $langcode, $params, NULL, TRUE);
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('kenny_training')->error('Error sending email: @message', ['@message' => $e->getMessage()]);
+    }
 
 
+  };
+}

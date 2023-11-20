@@ -56,6 +56,7 @@ module:
   redirect_404: 0
   search: 0
   shortcut: 0
+  smtp: 0
   subpathauto: 0
   system: 0
   taxonomy: 0
