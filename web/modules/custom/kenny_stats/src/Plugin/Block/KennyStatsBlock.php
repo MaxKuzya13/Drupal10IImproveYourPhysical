@@ -73,7 +73,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function build() {
 
-    $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\TestDateForm');
+    $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\StatsDateForm');
     $output['form'] = $form;
     // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
     $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';

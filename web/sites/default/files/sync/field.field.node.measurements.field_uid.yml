@@ -1,0 +1,23 @@
+uuid: 1fda9c35-6291-4bc8-b15f-5f4f6fb83285
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_uid
+    - node.type.measurements
+id: node.measurements.field_uid
+field_name: field_uid
+entity_type: node
+bundle: measurements
+label: 'User id'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

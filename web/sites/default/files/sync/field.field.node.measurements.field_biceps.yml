@@ -1,0 +1,23 @@
+uuid: 2f3276b3-3a34-46ed-b52e-5a497d602d38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_biceps
+    - node.type.measurements
+id: node.measurements.field_biceps
+field_name: field_biceps
+entity_type: node
+bundle: measurements
+label: Biceps
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

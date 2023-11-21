@@ -1,0 +1,23 @@
+uuid: ca8ff422-fb53-454c-a2c6-4031172e4827
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_thigh
+    - node.type.measurements
+id: node.measurements.field_thigh
+field_name: field_thigh
+entity_type: node
+bundle: measurements
+label: Thigh
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

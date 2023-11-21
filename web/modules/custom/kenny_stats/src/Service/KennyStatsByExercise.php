@@ -235,6 +235,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   // -------------------------------------------------------------------------
   // Блок по статистиці загальній, кількість тренувань, скільки на яку групу м'язів,
   // скільки по інтенсивності,
+  /**
+   * {@inheritdoc}
+   */
 
   public function getNumberOfTraining($training_people, $limit) {
 
@@ -255,12 +258,15 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
     if (!empty($nids)) {
       $ouput['count'] = count($nids);
-      return  $ouput;
+      return $ouput;
     }
 
     return 0;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getNumberOfTrainingByTrainingType($training_people, $limit, $name_type_of_training) {
 
     $start_date = $this->switchDate($limit);
@@ -297,6 +303,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getNumberOfTrainingByBodyPart($training_people, $limit) {
 
     $start_date = $this->switchDate($limit);
@@ -376,6 +385,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function mostPopularExercise($training_people, $limit) {
 
     $start_date = $this->switchDate($limit);
@@ -455,6 +467,13 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     return $exercise_info;
   }
 
+  /**
+   * Main fields.
+   *
+   * @param string $training_people
+   *   The name of people who do training.
+   * @return array
+   */
   protected function getMainFields($training_people) {
     if ($training_people == 'man') {
       $output['training'] = 'training_plan';
@@ -480,7 +499,14 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     return $output;
   }
 
-
+  /**
+   * Set start date.
+   *
+   * @param string $limit
+   *   The timeline.
+   * @return \DateTime
+   * @throws \Exception
+   */
   protected function switchDate($limit) {
     $current_date = new \DateTime('now', new \DateTimeZone('UTC'));
     $start_date = clone $current_date;

@@ -30,6 +30,7 @@ class KennyHeroBlockTraining extends KennyHeroBlockPathPluginBase {
       return $media_image->get('field_media_image')->entity->get('uri')->value;
 
     }
+    return;
   }
 
   /**
@@ -45,6 +46,7 @@ class KennyHeroBlockTraining extends KennyHeroBlockPathPluginBase {
         'video/mp4' => $media_video->get('field_media_video_file')->entity->get('uri')->value
       ];
     }
+    return;
   }
 
 

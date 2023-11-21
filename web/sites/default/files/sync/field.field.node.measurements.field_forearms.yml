@@ -1,0 +1,23 @@
+uuid: 48f2abb6-a420-4fc2-9ae5-1378677ac7d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forearms
+    - node.type.measurements
+id: node.measurements.field_forearms
+field_name: field_forearms
+entity_type: node
+bundle: measurements
+label: Forearms
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

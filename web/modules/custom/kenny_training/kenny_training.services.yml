@@ -15,17 +15,8 @@ services:
     class: Drupal\kenny_training\Service\Weight\WeightManager
     arguments: [ '@entity_type.manager' ]
 
-  logger.channel.kenny_training:
-    parent: logger.channel_base
-    arguments: ['kenny_training']
-
-  kenny_training.event_subscriber:
-    class: Drupal\kenny_training\EventSubscriber\KennyTrainingSubscriber
-    arguments: ['@logger.channel.kenny_training', '@current_user', '@diff.formatter', '@renderer']
-    tags:
-      - { name: event_subscriber }
-
-  kenny_training.hello_world_controller_subscriber:
-    class: Drupal\kenny_training\EventSubscriber\HelloWorldControllerSubscriber
+  kenny_training.training_girls_subscriber:
+    class: Drupal\kenny_training\EventSubscriber\TrainingGirlsEventSubscriber
+    arguments: ['@current_user', ['@messenger']]
     tags:
       - { name: event_subscriber }

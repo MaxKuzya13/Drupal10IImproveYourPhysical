@@ -86,7 +86,7 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
   }
 
   /**
-  * {@inheritdoc}
+  * Container by FavoriteTrainingBlock.
   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(

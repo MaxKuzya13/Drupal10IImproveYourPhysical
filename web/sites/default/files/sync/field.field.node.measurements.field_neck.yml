@@ -1,0 +1,23 @@
+uuid: 57e5af2b-d906-4482-a716-4147073825b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_neck
+    - node.type.measurements
+id: node.measurements.field_neck
+field_name: field_neck
+entity_type: node
+bundle: measurements
+label: Neck
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

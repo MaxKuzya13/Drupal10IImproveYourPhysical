@@ -44,6 +44,7 @@ class KennyHeroBlockTrainingTypeOfTraining extends KennyHeroBlockPathPluginBase 
     if ($media_image instanceof MediaInterface) {
       return $media_image->get('field_media_image')->entity->get('uri')->value;
     }
+    return;
   }
 
   /**

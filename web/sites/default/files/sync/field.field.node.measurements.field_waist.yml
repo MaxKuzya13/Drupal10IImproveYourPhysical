@@ -1,0 +1,23 @@
+uuid: 4584dfda-455b-4687-a407-3fca23b46852
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_waist
+    - node.type.measurements
+id: node.measurements.field_waist
+field_name: field_waist
+entity_type: node
+bundle: measurements
+label: Waist
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

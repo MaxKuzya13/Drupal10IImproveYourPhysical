@@ -30,6 +30,9 @@ class FilterDate implements FilterDateInterface {
     );
   }
 
+  /**
+   * {@inheritdoc }
+   */
   public function filterTrainingByDate($selected_period = 'default') {
     $current_date = new \DateTime('now', new \DateTimeZone('UTC'));
     $start_date = clone $current_date;

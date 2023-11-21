@@ -45,6 +45,22 @@ class FilterTrainingDateBlock extends BlockBase implements ContainerFactoryPlugi
   protected $filterDate;
 
 
+  /**
+   * Constructor by FilterTrainingDateBlock.
+   *
+   * @param array $configuration
+   *    A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *    The plugin_id for the plugin.
+   * @param mixed $plugin_definition
+   *    The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
+   *   The form builder.
+   * @param \Drupal\kenny_training\Service\FilterDate\FilterDateInterface $filter_date
+   *   The filter date.
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, FormBuilderInterface $form_builder, FilterDateInterface $filter_date) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
@@ -52,6 +68,9 @@ class FilterTrainingDateBlock extends BlockBase implements ContainerFactoryPlugi
     $this->filterDate = $filter_date;
   }
 
+  /**
+   * Container by FilterTrainingDateBlock.
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
@@ -63,6 +82,9 @@ class FilterTrainingDateBlock extends BlockBase implements ContainerFactoryPlugi
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function defaultConfiguration() {
     return [
       'period' => 'default',

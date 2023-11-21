@@ -85,6 +85,7 @@ class KennyMeasurementsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
     $form['weight'] = [
       '#type' => 'textfield',
       '#title' => t('Your bodyweight'),
@@ -127,11 +128,22 @@ class KennyMeasurementsForm extends FormBase {
       '#required' => TRUE,
       '#suffix' => 'sm',
     ];
-    $form['legs'] = [
+    $form['thigh'] = [
       '#type' => 'textfield',
-      '#title' => t('Your legs'),
+      '#title' => t('Your thigh'),
       '#required' => TRUE,
       '#suffix' => 'sm',
+    ];
+    $form['date'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Date'),
+      '#date_date_format' => 'd.m.Y',
+      '#date_year_range' => '0:+10',
+      '#date_increment' => 15,
+      '#default_value' => date('Y-m-d'), // Формат Y-m-d.
+      // Зворотній переклад для відображення дати в "dd.mm.yyyy".
+      '#value_callback' => 'date_element_value_callback',
+      '#required' => TRUE,
     ];
     $form['submit'] = [
       '#type' => 'submit',
@@ -141,6 +153,9 @@ class KennyMeasurementsForm extends FormBase {
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $fields_to_check = [
       'weight' => 'Weight',
@@ -150,7 +165,7 @@ class KennyMeasurementsForm extends FormBase {
       'chest' => 'Chest',
       'neck' => 'Neck',
       'waist' => 'Waist',
-      'legs' => 'Legs',
+      'thigh' => 'Thigh',
     ];
 
     foreach ($fields_to_check as $field_name => $field_label) {
@@ -168,31 +183,34 @@ class KennyMeasurementsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+
     $uid = $this->currentUser->id();
-    $current_time = $this->currentTime->getRequestTime();
+    $user_name = $this->currentUser->getDisplayName();
+    $date = $form_state->getValue('date');
+    $drupal_date = strtotime($date);
+    $formatted_date = date('d F Y', $drupal_date);
 
-    $values = [
-      'uid' => $uid,
-      'weight' => $form_state->getValue('weight'),
-      'height' => $form_state->getValue('height'),
-      'biceps' => $form_state->getValue('biceps'),
-      'forearms' => $form_state->getValue('forearms'),
-      'chest' => $form_state->getValue('chest'),
-      'neck' => $form_state->getValue('neck'),
-      'waist' => $form_state->getValue('waist'),
-      'legs' => $form_state->getValue('legs'),
-      'created' => $current_time,
-    ];
+    $title = $formatted_date . ' | Measurements by ' .  $user_name;
+
     try {
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $measurements = $node_storage->create([
+        'type' => 'measurements',
+        'title' => $title,
+        'field_uid' => $uid,
+        'field_weight' => $form_state->getValue('weight'),
+        'field_height' => $form_state->getValue('height'),
+        'field_biceps' => $form_state->getValue('biceps'),
+        'field_forearms' => $form_state->getValue('forearms'),
+        'field_chest' => $form_state->getValue('chest'),
+        'field_neck' => $form_state->getValue('neck'),
+        'field_waist' => $form_state->getValue('waist'),
+        'field_thigh' => $form_state->getValue('thigh'),
+        'field_created' => $form_state->getValue('date'),
+      ]);
 
-      // Start to build
-      $query = $this->database->insert('kenny_measurements');
-
-      // Specify the fields a query will insert into.
-      $query->fields($values);
-
-      // Execute the query
-      $query->execute();
+      $measurements->save();
 
       $this->messenger->addMessage(
         t('Thank you for your measurements')

@@ -1,0 +1,23 @@
+uuid: 24e5cdfa-98cb-4f30-91a7-c90425052507
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chest
+    - node.type.measurements
+id: node.measurements.field_chest
+field_name: field_chest
+entity_type: node
+bundle: measurements
+label: Chest
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

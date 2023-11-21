@@ -55,4 +55,51 @@ interface KennyStatsByExerciseInterface {
    * @return \Drupal\media\MediaStorage|mixed|null
    */
   public function getMedia($body_part);
+
+  /**
+   * Number of training.
+   *
+   * @param string $training_people
+   *   The sex by people who do training.
+   * @param string $limit
+   *   The timeline limit.
+   * @return int
+   */
+  public function getNumberOfTraining($training_people, $limit);
+
+  /**
+   * Number og training by training type.
+   *
+   * @param string $training_people
+   *    The sex by people who do training.
+   * @param string $limit
+   *    The timeline limit.
+   * @param $name_type_of_training
+   *   The name by type og training.
+   * @return int
+   */
+  public function getNumberOfTrainingByTrainingType($training_people, $limit, $name_type_of_training);
+
+  /**
+   * The number of training by body part.
+   *
+   * @param string $training_people
+   *     The sex by people who do training.
+   * @param string $limit
+   *     The timeline limit.
+   * @return int
+   */
+
+  public function getNumberOfTrainingByBodyPart($training_people, $limit);
+
+  /**
+   * List of exercises that most popular.
+   *
+   * @param string $training_people
+   *      The sex by people who do training.
+   * @param string $limit
+   *      The timeline limit.
+   * @return array
+   */
+  public function mostPopularExercise($training_people, $limit);
 }

@@ -30,6 +30,7 @@ theme:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/drupal.dialog.ajax
 
 kenny_script:
   version: 1.x

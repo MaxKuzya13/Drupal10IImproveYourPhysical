@@ -88,8 +88,14 @@ class KennyHeroBlockTrainingBodyPart extends KennyHeroBlockPathPluginBase {
     if ($media_image instanceof MediaInterface) {
       return $media_image->get('field_media_image')->entity->get('uri')->value;
     }
+    return ;
   }
 
+  /**
+   * last segment by url.
+   *
+   * @return false|string
+   */
   protected function getlastSegment() {
     $current_path = $this->getRequest()->getRequestUri();
     $path_segments = explode('/', trim($current_path, '/'));
