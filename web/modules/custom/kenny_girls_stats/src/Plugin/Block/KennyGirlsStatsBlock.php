@@ -58,7 +58,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
   }
 
   /**
-   *
+   * Container by KennyGirlsStatsBLock.
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - node.type.girls_training
     - node.type.training_plan
   module:
     - node
@@ -22,7 +23,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Favorite training plan'
+      title: 'Favorite training'
       fields:
         title:
           id: title
@@ -186,6 +187,7 @@ display:
           plugin_id: bundle
           operator: in
           value:
+            girls_training: girls_training
             training_plan: training_plan
           group: 1
           exposed: false
@@ -244,15 +246,15 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_favorite_training_plan:
-    id: page_favorite_training_plan
-    display_title: 'Favorite Training Plan'
+  page_favorite_training:
+    id: page_favorite_training
+    display_title: 'Favorite Training'
     display_plugin: page
     position: 1
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: favorite-training-plan
+      path: favorite-training
     cache_metadata:
       max-age: -1
       contexts:

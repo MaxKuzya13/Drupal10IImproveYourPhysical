@@ -58,12 +58,17 @@ class WeightManager implements WeightManagerInterface {
     /**
      * {@inheritdoc}
      */
-    public function getTotalWeight($nid) {
+    public function getTotalWeight($nid, $people = 'man') {
 
       /** @var \Drupal\node\NodeStorageInterface $node */
       $node = $this->nodeStorage->load($nid);
       if ($node instanceof NodeInterface) {
-        $exercises = $node->get('field_exercises')->referencedEntities();
+        if ($people == 'man') {
+          $exercises = $node->get('field_exercises')->referencedEntities();
+        } else {
+          $exercises = $node->get('field_girls_exercises')->referencedEntities();
+        }
+
         $total_weight = 0;
 
         foreach ($exercises as $exercise) {

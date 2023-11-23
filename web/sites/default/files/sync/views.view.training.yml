@@ -312,23 +312,14 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_training:
-    id: page_training
-    display_title: Page
-    display_plugin: page
+  training_block:
+    id: training_block
+    display_title: 'Training Block'
+    display_plugin: block
     position: 1
     display_options:
+      display_description: ''
       display_extenders: {  }
-      path: training
-      menu:
-        type: normal
-        title: Training
-        description: ''
-        weight: -49
-        expanded: false
-        menu_name: main
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:

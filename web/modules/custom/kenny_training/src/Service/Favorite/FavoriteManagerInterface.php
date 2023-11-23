@@ -44,5 +44,5 @@ interface FavoriteManagerInterface {
    * @return array
    *   Array of node id
    */
-  public function getFavoriteTrainingPlans($uid);
+  public function getFavoriteTraining($uid);
 }

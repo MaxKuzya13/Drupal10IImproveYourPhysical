@@ -53,20 +53,25 @@ class DifferenceManager implements DifferenceManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCurrentParagraph($pid) {
+  public function getCurrentParagraph($pid, $people = 'man') {
     /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $paragraph */
     $paragraph = $this->paragraphStorage->load($pid);
     if ($paragraph instanceof ParagraphInterface) {
-      $exercise = $paragraph->get('field_exercise')->entity->id();
+      if ($people == 'man') {
+        $exercise = $paragraph->get('field_exercise')->entity->id();
+      } else {
+        $exercise = $paragraph->get('field_girl_exercise')->entity->id();
+      }
+
 
       // Get type of training 'intensive' or 'force'
-      $type_of_training_id = $this->getTypeOfTrainingId($pid);
+      $type_of_training_id = $this->getTypeOfTrainingId($pid, $people);
 
       $weight = $paragraph->get('field_weight')->value;
 
-      // Get a weight past training
-      $relative_weight = $this->getRelativeWeight($pid, $exercise, $type_of_training_id);
 
+      // Get a weight past training
+      $relative_weight = $this->getRelativeWeight($pid, $exercise, $type_of_training_id, $people);
       if ($weight > $relative_weight) {
         $difference['weight'] = '+ ' . $weight - $relative_weight;
         $difference['class'] = 'grower';
@@ -87,15 +92,23 @@ class DifferenceManager implements DifferenceManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getTypeOfTrainingId($pid) {
+  public function getTypeOfTrainingId($pid, $people = 'man') {
 
     $nodes_using_paragraph = [];
 
+    if ($people == 'man') {
+      $field_name = 'field_exercises';
+      $field_type_of_training = 'field_type_of_training';
+    } else {
+      $field_name = 'field_girls_exercises';
+      $field_type_of_training = 'field_girls_type_of_training';
+    }
+
     /** @var \Drupal\node\NodeStorageInterface $nodes */
     $nodes = $this->nodeStorage->loadMultiple();
+
     foreach ($nodes as $node) {
       // Check whether such a field exists.
-      $field_name = 'field_exercises';
 
       if ($node->hasField($field_name)) {
         $items = $node->get($field_name);
@@ -111,30 +124,42 @@ class DifferenceManager implements DifferenceManagerInterface {
     }
 
     foreach ($nodes_using_paragraph as $node) {
-      if ($node->hasField('field_type_of_training')) {
-        $field_value = $node->get('field_type_of_training')->getValue();
+      if ($node->hasField($field_type_of_training)) {
+        $field_value = $node->get($field_type_of_training)->getValue();
         foreach ($field_value as $item) {
           // Get a target id.
           $training_type = $item['target_id'];
         }
-        return $training_type;
       }
+      return $training_type;
     }
-
-   return '';
+    return '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getRelativeWeight($pid, $exercise, $type_of_training_id) {
+  public function getRelativeWeight($pid, $exercise, $type_of_training_id, $people = 'man') {
 
-    // Get list of nodes with our type of training.
+    if ($people == 'man') {
+      $node_type = 'training_plan';
+      $field_exercises = 'field_exercises';
+      $field_exercise = 'field_exercise';
+      $field_type_of_training = 'field_type_of_training';
+
+    } else {
+      $node_type = 'girls_training';
+      $field_exercises = 'field_girls_exercises';
+      $field_exercise = 'field_girl_exercise';
+      $field_type_of_training = 'field_girls_type_of_training';
+    }
+
     $query = $this->nodeStorage->getQuery()
-      ->condition('type', 'training_plan')
+      ->condition('type', $node_type)
       ->accessCheck('FALSE')
       ->condition('status', NodeInterface::PUBLISHED)
-      ->condition('field_type_of_training', $type_of_training_id);
+      ->condition($field_type_of_training, $type_of_training_id);
+
 
     $nids = $query->execute();
 
@@ -142,15 +167,15 @@ class DifferenceManager implements DifferenceManagerInterface {
     foreach ($nids as $nid) {
       $node = $this->nodeStorage->load($nid);
       // Check nodes to field exists.
-      if ($node && $node->hasField('field_exercises')) {
+      if ($node && $node->hasField($field_exercises)) {
         // Get paragraphs.
-        $field_exercises = $node->get('field_exercises')->referencedEntities();
-        foreach ($field_exercises as $paragraph) {
+        $referenced_paragraph = $node->get($field_exercises)->referencedEntities();
+        foreach ($referenced_paragraph as $paragraph) {
           // Get all paragraphs that have exercise same mine
-          if ($paragraph->hasField('field_exercise') && $paragraph->get('field_exercise')->target_id == $exercise) {
+          if ($paragraph->hasField($field_exercise) && $paragraph->get($field_exercise)->target_id == $exercise) {
             $result_pids[] = $paragraph->id();
-
           }
+
         }
       }
     }

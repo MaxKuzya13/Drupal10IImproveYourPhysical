@@ -5,12 +5,109 @@
  * Primary module hooks for Kenny Girls Training module.
  */
 
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
+/**
+ * Implements hook_entity_extra_field_info(),
+ */
+function kenny_girls_training_entity_extra_field_info() {
+  $extra = [];
+  $extra['paragraph']['girl_training']['display']['girls_exercise_weight'] = [
+    'label' => t('Weight of exercise'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+
+  $extra['node']['girls_training']['display']['girls_total_weight'] = [
+    'label' => t('Total weight'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+
+  // ---------------------------------------------------------------- //
+  // Поле для відносного розрахунку щодо минулого тренування //
+  $extra['paragraph']['girl_training']['display']['girls_difference'] = [
+    'label' => t('The difference compared to the previous training'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+
+  // -------------------------------------------------------------------//
+
+  return $extra;
+}
+
 /**
  * Implements hook_preprocess_HOOK().
  */
 function kenny_girls_training_preprocess_page(&$variables) {
   $current_page = \Drupal::routeMatch()->getParameter('node');
+//  dump($current_page);
   if ($current_page instanceof \Drupal\node\NodeInterface && $current_page->getType() == 'page') {
+
     $variables['#attached']['library'][] = 'kenny_girls_training/kenny_girls_script';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function kenny_girls_training_paragraph_view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode) {
+  $bem_block = Html::getClass( 'paragraph-' . $paragraph->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+
+  if ($display->getComponent('girls_exercise_weight') && $display->id() == 'paragraph.girl_training.preview') {
+    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $exercise */
+    $exercise = \Drupal::service('kenny_training.weight_manager');
+    $exercise_weight = $exercise->getTotalExerciseWeight($paragraph->id());
+    $build['girls_exercise_weight'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ girls_exercise_weight }}</div>',
+      '#context' => [
+        'girls_exercise_weight' => $exercise_weight . ' kg',
+        'class' => $bem_block . '__exercise-weight',
+      ],
+    ];
+  }
+
+  if ($display->getComponent('girls_difference') && $display->id() == 'paragraph.girl_training.preview') {
+    /** @var \Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager $paragraph */
+    $difference_manager = \Drupal::service('kenny_training.difference_manager');
+
+    $exercise = $difference_manager->getCurrentParagraph($paragraph->id(), 'girl');
+    $build['girls_difference'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ girls_difference }}</div>',
+      '#context' => [
+        'girls_difference' => $exercise['weight'] . ' kg',
+        'class' => $bem_block . '__difference-' . $exercise['class']
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function kenny_girls_training_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+  $bem_block = Html::getClass( 'node-' . $node->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+  if ($display->getComponent('girls_total_weight') && $node->bundle() == 'girls_training') {
+    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
+    $training = \Drupal::service('kenny_training.weight_manager');
+    $total_weight = $training->getTotalWeight($node->id(), 'girls');
+
+    $build['girls_total_weight'] = [
+      '#type' => 'inline_template',
+      '#template' => '<div class="{{ class }}">{{ girls_total_weight }}</div>',
+      '#context' => [
+        'girls_total_weight' => 'Total weight: ' . $total_weight . ' kg',
+        'class' => $bem_block . '__total-weight'
+      ],
+    ];
   }
 }

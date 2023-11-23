@@ -71,7 +71,7 @@ class FavoriteManager implements FavoriteManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getFavoriteTrainingPlans($uid) {
+  public function getFavoriteTraining($uid) {
     $database = $this->database->select("kenny_favorite_training", 'kft');
     $database->addField('kft', 'nid');
     $database->condition('kft.uid', $uid);

@@ -113,7 +113,7 @@ function kenny_training_entity_extra_field_info() {
  */
 function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode) {
   $bem_block = Html::getClass( 'paragraph-' . $paragraph->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
-  if ($display->getComponent('exercise_weight')) {
+  if ($display->getComponent('exercise_weight') && $display->id() !== 'paragraph.girl_training.preview') {
     /** @var \Drupal\kenny_training\Service\Weight\WeightManager $exercise */
     $exercise = \Drupal::service('kenny_training.weight_manager');
     $exercise_weight = $exercise->getTotalExerciseWeight($paragraph->id());
@@ -127,7 +127,7 @@ function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragr
     ];
   }
 
-  if ($display->getComponent('difference')) {
+  if ($display->getComponent('difference') && $display->id() !== 'paragraph.girl_training.preview') {
     /** @var \Drupal\kenny_training\Service\DifferenceWeight\DifferenceManager $paragraph */
     $difference_manager = \Drupal::service('kenny_training.difference_manager');
     $exercise = $difference_manager->getCurrentParagraph($paragraph->id());
@@ -180,26 +180,33 @@ function kenny_training_preprocess_node__training_plan__teaser(&$variables) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_preprocess_HOOK().
  */
-function kenny_training_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Перевірте, чи це ваша форма (form_id).
-  if ($form_id == 'kenny_training_plan_form') {
-    // Підключіть JavaScript файл до вашої форми.
-    $form['#attached']['library'][] = 'kenny_training/kenny_training_script';
-  }
+function kenny_training_preprocess_node__girls_training__teaser(&$variables) {
+  $current_user = \Drupal::currentUser();
+  $node = $variables['node'];
+
+  $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
+  $is_favorite = $favorite_manager->isFavorite($current_user->id(), $node->id());
+  $variables['#attached']['library'][] = 'kenny_training/kenny_training_script';
+
+  $variables['user_id'] = $current_user->id();
+  $variables['node_id'] = $node->id();
+
+  $variables['is_favorite'] = $is_favorite;
 }
+
 
 /**
  * Implements hook_views_pre_view().
  */
 function kenny_training_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
-  if ($view->id() == "favorite_training_plan" && $display_id == 'page_favorite_training_plan') {
+  if ($view->id() == "favorite_training_plan" && $display_id == 'page_favorite_training') {
     $current_user = \Drupal::currentUser()->id();
     $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
-    $favorite_training_plan_ids = $favorite_manager->getFavoriteTrainingPlans($current_user);
+    $favorite_training_ids = $favorite_manager->getFavoriteTraining($current_user);
 
-    $nid_argument_value = implode('+', $favorite_training_plan_ids);
+    $nid_argument_value = implode('+', $favorite_training_ids);
 
     $view->setArguments([$nid_argument_value]);
     $view->execute();
@@ -281,6 +288,5 @@ function kenny_training_entity_insert(\Drupal\Core\Entity\EntityInterface $entit
     $event = new TrainingGirlsEvent($entity);
     $event_dispatcher->dispatch($event, FinalCreateTrainingGirlsEvent::TRAINING_GIRLS_EVENT);
 
-    // Здійсніть інші дії, які вам потрібні при створенні вузла "girls_training".
   }
 }

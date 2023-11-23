@@ -20,11 +20,12 @@ interface WeightManagerInterface {
    *
    * @param int $nid
    *   The node id.
-   *
+   * @param string $people
+   *    The sex state by people who do training.
    * @return int|null
    *   Total weight of the training or null.
    */
-  public function getTotalWeight($nid);
+  public function getTotalWeight($nid, $people = 'man');
 
 
 }

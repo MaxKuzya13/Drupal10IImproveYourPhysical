@@ -1,9 +1,9 @@
-uuid: 5555487f-0808-4abf-9ce1-5c139130ca36
+uuid: 8cac405d-8e73-4f33-927e-fd0168f6c085
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.full
     - field.field.node.girls_training.field_girls_body_part
     - field.field.node.girls_training.field_girls_exercises
     - field.field.node.girls_training.field_girls_training_date
@@ -12,11 +12,16 @@ dependencies:
   module:
     - datetime
     - entity_reference_revisions
+    - layout_builder
     - user
-id: node.girls_training.teaser
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.girls_training.full
 targetEntityType: node
 bundle: girls_training
-mode: teaser
+mode: full
 content:
   field_girls_body_part:
     type: entity_reference_label
@@ -28,7 +33,7 @@ content:
     region: content
   field_girls_exercises:
     type: entity_reference_revisions_entity_view
-    label: hidden
+    label: above
     settings:
       view_mode: preview
       link: ''
@@ -37,12 +42,12 @@ content:
     region: content
   field_girls_training_date:
     type: datetime_default
-    label: hidden
+    label: above
     settings:
       timezone_override: ''
-      format_type: olivero_medium
+      format_type: medium
     third_party_settings: {  }
-    weight: 0
+    weight: 4
     region: content
   field_girls_type_of_training:
     type: entity_reference_label
@@ -52,15 +57,14 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  girls_total_weight:
+  links:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 0
     region: content
   total_weight:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
-hidden:
-  links: true
+hidden: {  }

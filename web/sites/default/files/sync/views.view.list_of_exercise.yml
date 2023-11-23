@@ -192,10 +192,10 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_exercises_back:
-    id: page_exercises_back
-    display_title: 'Page Exercises for back'
-    display_plugin: page
+  exercises_back_block:
+    id: exercises_back_block
+    display_title: 'Exercises Back Block'
+    display_plugin: block
     position: 1
     display_options:
       filters:
@@ -261,7 +261,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: exercises/back
+      block_description: 'Exercises Back Block'
     cache_metadata:
       max-age: -1
       contexts:
@@ -269,87 +269,10 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_exercises_back_shoulders:
-    id: page_exercises_back_shoulders
-    display_title: 'Page Exercises for shoulders'
-    display_plugin: page
-    position: 1
-    display_options:
-      filters:
-        status:
-          id: status
-          table: taxonomy_term_field_data
-          field: status
-          entity_type: taxonomy_term
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
-          group: 1
-          expose:
-            operator: ''
-        vid:
-          id: vid
-          table: taxonomy_term_field_data
-          field: vid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: vid
-          plugin_id: bundle
-          operator: in
-          value:
-            shoulders: shoulders
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      defaults:
-        filters: false
-        filter_groups: false
-      display_description: ''
-      display_extenders: {  }
-      path: exercises/shoulders
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
-      tags: {  }
-  page_exercises_biceps:
-    id: page_exercises_biceps
-    display_title: 'Page Exercises for biceps'
-    display_plugin: page
+  exercises_biceps_block:
+    id: exercises_biceps_block
+    display_title: 'Exercises Biceps Block'
+    display_plugin: block
     position: 1
     display_options:
       filters:
@@ -377,7 +300,6 @@ display:
           operator: in
           value:
             biceps: biceps
-            triceps: triceps
           group: 1
           exposed: false
           expose:
@@ -416,7 +338,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: exercises/biceps
+      block_description: 'Exercises Biceps Block'
     cache_metadata:
       max-age: -1
       contexts:
@@ -424,10 +346,10 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_exercises_chest:
-    id: page_exercises_chest
-    display_title: 'Page Exercises for chest'
-    display_plugin: page
+  exercises_chest_block:
+    id: exercises_chest_block
+    display_title: 'Exercices Chest Block'
+    display_plugin: block
     position: 1
     display_options:
       filters:
@@ -493,7 +415,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: exercises/chest
+      block_description: 'Exercises Chest Block'
     cache_metadata:
       max-age: -1
       contexts:
@@ -501,10 +423,10 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_exercises_legs:
-    id: page_exercises_legs
-    display_title: 'Page Exercises for legs'
-    display_plugin: page
+  exercises_legs_block:
+    id: exercises_legs_block
+    display_title: 'Exercises Legs Block'
+    display_plugin: block
     position: 1
     display_options:
       filters:
@@ -570,7 +492,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: exercises/legs
+      block_description: 'Exercises Legs Block'
     cache_metadata:
       max-age: -1
       contexts:
@@ -578,10 +500,87 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_exercises_triceps:
-    id: page_exercises_triceps
-    display_title: 'Page Exercises for triceps'
-    display_plugin: page
+  exercises_shoulders_block:
+    id: exercises_shoulders_block
+    display_title: 'Exercises Shoulders Block'
+    display_plugin: block
+    position: 1
+    display_options:
+      filters:
+        status:
+          id: status
+          table: taxonomy_term_field_data
+          field: status
+          entity_type: taxonomy_term
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        vid:
+          id: vid
+          table: taxonomy_term_field_data
+          field: vid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: vid
+          plugin_id: bundle
+          operator: in
+          value:
+            shoulders: shoulders
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
+      block_description: 'Exercises Shoulders Block'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.permissions
+      tags: {  }
+  exercises_triceps_block:
+    id: exercises_triceps_block
+    display_title: 'Exercises Triceps Block'
+    display_plugin: block
     position: 1
     display_options:
       filters:
@@ -647,7 +646,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: exercises/triceps
+      block_description: 'Exercises Triceps Block'
     cache_metadata:
       max-age: -1
       contexts:

@@ -121,6 +121,15 @@ final class GirlsStatsExerciseForm extends ConfigFormBase {
     return parent::buildForm($form, $form_state);
   }
 
+  /**
+   * Exercises options.
+   *
+   * @param string $taxonomy_name
+   *   The taxonomy name.
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   protected function getExercisesOptions($taxonomy_name) {
     $all_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
       ->loadTree('girls_training');
