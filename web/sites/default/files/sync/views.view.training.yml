@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.training_plan
-    - system.menu.main
     - taxonomy.vocabulary.body_part
     - taxonomy.vocabulary.type_of_training
   content:
@@ -320,6 +319,7 @@ display:
     display_options:
       display_description: ''
       display_extenders: {  }
+      block_description: 'Training Block'
     cache_metadata:
       max-age: -1
       contexts:

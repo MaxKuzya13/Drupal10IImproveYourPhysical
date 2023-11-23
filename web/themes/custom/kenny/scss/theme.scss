@@ -13,9 +13,11 @@
 
 // Block
 
+@import "components/block/block-kenny-new-training-man-block";
 @import "components/block/kenny-girls-training-plan-form";
 @import "components/block/kenny-hero-block";
 @import "components/block/kenny-hero-block-training-body-part";
+@import "components/block/training-block";
 @import "components/block/training-girls-block";
 
 // Comment
@@ -56,7 +58,6 @@
 // Pages
 
 
-
 // Paragraph
 
 
@@ -70,5 +71,3 @@
 
 
 // Views
-@import "components/views/view-training";
-@import "components/views/view-girls-training";

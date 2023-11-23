@@ -91,6 +91,58 @@ p {
   line-height: 1.5;
 }
 
+.block-kenny-new-training-man-block {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto 2rem auto;
+}
+@media (max-width: 1200px) {
+  .block-kenny-new-training-man-block {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.block-kenny-new-training-man-block .exercise-container {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  overflow: hidden;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+@media (max-width: 1200px) {
+  .block-kenny-new-training-man-block .exercise-container {
+    max-width: calc(100vw - 2rem);
+  }
+}
+.block-kenny-new-training-man-block .exercise-container .exercise-item {
+  width: 100%;
+}
+.block-kenny-new-training-man-block .exercise-container .form-item label {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1200px) {
+  .block-kenny-new-training-man-block .exercise-container .form-item label {
+    font-size: 10px;
+  }
+}
+.block-kenny-new-training-man-block .exercise-container .form-item select {
+  min-width: 40px;
+  width: 100%;
+}
+.block-kenny-new-training-man-block .js-form-type-textfield {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: inherit;
+}
+.block-kenny-new-training-man-block .js-form-type-textfield input {
+  width: 10vw;
+}
+
 .kenny-girls-training-plan-form {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
@@ -258,6 +310,112 @@ p {
      object-fit: cover;
 }
 
+.training-block {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .training-block {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.training-block .view-filters form {
+  display: inline-flex;
+  border: 1px solid gray;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+@media (max-width: 600px) {
+  .training-block .view-filters form {
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    padding: 0.25rem;
+  }
+}
+.training-block .view-filters form .form-type-select {
+  padding: 0.5rem;
+}
+@media (max-width: 600px) {
+  .training-block .view-filters form .form-type-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.25rem;
+  }
+}
+.training-block .view-filters form .form-type-select .form-select {
+  margin-left: 0.3rem;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  background-color: inherit;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .training-block .view-filters form .form-type-select .form-select {
+    padding: 0.15rem;
+    margin-left: unset;
+  }
+}
+.training-block .view-filters form .form-type-select .form-select option {
+  background-color: rgba(0, 0, 0, 0.8509803922);
+}
+@media (max-width: 600px) {
+  .training-block .view-filters form .form-type-select .form-select option {
+    font-size: 12px;
+  }
+}
+.training-block .view-filters form .form-type-select .form-select:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.training-block .view-filters .form-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  padding-right: 0.5rem;
+}
+@media (max-width: 600px) {
+  .training-block .view-filters .form-wrapper {
+    margin-left: unset;
+    padding-right: unset;
+    align-items: end;
+    padding-bottom: 0.15rem;
+    justify-content: center;
+  }
+}
+.training-block .view-filters .form-wrapper .form-submit {
+  background: inherit;
+  border: unset;
+  padding: 0.4rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .training-block .view-filters .form-wrapper .form-submit {
+    padding: 0.2rem 0.5rem;
+  }
+}
+.training-block .view-filters .form-wrapper .form-submit:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.training-block .view-content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 600px) {
+  .training-block .view-content {
+    grid-template-columns: 1fr;
+  }
+}
+
 .training-girls-block {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
@@ -284,18 +442,18 @@ p {
     padding: 0.25rem;
   }
 }
-.training-girls-block .view-filters form .form-item-field-girls-body-part-target-id {
+.training-girls-block .view-filters form .form-type-select {
   padding: 0.5rem;
 }
 @media (max-width: 600px) {
-  .training-girls-block .view-filters form .form-item-field-girls-body-part-target-id {
+  .training-girls-block .view-filters form .form-type-select {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0.25rem;
   }
 }
-.training-girls-block .view-filters form .form-item-field-girls-body-part-target-id .form-select {
+.training-girls-block .view-filters form .form-type-select .form-select {
   margin-left: 0.3rem;
   padding: 0.3rem;
   border-radius: 1rem;
@@ -304,54 +462,22 @@ p {
   color: #fff;
 }
 @media (max-width: 600px) {
-  .training-girls-block .view-filters form .form-item-field-girls-body-part-target-id .form-select {
+  .training-girls-block .view-filters form .form-type-select .form-select {
     padding: 0.15rem;
     margin-left: unset;
   }
 }
-.training-girls-block .view-filters form .form-item-field-girls-body-part-target-id .form-select option {
+.training-girls-block .view-filters form .form-type-select .form-select option {
   background-color: rgba(0, 0, 0, 0.8509803922);
 }
 @media (max-width: 600px) {
-  .training-girls-block .view-filters form .form-item-field-girls-body-part-target-id .form-select option {
+  .training-girls-block .view-filters form .form-type-select .form-select option {
     font-size: 12px;
   }
 }
-.training-girls-block .view-filters form .form-item-field-girls-body-part-target-id .form-select:hover {
+.training-girls-block .view-filters form .form-type-select .form-select:hover {
   border-color: greenyellow;
   cursor: pointer;
-}
-.training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id {
-  padding: 0.5rem;
-}
-@media (max-width: 600px) {
-  .training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.25rem;
-  }
-}
-.training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id .form-select {
-  margin-left: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 1rem;
-  border: 1px solid gray;
-  background-color: inherit;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id .form-select {
-    padding: 0.15rem;
-    margin-left: unset;
-  }
-}
-.training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id .form-select:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.training-girls-block .view-filters form .form-item-field-girls-type-of-training-target-id .form-select option {
-  background-color: rgba(0, 0, 0, 0.8509803922);
 }
 .training-girls-block .view-filters .form-wrapper {
   display: flex;
@@ -736,7 +862,7 @@ p {
 }
 @media (max-width: 1200px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
-    left: 0.2rem;
+    left: 0.1rem;
   }
 }
 .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
@@ -746,285 +872,19 @@ p {
 }
 @media (max-width: 1200px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
-    margin-right: 0.2rem;
+    margin-right: 0.1rem;
+  }
+}
+.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches:after {
+  position: relative;
+  content: "|";
+  left: 0.4rem;
+}
+@media (max-width: 1200px) {
+  .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches:after {
+    left: 0.1rem;
   }
 }
 .node-girls-training-teaser__total-weight {
   border-top: 1px solid gray;
-}
-
-.view-training-page-training {
-  max-width: calc(1170px + 2rem);
-  border: 2px solid gray;
-  border-radius: 2rem;
-  padding: 2rem 1rem;
-  margin: 0 auto;
-}
-@media (max-width: 1200px) {
-  .view-training-page-training {
-    max-width: calc(100vw - 2rem);
-    padding: 1rem 0.5rem;
-  }
-}
-.view-training-page-training .view-filters form {
-  display: inline-flex;
-  border: 1px solid gray;
-  padding: 0.5rem;
-  border-radius: 1rem;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form {
-    display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
-    padding: 0.25rem;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-body-part-target-id {
-  padding: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form .form-item-field-body-part-target-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.25rem;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select {
-  margin-left: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 1rem;
-  border: 1px solid gray;
-  background-color: inherit;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select {
-    padding: 0.15rem;
-    margin-left: unset;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select option {
-  background-color: rgba(0, 0, 0, 0.8509803922);
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select option {
-    font-size: 12px;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-body-part-target-id .form-select:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id {
-  padding: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form .form-item-field-type-of-training-target-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.25rem;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select {
-  margin-left: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 1rem;
-  border: 1px solid gray;
-  background-color: inherit;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select {
-    padding: 0.15rem;
-    margin-left: unset;
-  }
-}
-.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-training-page-training .view-filters form .form-item-field-type-of-training-target-id .form-select option {
-  background-color: rgba(0, 0, 0, 0.8509803922);
-}
-.view-training-page-training .view-filters .form-wrapper {
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
-  padding-right: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters .form-wrapper {
-    margin-left: unset;
-    padding-right: unset;
-    align-items: end;
-    padding-bottom: 0.15rem;
-    justify-content: center;
-  }
-}
-.view-training-page-training .view-filters .form-wrapper .form-submit {
-  background: inherit;
-  border: unset;
-  padding: 0.4rem 1rem;
-  border: 1px solid gray;
-  border-radius: 1rem;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-filters .form-wrapper .form-submit {
-    padding: 0.2rem 0.5rem;
-  }
-}
-.view-training-page-training .view-filters .form-wrapper .form-submit:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-training-page-training .view-content {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
-}
-@media (max-width: 600px) {
-  .view-training-page-training .view-content {
-    grid-template-columns: 1fr;
-  }
-}
-
-.view-girls-training-page-girls-training {
-  max-width: calc(1170px + 2rem);
-  border: 2px solid gray;
-  border-radius: 2rem;
-  padding: 2rem 1rem;
-  margin: 0 auto;
-}
-@media (max-width: 1200px) {
-  .view-girls-training-page-girls-training {
-    max-width: calc(100vw - 2rem);
-    padding: 1rem 0.5rem;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form {
-  display: inline-flex;
-  border: 1px solid gray;
-  padding: 0.5rem;
-  border-radius: 1rem;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form {
-    display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
-    padding: 0.25rem;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id {
-  padding: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.25rem;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id .form-select {
-  margin-left: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 1rem;
-  border: 1px solid gray;
-  background-color: inherit;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id .form-select {
-    padding: 0.15rem;
-    margin-left: unset;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id .form-select option {
-  background-color: rgba(0, 0, 0, 0.8509803922);
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id .form-select option {
-    font-size: 12px;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-body-part-target-id .form-select:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id {
-  padding: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.25rem;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id .form-select {
-  margin-left: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 1rem;
-  border: 1px solid gray;
-  background-color: inherit;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id .form-select {
-    padding: 0.15rem;
-    margin-left: unset;
-  }
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id .form-select:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-girls-training-page-girls-training .view-filters form .form-item-field-type-of-training-target-id .form-select option {
-  background-color: rgba(0, 0, 0, 0.8509803922);
-}
-.view-girls-training-page-girls-training .view-filters .form-wrapper {
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
-  padding-right: 0.5rem;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters .form-wrapper {
-    margin-left: unset;
-    padding-right: unset;
-    align-items: end;
-    padding-bottom: 0.15rem;
-    justify-content: center;
-  }
-}
-.view-girls-training-page-girls-training .view-filters .form-wrapper .form-submit {
-  background: inherit;
-  border: unset;
-  padding: 0.4rem 1rem;
-  border: 1px solid gray;
-  border-radius: 1rem;
-  color: #fff;
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-filters .form-wrapper .form-submit {
-    padding: 0.2rem 0.5rem;
-  }
-}
-.view-girls-training-page-girls-training .view-filters .form-wrapper .form-submit:hover {
-  border-color: greenyellow;
-  cursor: pointer;
-}
-.view-girls-training-page-girls-training .view-content {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
-}
-@media (max-width: 600px) {
-  .view-girls-training-page-girls-training .view-content {
-    grid-template-columns: 1fr;
-  }
 }

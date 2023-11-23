@@ -129,6 +129,7 @@ class KennyGirlsTrainingForm extends FormBase {
       '#title' => 'Select Muscle group',
       '#options' => $body_part_options,
       '#empty_option' => $this->t('- Select a muscle groups -'),
+      '#required' => TRUE,
       '#prefix' => '<div id="muscle-groups-wrapper">',
       '#suffix' => '</div>',
       '#ajax' => [
@@ -178,7 +179,7 @@ class KennyGirlsTrainingForm extends FormBase {
 
     $form['exercise_selection']['actions']['add_field'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add one more'),
+      '#value' => $this->t('Add one more field'),
       '#submit' => ['::addOne'],
       '#ajax' => [
         'callback' => '::addMoreCallback',
@@ -189,7 +190,7 @@ class KennyGirlsTrainingForm extends FormBase {
     if ($num_exercises > 1) {
       $form['exercise_selection']['actions']['remove_field'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Remove one'),
+        '#value' => $this->t('Remove one field'),
         '#submit' => ['::removeCallback'],
         '#ajax' => [
           'callback' => '::addMoreCallback',
