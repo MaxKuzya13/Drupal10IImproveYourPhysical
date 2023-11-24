@@ -81,7 +81,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
     $output['form'] = $form;
     // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
     $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
-    $limit = !empty($value) ? $value : '1 day';
+    $limit = !empty($value) ? $value : '1 years';
     // Знищити значення в сесії, оскільки ми його вже отримали.
     unset($_SESSION['kenny_stats_form_value']);
 
@@ -89,6 +89,50 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
     $config = $this->configFactory->get('kenny_girls_stats.settings');
 
     $exercises_array = $config->get();
+
+    // ----------------------------------------- Measurements
+    $current_uid = \Drupal::currentUser()->id();
+    $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
+
+    $output['measurements'] = [
+      'measurements_last' => $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($measurements['last_measurements'], 'teaser'),
+      'measurements_first' => $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($measurements['first_measurements'], 'teaser')
+    ];
+
+    $result_measurements = $this->statsByExercise
+      ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
+    $output['measurements'][] = [
+      'measurements_height' => [
+        '#markup' => "<span>" . 'Height grower by ' . $limit . ' : ' . $result_measurements['height'] . ' sm' . "</span>"
+      ],
+      'measurements_weight' => [
+        '#markup' => "</br>" . "<span>" . 'Weight grower by ' . $limit . ' : ' . $result_measurements['weight'] . ' kg' . "</span>"
+      ],
+      'measurements_neck' => [
+        '#markup' => "</br>" . "<span>" . 'Neck grower by ' . $limit . ' : ' . $result_measurements['neck'] . ' sm' . "</span>"
+      ],
+      'measurements_chest' => [
+        '#markup' => "</br>" . "<span>" . 'Chest grower by ' . $limit . ' : ' . $result_measurements['chest'] . ' sm' . "</span>"
+      ],
+      'measurements_biceps' => [
+        '#markup' => "</br>" . "<span>" . 'Biceps grower by ' . $limit . ' : ' . $result_measurements['biceps'] . ' sm' . "</span>"
+      ],
+      'measurements_forearms' => [
+        '#markup' => "</br>" . "<span>" . 'Forearms grower by ' . $limit . ' : ' . $result_measurements['forearms'] . ' sm' . "</span>"
+      ],
+      'measurements_waist' => [
+        '#markup' => "</br>" . "<span>" . 'Waist grower by ' . $limit . ' : ' . $result_measurements['waist'] . ' sm' . "</span>"
+      ],
+      'measurements_thigh' => [
+        '#markup' => "</br>" . "<span>" . 'Thigh grower by ' . $limit . ' : ' . $result_measurements['thigh'] . ' sm' . "</span>"
+      ],
+    ];
+
+    // ----------------------------------------- Measurements
 
     //------------------------------------------
 

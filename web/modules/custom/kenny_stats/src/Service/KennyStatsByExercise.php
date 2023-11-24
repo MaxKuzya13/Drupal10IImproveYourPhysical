@@ -36,6 +36,72 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
+  public function getMeasurements($uid, $limit) {
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $start_date = $this->switchDate($limit);
+    $output = [];
+
+    $last_query = $node_storage->getQuery()
+      ->condition('type', 'measurements')
+      ->condition('field_uid', $uid)
+      ->condition('field_created', $start_date->format('Y-m-d'),'>=')
+      ->accessCheck(FALSE)
+      ->sort('field_created', 'DESC')
+      ->range(0, 1);
+
+    $last_nids = $last_query->execute();
+    if ($last_nids) {
+      $last_measurements_id = reset($last_nids);
+      $output['last_measurements'] = $node_storage->load($last_measurements_id);
+    }
+
+    $first_query = $node_storage->getQuery()
+      ->condition('type', 'measurements')
+      ->condition('field_uid', $uid)
+      ->condition('field_created',$start_date->format('Y-m-d'),'>=')
+      ->accessCheck(FALSE)
+      ->sort('field_created', 'ASC')
+      ->range(0, 1);
+    $first_nids = $first_query->execute();
+    if ($first_nids) {
+      $first_measurements_id = reset($first_nids);
+      $output['first_measurements'] = $node_storage->load($first_measurements_id);
+    }
+
+    return $output;
+  }
+
+  public function getMeasurementsResults($last, $first) {
+
+    $output = [];
+
+    $output['biceps'] = $this->mathResults('biceps', $last, $first);
+    $output['chest'] = $this->mathResults('chest', $last, $first);
+    $output['forearms'] = $this->mathResults('forearms', $last, $first);
+    $output['height'] = $this->mathResults('height', $last, $first);
+    $output['neck'] = $this->mathResults('neck', $last, $first);
+    $output['thigh'] = $this->mathResults('thigh', $last, $first);
+    $output['waist'] = $this->mathResults('waist', $last, $first);
+    $output['weight'] = $this->mathResults('weight', $last, $first);
+
+    return $output;
+
+  }
+
+  protected function mathResults($type, $last, $first) {
+    if ($last->get("field_{$type}")->value >= $first->get("field_{$type}")->value) {
+      $result = '+ ' . $last->get("field_{$type}")->value - $first->get("field_{$type}")->value;
+    } else {
+      $result = '- ' . $first->get("field_{$type}")->value - $last->get("field_{$type}")->value;
+    }
+
+
+    return $result;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getParagraph($body_part, $exercises_array) {
 
     // Upper Body -> upper_body

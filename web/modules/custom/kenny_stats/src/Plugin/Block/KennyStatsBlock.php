@@ -88,6 +88,51 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadTree('body_part');
 
+    // ----------------------------------------- Measurements
+    $current_uid = \Drupal::currentUser()->id();
+    $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
+
+    $output['measurements'] = [
+      'measurements_last' => $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($measurements['last_measurements'], 'teaser'),
+      'measurements_first' => $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($measurements['first_measurements'], 'teaser')
+      ];
+
+    $result_measurements = $this->statsByExercise
+      ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
+    $output['measurements'][] = [
+      'measurements_height' => [
+        '#markup' => "<span>" . 'Height grower by ' . $limit . ' : ' . $result_measurements['height'] . ' sm' . "</span>"
+      ],
+      'measurements_weight' => [
+        '#markup' => "</br>" . "<span>" . 'Weight grower by ' . $limit . ' : ' . $result_measurements['weight'] . ' kg' . "</span>"
+      ],
+      'measurements_neck' => [
+        '#markup' => "</br>" . "<span>" . 'Neck grower by ' . $limit . ' : ' . $result_measurements['neck'] . ' sm' . "</span>"
+      ],
+      'measurements_chest' => [
+        '#markup' => "</br>" . "<span>" . 'Chest grower by ' . $limit . ' : ' . $result_measurements['chest'] . ' sm' . "</span>"
+      ],
+      'measurements_biceps' => [
+        '#markup' => "</br>" . "<span>" . 'Biceps grower by ' . $limit . ' : ' . $result_measurements['biceps'] . ' sm' . "</span>"
+      ],
+      'measurements_forearms' => [
+        '#markup' => "</br>" . "<span>" . 'Forearms grower by ' . $limit . ' : ' . $result_measurements['forearms'] . ' sm' . "</span>"
+      ],
+      'measurements_waist' => [
+        '#markup' => "</br>" . "<span>" . 'Waist grower by ' . $limit . ' : ' . $result_measurements['waist'] . ' sm' . "</span>"
+      ],
+      'measurements_thigh' => [
+        '#markup' => "</br>" . "<span>" . 'Thigh grower by ' . $limit . ' : ' . $result_measurements['thigh'] . ' sm' . "</span>"
+      ],
+    ];
+
+    // ----------------------------------------- Measurements
+
+
 
     //------------------------------------------
     $training_people = 'man';
@@ -97,7 +142,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $count_of_intensive_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'intensive');
 
     $output['count_of_training'] = [
-      '#markup' => "<span>" . 'The total number of training per ' . $limit . ' : ' . $count_of_training['count'] . "</span>"
+      '#markup' => "</br>" . "<span>" . 'The total number of training per ' . $limit . ' : ' . $count_of_training['count'] . "</span>"
     ];
 
 

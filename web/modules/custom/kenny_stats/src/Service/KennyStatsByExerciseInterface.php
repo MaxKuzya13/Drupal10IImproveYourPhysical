@@ -5,6 +5,28 @@ namespace Drupal\kenny_stats\Service;
 interface KennyStatsByExerciseInterface {
 
   /**
+   * Last and first measurements data by current timeline.
+   *
+   * @param int $uid
+   *   The current user id.
+   * @param string $limit
+   *   The timeline limit.
+   * @return array
+   */
+  public function getMeasurements($uid, $limit);
+
+  /**
+   * Results by measurements
+   *
+   * @param \Drupal\node\NodeInterface $last
+   *   Last measuruments.
+   * @param \Drupal\node\NodeInterface $first
+   *   First measurements by period.
+   * @return array
+   */
+  public function getMeasurementsResults($last, $first);
+
+  /**
    * Get last paragraph
    *
    * @param string $body_part
