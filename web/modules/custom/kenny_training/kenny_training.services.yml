@@ -17,6 +17,12 @@ services:
 
   kenny_training.training_girls_subscriber:
     class: Drupal\kenny_training\EventSubscriber\TrainingGirlsEventSubscriber
-    arguments: ['@current_user', ['@messenger']]
+    arguments: ['@current_user', '@messenger']
+    tags:
+      - { name: event_subscriber }
+
+  kenny_training.monthly_reminder_subscriber:
+    class: Drupal\kenny_training\EventSubscriber\MonthlyReminderEventSubscriber
+    arguments: ['@current_user', '@plugin.manager.mail']
     tags:
       - { name: event_subscriber }

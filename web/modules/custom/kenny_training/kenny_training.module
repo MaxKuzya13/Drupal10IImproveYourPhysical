@@ -10,6 +10,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\kenny_training\Event\FinalCreateTrainingGirlsEvent;
 use Drupal\kenny_training\Event\HelloWorldControllerEvent;
+use Drupal\kenny_training\Event\MonthlyReminderEvent;
 use Drupal\kenny_training\Event\TrainingGirlsEvent;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -232,6 +233,11 @@ function kenny_training_mail($key, &$message, $params) {
         '@date' => $params['date']
       ]);
       break;
+    case 'monthly_reminder':
+      $message['from'] = 'maxit2301@gmail.com';
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+      break;
   }
 }
 
@@ -289,4 +295,13 @@ function kenny_training_entity_insert(\Drupal\Core\Entity\EntityInterface $entit
     $event_dispatcher->dispatch($event, FinalCreateTrainingGirlsEvent::TRAINING_GIRLS_EVENT);
 
   }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function kenny_training_cron() {
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event = new MonthlyReminderEvent();
+  $event_dispatcher->dispatch($event, MonthlyReminderEvent::MONTHLY_REMINDER_EVENT);
 }

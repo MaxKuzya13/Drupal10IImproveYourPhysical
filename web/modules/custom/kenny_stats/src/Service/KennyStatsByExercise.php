@@ -71,6 +71,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     return $output;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getMeasurementsResults($last, $first) {
 
     $output = [];
@@ -88,6 +91,17 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
   }
 
+  /**
+   * Math results in string.
+   *
+   * @param string $type
+   *   The name of muscle.
+   * @param \Drupal\node\NodeInterface $last
+   *    Last measuruments.
+   * @param \Drupal\node\NodeInterface $first
+   *    First measurements by period.
+   * @return string
+   */
   protected function mathResults($type, $last, $first) {
     if ($last->get("field_{$type}")->value >= $first->get("field_{$type}")->value) {
       $result = '+ ' . $last->get("field_{$type}")->value - $first->get("field_{$type}")->value;
