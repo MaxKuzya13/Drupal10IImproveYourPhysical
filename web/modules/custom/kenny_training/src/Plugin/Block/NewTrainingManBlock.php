@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -54,8 +55,21 @@ class NewTrainingManBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build() {
 
-    $form = $this->formBuilder->getForm('Drupal\kenny_training\Form\KennyTrainingPlanForm');
-    $output['form'] = $form;
+    $output['#attached']['library'] = 'core/drupal.dialog.ajax';
+    $output = [
+      '#theme' => 'links',
+      '#links' => [
+        'link' => [
+          'title' => 'Create a new training',
+          'url' => Url::fromRoute('kenny_training.new_man_training'),
+          'attributes' => [
+            'class' => ['use-ajax'],
+            'data-dialog-type' => 'modal',
+            'data-dialog-options' => json_encode(['height' => 600, 'width' => 600]),
+          ],
+        ],
+      ]
+    ];
 
     return $output;
 

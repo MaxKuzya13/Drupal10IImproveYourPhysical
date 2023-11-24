@@ -21,3 +21,11 @@ kenny_training.filter_date:
     _title: 'Change timeline'
   requirements:
     _permission: 'access content'
+
+kenny_training.new_man_training:
+  path: '/new-man-training'
+  defaults:
+    _form: '\Drupal\kenny_training\Form\KennyTrainingPlanForm'
+    _title: 'New Training Man'
+  requirements:
+    _permission: 'access content'

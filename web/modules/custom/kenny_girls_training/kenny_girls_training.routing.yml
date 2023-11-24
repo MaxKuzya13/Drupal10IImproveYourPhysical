@@ -1,0 +1,7 @@
+kenny_girls_training.new_girl_training:
+  path: '/new-girl-training'
+  defaults:
+    _form: '\Drupal\kenny_girls_training\Form\KennyGirlsTrainingForm'
+    _title: 'New Training Girl'
+  requirements:
+    _permission: 'access content'

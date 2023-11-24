@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Url;
 use Drupal\taxonomy\Plugin\views\argument\Taxonomy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -54,8 +55,21 @@ class NewTrainingGirlsBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function build() {
 
-    $form = $this->formBuilder->getForm('Drupal\kenny_girls_training\Form\KennyGirlsTrainingForm');
-    $output['form'] = $form;
+    $output['#attached']['library'] = 'core/drupal.dialog.ajax';
+    $output = [
+      '#theme' => 'links',
+      '#links' => [
+        'link' => [
+          'title' => 'Create a new training',
+          'url' => Url::fromRoute('kenny_girls_training.new_girl_training'),
+          'attributes' => [
+            'class' => ['use-ajax', 'create-a-new-training'],
+            'data-dialog-type' => 'modal',
+            'data-dialog-options' => json_encode(['height' => 600, 'width' => '50vw']),
+          ],
+        ],
+      ]
+    ];
 
     return $output;
 

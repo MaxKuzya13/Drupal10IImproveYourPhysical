@@ -179,23 +179,13 @@ class KennyTrainingPlanForm extends FormBase {
         $form['exercise_selection'][$exercise_container_id]['weight'] = $this
           ->createExerciseField($form_state, 'weight', 'Weight');
         $form['exercise_selection'][$exercise_container_id]['repetition'] = $this
-          ->createExerciseField($form_state,'repetition', 'X');
+          ->createExerciseField($form_state,'repetition', 'Repetition');
         $form['exercise_selection'][$exercise_container_id]['approaches'] = $this
-          ->createExerciseField($form_state,'approaches', 'X');
+          ->createExerciseField($form_state,'approaches', 'Approaches');
       }
     }
 
     $form['exercise_selection']['actions'] = ['#type' => 'actions'];
-
-    $form['exercise_selection']['actions']['add_field'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Add one more field'),
-      '#submit' => ['::addOne'],
-      '#ajax' => [
-        'callback' => '::addMoreCallback',
-        'wrapper' => 'exercise-selection',
-      ],
-    ];
 
     if ($num_exercises > 1) {
       $form['exercise_selection']['actions']['remove_field'] = [
@@ -208,6 +198,18 @@ class KennyTrainingPlanForm extends FormBase {
         ],
       ];
     };
+
+    $form['exercise_selection']['actions']['add_field'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Add one more field'),
+      '#submit' => ['::addOne'],
+      '#ajax' => [
+        'callback' => '::addMoreCallback',
+        'wrapper' => 'exercise-selection',
+      ],
+    ];
+
+
 
     $form['actions']['submit'] = [
       '#type' => 'submit',

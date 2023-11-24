@@ -177,16 +177,6 @@ class KennyGirlsTrainingForm extends FormBase {
 
     $form['exercise_selection']['actions'] = ['#type' => 'actions'];
 
-    $form['exercise_selection']['actions']['add_field'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Add one more field'),
-      '#submit' => ['::addOne'],
-      '#ajax' => [
-        'callback' => '::addMoreCallback',
-        'wrapper' => 'exercise-selection',
-      ],
-    ];
-
     if ($num_exercises > 1) {
       $form['exercise_selection']['actions']['remove_field'] = [
         '#type' => 'submit',
@@ -198,6 +188,18 @@ class KennyGirlsTrainingForm extends FormBase {
         ],
       ];
     };
+
+    $form['exercise_selection']['actions']['add_field'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Add one more field'),
+      '#submit' => ['::addOne'],
+      '#ajax' => [
+        'callback' => '::addMoreCallback',
+        'wrapper' => 'exercise-selection',
+      ],
+    ];
+
+
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
