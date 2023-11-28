@@ -1,0 +1,19 @@
+uuid: 7bdd1e2e-7d0c-4375-ae7c-1af2276d79d9
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_measurement_name
+field_name: field_measurement_name
+entity_type: paragraph
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

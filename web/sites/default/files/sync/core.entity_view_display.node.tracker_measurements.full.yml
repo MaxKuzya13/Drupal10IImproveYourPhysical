@@ -1,0 +1,52 @@
+uuid: 793a6ecb-5299-4145-b8e2-949a0b8e77db
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.tracker_measurements.field_created
+    - field.field.node.tracker_measurements.field_current_measurements
+    - field.field.node.tracker_measurements.field_tracker_measurement
+    - node.type.tracker_measurements
+  module:
+    - datetime
+    - entity_reference_revisions
+    - user
+id: node.tracker_measurements.full
+targetEntityType: node
+bundle: tracker_measurements
+mode: full
+content:
+  field_created:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_current_measurements:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_tracker_measurement:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

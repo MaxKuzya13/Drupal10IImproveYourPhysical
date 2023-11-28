@@ -1,0 +1,19 @@
+uuid: 1a08b043-d19d-4515-b9c8-1c9cd83af47d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_current_measurements
+field_name: field_current_measurements
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

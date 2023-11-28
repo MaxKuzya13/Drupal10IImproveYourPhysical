@@ -1,0 +1,19 @@
+uuid: 0b1c92e2-3770-462f-acf7-13a6416bbf70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_measurement_name
+    - paragraphs.paragraphs_type.prefered_measurements
+id: paragraph.prefered_measurements.field_measurement_name
+field_name: field_measurement_name
+entity_type: paragraph
+bundle: prefered_measurements
+label: 'Measurement name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

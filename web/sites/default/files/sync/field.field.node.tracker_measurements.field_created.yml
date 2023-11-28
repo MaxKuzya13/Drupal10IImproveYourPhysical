@@ -1,0 +1,24 @@
+uuid: 8092170f-2e0c-41d9-ab92-ca23cbe1f0de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_created
+    - node.type.tracker_measurements
+  module:
+    - datetime
+id: node.tracker_measurements.field_created
+field_name: field_created
+entity_type: node
+bundle: tracker_measurements
+label: Created
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

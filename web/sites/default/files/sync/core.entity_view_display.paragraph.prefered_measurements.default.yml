@@ -1,0 +1,32 @@
+uuid: 3f8389bd-2d68-4da1-b13e-756fb8bcec6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.prefered_measurements.field_measurement_name
+    - field.field.paragraph.prefered_measurements.field_measurement_value
+    - paragraphs.paragraphs_type.prefered_measurements
+id: paragraph.prefered_measurements.default
+targetEntityType: paragraph
+bundle: prefered_measurements
+mode: default
+content:
+  field_measurement_name:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_measurement_value:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

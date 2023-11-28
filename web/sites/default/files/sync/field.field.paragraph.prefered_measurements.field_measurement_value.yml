@@ -1,0 +1,23 @@
+uuid: 9eaa808a-0a68-4059-8e2d-f08fdef11b5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_measurement_value
+    - paragraphs.paragraphs_type.prefered_measurements
+id: paragraph.prefered_measurements.field_measurement_value
+field_name: field_measurement_value
+entity_type: paragraph
+bundle: prefered_measurements
+label: 'Measurement value'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

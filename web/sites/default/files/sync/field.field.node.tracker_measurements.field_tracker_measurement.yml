@@ -1,0 +1,58 @@
+uuid: 8531f198-4fee-4c30-a7d3-0b5c5f343824
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tracker_measurement
+    - node.type.tracker_measurements
+    - paragraphs.paragraphs_type.prefered_measurements
+  module:
+    - entity_reference_revisions
+id: node.tracker_measurements.field_tracker_measurement
+field_name: field_tracker_measurement
+entity_type: node
+bundle: tracker_measurements
+label: 'Tracker Measurement'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      prefered_measurements: prefered_measurements
+    negate: 0
+    target_bundles_drag_drop:
+      back:
+        weight: 11
+        enabled: false
+      biceps:
+        weight: 12
+        enabled: false
+      chest:
+        weight: 13
+        enabled: false
+      girl_training:
+        weight: 14
+        enabled: false
+      legs:
+        weight: 15
+        enabled: false
+      prefered_measurements:
+        weight: 16
+        enabled: true
+      shoulders:
+        weight: 17
+        enabled: false
+      training_type:
+        weight: 18
+        enabled: false
+      triceps:
+        weight: 19
+        enabled: false
+      upper_body:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

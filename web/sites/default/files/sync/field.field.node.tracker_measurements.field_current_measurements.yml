@@ -1,0 +1,29 @@
+uuid: 63790ad2-8df1-49d0-a62d-361dc995c86f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_current_measurements
+    - node.type.measurements
+    - node.type.tracker_measurements
+id: node.tracker_measurements.field_current_measurements
+field_name: field_current_measurements
+entity_type: node
+bundle: tracker_measurements
+label: 'Current Measurements'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      measurements: measurements
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
 use Drupal\kenny_training\Event\HelloWorldControllerEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -581,6 +582,8 @@ class KennyGirlsTrainingForm extends FormBase {
         '@body_part' => $body_part_name
       ])
     );
+
+    $form_state->setRedirectUrl(Url::fromUri('internal:/training-girls'));
 
   }
 }
