@@ -1,0 +1,5 @@
+name: 'Kenny Tracker'
+type: module
+description: 'Main Module for Content Type "Tracker"'
+package: Kenny
+core_version_requirement: ^10

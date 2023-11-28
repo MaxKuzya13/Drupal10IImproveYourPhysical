@@ -1,0 +1,7 @@
+kenny_girls_training.new_girl_training:
+  path: '/new-tracker'
+  defaults:
+    _form: '\Drupal\kenny_tracker\Form\KennyTrackerMeasurements'
+    _title: 'New Tracker Measurements'
+  requirements:
+    _permission: 'access content'

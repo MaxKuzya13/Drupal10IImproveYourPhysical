@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.measurements.field_chest
     - field.field.node.measurements.field_created
     - field.field.node.measurements.field_forearms
+    - field.field.node.measurements.field_glutes
     - field.field.node.measurements.field_height
     - field.field.node.measurements.field_neck
     - field.field.node.measurements.field_thigh
@@ -51,6 +52,13 @@ content:
   field_forearms:
     type: number
     weight: 124
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_glutes:
+    type: number
+    weight: 132
     region: content
     settings:
       placeholder: ''

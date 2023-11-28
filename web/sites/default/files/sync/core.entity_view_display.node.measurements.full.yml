@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.measurements.field_chest
     - field.field.node.measurements.field_created
     - field.field.node.measurements.field_forearms
+    - field.field.node.measurements.field_glutes
     - field.field.node.measurements.field_height
     - field.field.node.measurements.field_neck
     - field.field.node.measurements.field_thigh
@@ -139,4 +140,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_glutes: true

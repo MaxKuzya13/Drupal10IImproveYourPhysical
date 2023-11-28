@@ -1,0 +1,23 @@
+uuid: 05b10ab9-5196-49c2-889a-07d2b0e9dd96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_glutes
+    - node.type.measurements
+id: node.measurements.field_glutes
+field_name: field_glutes
+entity_type: node
+bundle: measurements
+label: Glutes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' sm'
+field_type: float

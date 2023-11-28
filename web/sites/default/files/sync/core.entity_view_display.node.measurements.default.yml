@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.measurements.field_chest
     - field.field.node.measurements.field_created
     - field.field.node.measurements.field_forearms
+    - field.field.node.measurements.field_glutes
     - field.field.node.measurements.field_height
     - field.field.node.measurements.field_neck
     - field.field.node.measurements.field_thigh
@@ -63,6 +64,17 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 104
+    region: content
+  field_glutes:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 112
     region: content
   field_height:
     type: number_decimal
