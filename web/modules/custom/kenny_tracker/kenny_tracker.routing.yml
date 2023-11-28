@@ -1,4 +1,4 @@
-kenny_girls_training.new_girl_training:
+kenny_tracker.new_measurements_tracker:
   path: '/new-tracker'
   defaults:
     _form: '\Drupal\kenny_tracker\Form\KennyTrackerMeasurements'

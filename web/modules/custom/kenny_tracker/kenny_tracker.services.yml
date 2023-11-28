@@ -1,0 +1,4 @@
+services:
+  kenny_tracker.tracker_measurements:
+    class: Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurements
+    arguments: [ '@database' ]

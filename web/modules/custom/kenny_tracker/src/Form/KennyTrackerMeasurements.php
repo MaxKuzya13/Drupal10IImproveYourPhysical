@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Url;
+use Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class KennyTrackerMeasurements extends FormBase {
@@ -51,11 +53,11 @@ class KennyTrackerMeasurements extends FormBase {
   protected $nodeStorage;
 
   /**
-   * The database.
+   * The tracker measurements.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface
    */
-  protected $database;
+  protected $trackerMeasurements;
 
   /**
    * The current user.
@@ -71,15 +73,15 @@ class KennyTrackerMeasurements extends FormBase {
    *   The entity type manager.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
-   * @param \Drupal\Core\Database\Connection $database
-   *   The database.
+   * @param \Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface $tracker_measurements
+   *   The tracker_measurements.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *    The current user.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, MessengerInterface $messenger, Connection $database, AccountProxyInterface $current_user) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, MessengerInterface $messenger, KennyTrackerMeasurementsInterface $tracker_measurements, AccountProxyInterface $current_user) {
     $this->entityTypeManager = $entity_type_manager;
     $this->messenger = $messenger;
-    $this->database = $database;
+    $this->trackerMeasurements = $tracker_measurements;
     $this->currentUser = $current_user;
     $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
     $this->paragraphStorage = $entity_type_manager->getStorage('paragraph');
@@ -95,7 +97,7 @@ class KennyTrackerMeasurements extends FormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('messenger'),
-      $container->get('database'),
+      $container->get('kenny_tracker.tracker_measurements'),
       $container->get('current_user'),
     );
   }
@@ -181,7 +183,13 @@ class KennyTrackerMeasurements extends FormBase {
 
   }
 
-  protected function createMeasurementsField($form_state) {
+  /**
+   * Create main fields.
+   *
+   * @param FormStateInterface $form_state
+   * @return array
+   */
+  protected function createMeasurementsField(FormStateInterface $form_state) {
     $options = $this->getMeasurementsOption();
 
     $form_field['measurement_name'] = [
@@ -201,6 +209,11 @@ class KennyTrackerMeasurements extends FormBase {
     return $form_field;
   }
 
+  /**
+   * Options by measurements.
+   *
+   * @return array
+   */
   protected function getMeasurementsOption() {
     return [
       'Biceps' => 'Biceps',
@@ -282,7 +295,6 @@ class KennyTrackerMeasurements extends FormBase {
 
     for ($i = 0; $i < count($measurements_selection); $i++) {
 
-
       $measurement_name = $measurements_selection[$i]['measurement_name'];
       $measurement_value = $measurements_selection[$i]['measurement_value'];
 
@@ -344,6 +356,15 @@ class KennyTrackerMeasurements extends FormBase {
     }
   }
 
+  /**
+   * Check if have same fields.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *    Об'єкт стану форми.
+   * @param string $measurement_name
+   *   The name of measurements
+   * @return void
+   */
   public function validateSameName(FormStateInterface $form_state, $measurement_name) {
 
     $field_name = strtolower($measurement_name);
@@ -377,9 +398,7 @@ class KennyTrackerMeasurements extends FormBase {
 
     if ($nids) {
       $current_measurement_id = reset($nids);
-
     }
-
 
     // ------------------------------------------------------- Current Measurements end
 
@@ -419,13 +438,11 @@ class KennyTrackerMeasurements extends FormBase {
 
     // ------------------------------------------------------- Tracker Schema
 
+    $is_track = $this->trackerMeasurements->isTrack($uid);
 
-    $database = $this->database->insert('kenny_tracker_measurements')
-      ->fields([
-        'uid' => $uid,
-        'nid' => $tracker_measurements->id(),
-      ])
-      ->execute();
+    if (!$is_track) {
+      $this->trackerMeasurements->setTrack($uid, $tracker_measurements->id());
+    }
 
 
     // ------------------------------------------------------- Tracker Schema end
@@ -435,6 +452,8 @@ class KennyTrackerMeasurements extends FormBase {
         '@title' => $title,
       ])
     );
+
+    $form_state->setRedirectUrl(Url::fromUri('internal:/test-tracker'));
 
 
 

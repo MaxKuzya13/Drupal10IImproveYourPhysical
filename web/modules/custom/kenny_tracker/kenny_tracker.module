@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Kenny Tracker module.
+ */
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for nodes.
+ */
+function kenny_tracker_node_delete($node) {
+  // Перевірте, чи видаляється вузол типу 'tracker'.
+  if ($node->getType() == 'tracker_measurements') {
+    // Ваша умова для вузлів типу 'tracker'.
+    $tracker_service = \Drupal::service('kenny_tracker.tracker_measurements');
+    $uid = \Drupal::currentUser()->id();
+    $nid = $node->id();
+    $is_track = $tracker_service->isTrack($uid);
+
+    if ($is_track) {
+      $tracker_service->deleteTrack($uid, $nid);
+    }
+
+    // Наприклад, виклик функції або виконання необхідних дій.
+    // Наприклад, drupal_set_message(t('Tracker node deleted.'));
+  }
+}
+
