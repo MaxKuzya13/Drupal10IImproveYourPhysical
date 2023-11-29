@@ -1,0 +1,29 @@
+uuid: 6eb5d4cf-1213-479e-b317-dace94a4db64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_relevant_measurements
+    - node.type.measurements
+    - node.type.tracker_measurements
+id: node.tracker_measurements.field_relevant_measurements
+field_name: field_relevant_measurements
+entity_type: node
+bundle: tracker_measurements
+label: 'Relevant Measurements'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      measurements: measurements
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -107,13 +107,50 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
     } else {
       $tracking_measurements_id = $this->trackerMeasurements->getTrackedMeasurements($uid);
       $tracking_measurements_id = reset($tracking_measurements_id);
-      $tracking_measurements = $node_storage->load($tracking_measurements_id);
-      $output['#markup'] = '<span> U have an available track </span>' ;
-      $output['measurements'] = [
-        'tracking_measurements' => $entity_type_manager
-          ->getViewBuilder('node')
-          ->view($tracking_measurements, 'full'),
-      ];
+
+      $selected_fields = $this->trackerMeasurements->selectedFields($tracking_measurements_id);
+
+      $started_measurements = $this->trackerMeasurements->getStarted($tracking_measurements_id, $selected_fields['fields']);
+      $relative_measurements = $this->trackerMeasurements->getRelative($tracking_measurements_id, $selected_fields['fields']);
+
+      $decired_measurements = $this->trackerMeasurements->getDecired($tracking_measurements_id);
+
+      foreach ($selected_fields['group'] as $k => $value) {
+        $output['selected_fields'][$k] = [
+          '#markup' => "</br>" . "<span>" . $value . "</span>"
+        ];
+      };
+
+      foreach ($started_measurements as $k => $value) {
+        $output['started_measurements'][$k] = [
+          '#markup' => "</br>" . "<span>" . 'Started value ' . $value . "</span>"
+        ];
+      };
+
+      foreach ($relative_measurements as $k => $value) {
+        foreach ($value as $key => $val) {
+          $output['relative_measurements'][$k][$key] = [
+            '#markup' => "</br>" . "<span>" . 'Relative value ' . $val . "</span>"
+          ];
+        }
+
+      };
+
+      foreach ($decired_measurements as $k => $value) {
+        $output['decired_measurements'][$k] = [
+          '#markup' => "</br>" . "<span>" . 'Decired value ' . $value . "</span>"
+        ];
+      };
+
+
+//      $tracking_measurements = $node_storage->load($tracking_measurements_id);
+////      dump($tracking_measurements);
+//      $output['#markup'] = '<span> U have an available track </span>' ;
+//      $output['measurements'] = [
+//        'tracking_measurements' => $entity_type_manager
+//          ->getViewBuilder('node')
+//          ->view($tracking_measurements, 'full'),
+//      ];
     }
 
 

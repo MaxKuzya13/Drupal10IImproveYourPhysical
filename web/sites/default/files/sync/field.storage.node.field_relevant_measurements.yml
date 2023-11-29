@@ -1,0 +1,19 @@
+uuid: 9bf22318-029b-465b-8a5d-3d63af7cc33c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_relevant_measurements
+field_name: field_relevant_measurements
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

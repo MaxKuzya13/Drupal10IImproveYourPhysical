@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.tracker_measurements.field_created
     - field.field.node.tracker_measurements.field_current_measurements
+    - field.field.node.tracker_measurements.field_relevant_measurements
     - field.field.node.tracker_measurements.field_tracker_measurement
+    - field.field.node.tracker_measurements.field_uid
     - node.type.tracker_measurements
   module:
     - datetime
@@ -32,4 +34,6 @@ content:
     region: content
 hidden:
   field_current_measurements: true
+  field_relevant_measurements: true
   field_tracker_measurement: true
+  field_uid: true

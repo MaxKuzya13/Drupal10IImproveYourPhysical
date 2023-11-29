@@ -392,6 +392,7 @@ class KennyTrackerMeasurements extends FormBase {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'measurements')
       ->condition('field_uid',$uid)
+      ->condition('field_created',$date, '<=')
       ->sort('field_created', 'DESC')
       ->accessCheck(FALSE); // Bypass node access check, or adjust as needed.
     $nids = $query->execute();
@@ -408,7 +409,7 @@ class KennyTrackerMeasurements extends FormBase {
       'type' => 'tracker_measurements',
       'title' => $title,
       'field_created' => $date,
-
+      'field_uid' => $uid,
     ]);
     $tracker_measurements->field_current_measurements = $current_measurement_id;
 

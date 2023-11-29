@@ -1,0 +1,23 @@
+uuid: c11ca749-290d-4b90-bfe2-bcb09c529d35
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_uid
+    - node.type.tracker_measurements
+id: node.tracker_measurements.field_uid
+field_name: field_uid
+entity_type: node
+bundle: tracker_measurements
+label: 'User id'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

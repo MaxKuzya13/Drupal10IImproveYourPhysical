@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.tracker_measurements.field_created
     - field.field.node.tracker_measurements.field_current_measurements
+    - field.field.node.tracker_measurements.field_relevant_measurements
     - field.field.node.tracker_measurements.field_tracker_measurement
+    - field.field.node.tracker_measurements.field_uid
     - node.type.tracker_measurements
   module:
     - datetime
@@ -33,6 +35,14 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
+  field_relevant_measurements:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 112
+    region: content
   field_tracker_measurement:
     type: entity_reference_revisions_entity_view
     label: above
@@ -41,6 +51,15 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 102
+    region: content
+  field_uid:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 111
     region: content
   links:
     settings: {  }

@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.tracker_measurements.field_created
     - field.field.node.tracker_measurements.field_current_measurements
+    - field.field.node.tracker_measurements.field_relevant_measurements
     - field.field.node.tracker_measurements.field_tracker_measurement
+    - field.field.node.tracker_measurements.field_uid
     - node.type.tracker_measurements
   module:
     - datetime
@@ -17,6 +19,11 @@ targetEntityType: node
 bundle: tracker_measurements
 mode: full
 content:
+  desired_result:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_created:
     type: datetime_default
     label: above
@@ -24,7 +31,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 110
+    weight: 7
     region: content
   field_current_measurements:
     type: entity_reference_entity_view
@@ -35,6 +42,15 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_relevant_measurements:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_tracker_measurement:
     type: entity_reference_revisions_entity_view
     label: above
@@ -42,11 +58,23 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
-hidden: {  }
+  progress_over_time:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  still_left:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  field_uid: true
+  time_has_passed: true
