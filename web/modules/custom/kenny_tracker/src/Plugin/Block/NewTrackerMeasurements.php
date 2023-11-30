@@ -126,11 +126,16 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       $tracking_measurements_id = $this->trackerMeasurements->getTrackedMeasurements($uid);
       $tracking_measurements_id = reset($tracking_measurements_id);
 
+      // Get name of body part that might be tracking.
       $selected_fields = $this->trackerMeasurements->selectedFields($tracking_measurements_id);
 
+      // Values of started measurements.
       $started_measurements = $this->trackerMeasurements->getStarted($tracking_measurements_id, $selected_fields['fields']);
+
+      // Values of relative measurements array.
       $relative_measurements = $this->trackerMeasurements->getRelative($tracking_measurements_id, $selected_fields['fields']);
 
+      // Values of desired meaqsurements.
       $decired_measurements = $this->trackerMeasurements->getDecired($tracking_measurements_id);
 
       foreach ($selected_fields['group'] as $k => $value) {
