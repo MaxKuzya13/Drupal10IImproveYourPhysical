@@ -5,3 +5,11 @@ kenny_girls_training.new_girl_training:
     _title: 'New Training Girl'
   requirements:
     _permission: 'access content'
+
+kenny_girls_training.new_girl_exercise:
+  path: '/new-girl-exercises'
+  defaults:
+    _form: '\Drupal\kenny_girls_training\Form\KennyGirlAddExercise'
+    _title: 'Add new Exercise'
+  requirements:
+    _permission: 'access content'

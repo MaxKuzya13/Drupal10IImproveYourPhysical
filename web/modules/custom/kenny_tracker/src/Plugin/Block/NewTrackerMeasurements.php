@@ -3,6 +3,7 @@
 namespace Drupal\kenny_tracker\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -10,7 +11,6 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface;
-use Drupal\taxonomy\Plugin\views\argument\Taxonomy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -41,7 +41,21 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
    *
    * @var \Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface
    */
-  protected AccountProxyInterface|KennyTrackerMeasurementsInterface $trackerMeasurements;
+  protected $trackerMeasurements;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The node storage.
+   *
+   * @var \Drupal\node\NodeStorageInterface
+   */
+  protected $nodeStorage;
 
   /**
    * Constructor by NewTrainingGirlsBlock.
@@ -49,15 +63,17 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
-   *    The current user.
-   * @param \Drupal\Core\Session\AccountProxyInterface $tracker_measurements
-   *     The tracker measurements..
+   *   The current user.
+   * @param \Drupal\kenny_tracker\Service\TrackerMeasurements\KennyTrackerMeasurementsInterface $tracker_measurements
+   *   The tracker measurements.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $form_builder, AccountProxyInterface $current_user, KennyTrackerMeasurementsInterface $tracker_measurements) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $form_builder, AccountProxyInterface $current_user, KennyTrackerMeasurementsInterface $tracker_measurements, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $form_builder;
     $this->currentUser = $current_user;
     $this->trackerMeasurements = $tracker_measurements;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
   }
 
   /**
@@ -71,6 +87,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       $container->get('form_builder'),
       $container->get('current_user'),
       $container->get('kenny_tracker.tracker_measurements'),
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -82,10 +99,11 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
     $uid = $this->currentUser->id();
     $tracking = $this->trackerMeasurements->isTrack($uid);
 
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-    $entity_type_manager = \Drupal::entityTypeManager();
+    /** @var \Drupal\node\NodeStorageInterface $node_storage */
+    $node_storage = $this->nodeStorage;
 
-
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+    $entity_type_manager = $this->entityTypeManager;
 
 
     if (!$tracking) {

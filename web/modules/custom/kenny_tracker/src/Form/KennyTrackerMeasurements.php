@@ -397,29 +397,28 @@ class KennyTrackerMeasurements extends FormBase {
       ->accessCheck(FALSE); // Bypass node access check, or adjust as needed.
     $nids = $query->execute();
 
+    // Get id of started measurement by tracker.
     if ($nids) {
       $current_measurement_id = reset($nids);
     }
 
-    // ------------------------------------------------------- Current Measurements end
-
-    // ------------------------------------------------------- Node start
-
+    // Create tracker measurements object.
     $tracker_measurements = $this->nodeStorage->create([
       'type' => 'tracker_measurements',
       'title' => $title,
       'field_created' => $date,
       'field_uid' => $uid,
     ]);
+
+    // Set started measurement field.
     $tracker_measurements->field_current_measurements = $current_measurement_id;
 
-
-    // ------------------------------------------------------- Node end
+    // Delete actions by array.
     $measurements_selection = $form_state->getValue('measurements_selection');
     unset($measurements_selection['actions']);
 
-    // ------------------------------------------------------- Paragraph start
 
+    // Create desired result.
     foreach ($measurements_selection as $paragraph_tracker_measurements) {
       $name = $paragraph_tracker_measurements['measurement_name'];
       $value = $paragraph_tracker_measurements['measurement_value'];
@@ -430,23 +429,25 @@ class KennyTrackerMeasurements extends FormBase {
         'field_measurement_value' => $value,
       ]);
 
+      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph->save();
 
+      // Set desired result.
       $tracker_measurements->field_tracker_measurement[] = $paragraph;
     }
+
+    // Save tracker measurements object.
     $tracker_measurements->save();
-    // ------------------------------------------------------- Paragraph end
 
-    // ------------------------------------------------------- Tracker Schema
 
+    // Check to have a content of Track Measurements.
     $is_track = $this->trackerMeasurements->isTrack($uid);
 
     if (!$is_track) {
+      // Add to database that this user have a track.
       $this->trackerMeasurements->setTrack($uid, $tracker_measurements->id());
     }
 
-
-    // ------------------------------------------------------- Tracker Schema end
 
     $this->messenger->addMessage(
       t('The @title successfully add', [
