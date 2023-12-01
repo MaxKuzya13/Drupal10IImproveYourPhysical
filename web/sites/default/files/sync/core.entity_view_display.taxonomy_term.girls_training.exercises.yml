@@ -1,0 +1,30 @@
+uuid: 7aa8aa90-96f1-47d4-a5ed-13deb4efa6b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.exercises
+    - field.field.taxonomy_term.girls_training.field_video_training
+    - taxonomy.vocabulary.girls_training
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.girls_training.exercises
+targetEntityType: taxonomy_term
+bundle: girls_training
+mode: exercises
+content:
+  field_video_training:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  description: true

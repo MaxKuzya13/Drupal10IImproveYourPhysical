@@ -7,3 +7,14 @@ kenny_girls_script:
     - core/drupal
     - core/once
 
+exercises-display:
+  version: 1.x
+  css:
+    theme:
+      css/exercises-display.css: {}
+  js:
+    js/exercises-display.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once

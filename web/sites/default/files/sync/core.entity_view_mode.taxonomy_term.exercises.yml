@@ -1,0 +1,10 @@
+uuid: 779d11e8-200f-49cb-b45b-183a518c296c
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.exercises
+label: Exercises
+targetEntityType: taxonomy_term
+cache: true
