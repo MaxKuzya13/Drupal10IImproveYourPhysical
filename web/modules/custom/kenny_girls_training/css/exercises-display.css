@@ -1,3 +1,7 @@
 .hide-exercises {
     display: none;
 }
+
+.hide-video {
+    color: green;
+}

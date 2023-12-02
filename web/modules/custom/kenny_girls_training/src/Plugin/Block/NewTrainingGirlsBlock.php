@@ -60,7 +60,7 @@ class NewTrainingGirlsBlock extends BlockBase implements ContainerFactoryPluginI
       '#theme' => 'links',
       '#links' => [
         'link' => [
-          'title' => 'Create a new training',
+          'title' => $this->t('Create a new training'),
           'url' => Url::fromRoute('kenny_girls_training.new_girl_training'),
           'attributes' => [
             'class' => ['use-ajax', 'create-a-new-training'],

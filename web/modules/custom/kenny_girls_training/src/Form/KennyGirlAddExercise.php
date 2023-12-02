@@ -7,6 +7,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
 use Drupal\file\Upload\UploadedFileInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -203,6 +204,8 @@ class KennyGirlAddExercise extends FormBase {
       ]);
 
       $new_term->save();
+
+      $form_state->setRedirectUrl(Url::fromUri('internal:/exercises'));
     }
 
 

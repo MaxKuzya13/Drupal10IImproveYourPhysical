@@ -15,11 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a 'Inner Thigh Exercises' block.
  *
  * @Block(
- *   id = "kenny_inner_thigh_exercises_block",
- *   admin_label = @Translation("Kenny Inner Thigh Exercises Block"),
+ *   id = "kenny_list_of_exercises_block",
+ *   admin_label = @Translation("Kenny Exercises Block"),
  * )
  */
-class InnerThighExercises extends BlockBase implements ContainerFactoryPluginInterface {
+class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager.
@@ -85,41 +85,63 @@ class InnerThighExercises extends BlockBase implements ContainerFactoryPluginInt
       }
       $output["exercises_{$term->name}"] = [
         '#markup' => "</br>" . "<h1>" . $term->name . "</h1>",
+
       ];
 
 
       $muscle_name = strtolower(str_replace(' ', '-', $term->name));
+      $muscle_container_class = 'exercises-container-' . $muscle_name;
       $output[$muscle_name] = [
         '#type' => 'container',
-        '#attributes' => ['class' => ['exercises-container-' . $muscle_name]],
+        '#attributes' => ['class' => [$muscle_container_class, 'container-muscle']],
       ];
 
       $i = 0;
 
+      // Get all exercises for current muscle part.
       foreach ($exercises as $exercise) {
         $exercise_name = $exercise->get('name')->value;
         $exercise_video = $exercise->get('field_video_training')->entity->get('mid')->value;
         $video = $entity_type_manager->getStorage('media')->load($exercise_video);
-        $class = "exercises-' . strtolower(str_replace(' ', '-', $term->name))";
-
-
 
 
 
         $exercise_container = strtolower(str_replace(' ', '-', $term->name)) . '_' . $i;
+        $exercise_container_class = 'exercise-container-'. $exercise_container;
+        $exercise_class = 'exercises-' . strtolower(str_replace(' ', '-', $term->name));
+
         $output[$muscle_name][$exercise_container] = [
           '#type' => 'container',
-          '#attributes' => ['class' => ['exercise-container-'. $exercise_container]],
+          '#attributes' => ['class' => [$exercise_container_class, 'container-exercise']],
         ];
+        // Hidden exercises after 3;
+        if ($i > 2) {
+          $output[$muscle_name][$exercise_container] = [
+            '#type' => 'container',
+            '#attributes' => ['class' => [$exercise_container_class, 'hide-exercises', 'container-exercise']],
+          ];
+        }
+        $class_button = 'show-video';
+        $class_video = 'exercise-container-' . $exercise_container . '_video';
 
-
+        // Video hidden by default.
         $output[$muscle_name][$exercise_container]['exercise'] = [
-          '#markup' => '</br>' . '<span>' . $exercise_name . '</span>',
-          'video' => $entity_type_manager->getViewBuilder('media')
-            ->view($video, 'preview'),
-          '#attributes' => [
-            'class' => ['exercises-' . strtolower(str_replace(' ', '-', $term->name))],
+          'button' => [
+            '#type' => 'button',
+            '#value' => $exercise_name,
+            '#attributes' => [
+              'class' => [$class_button],
+              'data-show-video' => $exercise_container_class,
+            ],
           ],
+          'video' => [
+            '#type' => 'container',
+            'video_element' => $entity_type_manager->getViewBuilder('media')->view($video, 'preview'),
+            '#attributes' => [
+              'class' => ['hide-exercises', $class_video, 'container-video'],
+            ],
+          ],
+
         ];
         $i++;
       };
@@ -130,6 +152,20 @@ class InnerThighExercises extends BlockBase implements ContainerFactoryPluginInt
           'class' => ['show-all-exercises-button'],
           'data-term-identifier' => "exercise-container-" . $muscle_name,
         ],
+      ];
+      $output[$muscle_name]['add_exercise'] = [
+        '#theme' => 'links',
+        '#links' => [
+          'link' => [
+            'title' => $this->t('Add a new exercise'),
+            'url' => Url::fromRoute('kenny_girls_training.new_girl_exercise'),
+            'attributes' => [
+              'class' => ['use-ajax', 'create-a-new-exercise'],
+              'data-dialog-type' => 'modal',
+              'data-dialog-options' => json_encode(['height' => 600, 'width' => '50vw']),
+            ],
+          ],
+        ]
       ];
     }
 

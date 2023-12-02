@@ -1,41 +1,51 @@
 (function ($, Drupal, once) {
   Drupal.behaviors.kennyGirlsTrainingBehavior = {
     attach: function (context, settings) {
-      console.log('WOW');
+
       let name = 'kennyGirlsTrainingBehavior';
       let selector = '.show-all-exercises-button';
 
-      for (let i = 3; i < 10; i++) {
-        let hideInnerThigh = '.exercise-container-inner-thigh_' + i;
-        let hideQuadriceps = '.exercise-container-quadriceps_' + i;
 
-        let hideHamstring = '.exercise-container-hamstring_' + i;
-        let hideShoulders = '.exercise-container-shoulders_' + i;
-        let hideTriceps = '.exercise-container-triceps_' + i;
-        let hideBiceps = '.exercise-container-biceps_' + i;
-        let hideBack = '.exercise-container-back_' + i;
-        let hideChest = '.exercise-container-chest_' + i;
-        let hideGlutes = '.exercise-container-glutes-container_' + i;
-        $(hideInnerThigh).hide();
-        $(hideQuadriceps).hide();
-        $(hideHamstring).hide();
-        $(hideShoulders).hide();
-        $(hideTriceps).hide();
-        $(hideBiceps).hide();
-        $(hideBack).hide();
-        $(hideChest).hide();
-        $(hideGlutes).hide();
-      }
       once(name, selector, context).forEach(function (element){
         let button = $(element);
         let termIdentifier = $(element).data('term-identifier');
 
         button.click(function (e) {
           e.preventDefault();
-          for (let i = 3; i < 10; i++) {
+          for (let i = 0; i < 10; i++) {
             $("." + termIdentifier + '_' + i).show();
           }
-          $(element).hide();
+          if(button.hasClass('show-all-exercises-button')) {
+            for (let i = 2; i < 10; i++) {
+              $("." + termIdentifier + '_' + i).show();
+            }
+            button.removeClass('show-all-exercises-button');
+            button.addClass('hide-all-exercises-button');
+            button.val('Hide exercises');
+          } else {
+            for (let i = 3; i < 10; i++) {
+              $("." + termIdentifier + '_' + i).hide();
+            }
+            button.addClass('hide-all-exercises-button');
+            button.addClass('show-all-exercises-button');
+            button.val('Show all exercises');
+          }
+
+
+        })
+      })
+
+      let selector_video = '.show-video';
+      once(name, selector_video, context).forEach(function (element){
+        let button = $(element);
+        let showVideo = $(element).data('show-video');
+
+        button.click(function (e) {
+
+          e.preventDefault();
+          console.log(showVideo);
+          $("." + showVideo + '_video').toggleClass('hide-exercises');
+          $(element).toggleClass('hide-video');
 
         })
       })
