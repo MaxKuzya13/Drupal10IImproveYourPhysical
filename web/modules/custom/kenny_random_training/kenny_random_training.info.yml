@@ -1,0 +1,5 @@
+name: 'Kenny Random training'
+type: module
+description: 'Module for random training'
+package: Kenny
+core_version_requirement: ^10

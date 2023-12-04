@@ -135,7 +135,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       // Values of relative measurements array.
       $relative_measurements = $this->trackerMeasurements->getRelative($tracking_measurements_id, $selected_fields['fields']);
 
-      // Values of desired meaqsurements.
+      // Values of desired measurements.
       $decired_measurements = $this->trackerMeasurements->getDecired($tracking_measurements_id);
 
 
