@@ -9,6 +9,7 @@ namespace Drupal\kenny_measurements\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
@@ -46,6 +47,14 @@ class KennyMeasurementsForm extends FormBase {
   protected $messenger;
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+
+  /**
    * KennyMeasurementsForm constructor
    *
    * @param \Drupal\Core\Session\AccountInterface $current_user
@@ -56,12 +65,15 @@ class KennyMeasurementsForm extends FormBase {
    *   The database.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *    The entity type manager.
    */
-  public function __construct(AccountInterface $current_user, TimeInterface $current_time, Connection $database, MessengerInterface $messenger ) {
+  public function __construct(AccountInterface $current_user, TimeInterface $current_time, Connection $database, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager ) {
     $this->currentUser = $current_user;
     $this->currentTime = $current_time;
     $this->database = $database;
     $this->messenger = $messenger;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   public static function create(ContainerInterface $container) {
@@ -70,6 +82,7 @@ class KennyMeasurementsForm extends FormBase {
       $container->get('datetime.time'),
       $container->get('database'),
       $container->get('messenger'),
+      $container->get('entity_type.manager'),
 
     );
   }
@@ -134,6 +147,12 @@ class KennyMeasurementsForm extends FormBase {
       '#required' => TRUE,
       '#suffix' => 'sm',
     ];
+    $form['glutes'] = [
+      '#type' => 'textfield',
+      '#title' => t('Your glutes'),
+      '#required' => TRUE,
+      '#suffix' => 'sm',
+    ];
     $form['date'] = [
       '#type' => 'date',
       '#title' => $this->t('Date'),
@@ -166,6 +185,7 @@ class KennyMeasurementsForm extends FormBase {
       'neck' => 'Neck',
       'waist' => 'Waist',
       'thigh' => 'Thigh',
+      'glutes' => 'Glutes',
     ];
 
     foreach ($fields_to_check as $field_name => $field_label) {
@@ -194,7 +214,8 @@ class KennyMeasurementsForm extends FormBase {
     $title = $formatted_date . ' | Measurements by ' .  $user_name;
 
     try {
-      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      /** @var \Drupal\node\NodeStorageInterface $node_storage */
+      $node_storage = $this->entityTypeManager->getStorage('node');
       $measurements = $node_storage->create([
         'type' => 'measurements',
         'title' => $title,
@@ -207,6 +228,7 @@ class KennyMeasurementsForm extends FormBase {
         'field_neck' => $form_state->getValue('neck'),
         'field_waist' => $form_state->getValue('waist'),
         'field_thigh' => $form_state->getValue('thigh'),
+        'field_glutes' => $form_state->getValue('glutes'),
         'field_created' => $form_state->getValue('date'),
       ]);
 

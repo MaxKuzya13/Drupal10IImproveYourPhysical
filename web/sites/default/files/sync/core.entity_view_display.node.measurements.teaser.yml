@@ -58,7 +58,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_forearms:
     type: number_decimal
@@ -70,6 +70,17 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_glutes:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_height:
     type: number_decimal
@@ -127,6 +138,5 @@ content:
     weight: 1
     region: content
 hidden:
-  field_glutes: true
   field_uid: true
   links: true

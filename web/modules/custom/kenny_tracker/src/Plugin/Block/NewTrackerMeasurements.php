@@ -138,6 +138,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       // Values of desired meaqsurements.
       $decired_measurements = $this->trackerMeasurements->getDecired($tracking_measurements_id);
 
+
       foreach ($selected_fields['group'] as $k => $value) {
         $output['selected_fields'][$k] = [
           '#markup' => "</br>" . "<span>" . $value . "</span>"
@@ -151,6 +152,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       };
 
       foreach ($relative_measurements as $k => $value) {
+
         foreach ($value as $key => $val) {
           $output['relative_measurements'][$k][$key] = [
             '#markup' => "</br>" . "<span>" . 'Relative value ' . $val . "</span>"
