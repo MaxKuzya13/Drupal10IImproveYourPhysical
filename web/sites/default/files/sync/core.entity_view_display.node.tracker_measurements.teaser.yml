@@ -33,7 +33,11 @@ content:
     weight: 100
     region: content
 hidden:
+  desired_result: true
   field_current_measurements: true
   field_relevant_measurements: true
   field_tracker_measurement: true
   field_uid: true
+  langcode: true
+  progress_over_time: true
+  still_left: true

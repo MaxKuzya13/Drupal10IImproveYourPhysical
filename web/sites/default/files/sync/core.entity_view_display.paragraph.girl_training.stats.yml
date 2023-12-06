@@ -49,4 +49,6 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-hidden: {  }
+hidden:
+  girls_difference: true
+  girls_exercise_weight: true

@@ -9,6 +9,7 @@ dependencies:
     - node.type.page
   module:
     - layout_builder
+    - layout_discovery
     - text
     - user
 third_party_settings:
@@ -69,4 +70,5 @@ content:
     weight: 101
     region: content
 hidden:
+  langcode: true
   layout_builder__layout: true

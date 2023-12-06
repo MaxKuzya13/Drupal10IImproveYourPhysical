@@ -1,0 +1,20 @@
+uuid: 02dfd52b-67ac-4aa5-96c3-19e1f59ff589
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+  theme:
+    - kenny
+id: kenny_languages_witcher
+theme: kenny
+region: header
+weight: -6
+provider: null
+plugin: 'language_block:language_interface'
+settings:
+  id: 'language_block:language_interface'
+  label: 'Language switcher'
+  label_display: '0'
+  provider: language
+visibility: {  }

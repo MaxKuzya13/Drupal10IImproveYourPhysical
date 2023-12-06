@@ -66,4 +66,8 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  desired_result: true
+  langcode: true
+  progress_over_time: true
+  still_left: true

@@ -11,7 +11,7 @@ dependencies:
 id: kenny_mainnavigation
 theme: kenny
 region: header
-weight: -6
+weight: -5
 provider: null
 plugin: 'system_menu_block:main'
 settings:
