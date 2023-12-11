@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="block-kenny-new-training-man-block-describe">Do u want add new training? <span>Click the button below</span></div>
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</div>

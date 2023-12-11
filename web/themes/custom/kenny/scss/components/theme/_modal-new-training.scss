@@ -1,0 +1,39 @@
+.ui-dialog {
+  max-width: calc($container-max + 2rem) !important;
+  border: 2px solid gray !important;
+  border-radius: 2rem !important;
+  padding: 2rem 1rem !important;
+  margin: 0 auto !important;
+  width: 60vw !important;
+  color: $color-black;
+  background: $color-bg-modal;
+
+  &-titlebar {
+    background: $color-bg-modal;
+    border: none;
+
+  }
+
+  &-buttonpane {
+    background: $color-bg-modal;
+
+    .save-new-training-form {
+      color: $color-green-button;
+      background: $color-bg-modal;
+      @include mobileDefault {
+        background-color: darken($color-green-button, 18%);
+        color: $color-text;
+      }
+
+      &:hover {
+        background-color: darken($color-green-button, 18%);
+        color: $color-text
+      }
+    }
+  }
+
+  &-content {
+    max-height: 100%!important;
+    overflow-y: scroll;
+  }
+}

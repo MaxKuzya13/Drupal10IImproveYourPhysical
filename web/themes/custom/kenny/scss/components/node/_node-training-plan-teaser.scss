@@ -5,10 +5,10 @@
   }
 
   &__link {
-    color: cadetblue;
+    color: $color-active;
 
     &:hover {
-      color: deepskyblue;
+      color: $color-active-hover;
       cursor: pointer;
     }
   }

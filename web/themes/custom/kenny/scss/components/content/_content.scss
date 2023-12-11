@@ -9,3 +9,49 @@
   margin-top: 2rem;
 
 }
+
+.add-favorite {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  color: $color-green-button;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($color-green-button, 18%);
+    color: $color-text;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.remove-favorite {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  color: $color-red-button;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($color-red-button, 18%);
+    color: $color-text
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

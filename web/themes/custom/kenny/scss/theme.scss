@@ -14,7 +14,6 @@
 // Block
 
 @import "components/block/block-kenny-new-training-man-block";
-@import "components/block/kenny-girls-training-plan-form";
 @import "components/block/kenny-hero-block";
 @import "components/block/kenny-hero-block-training-body-part";
 @import "components/block/training-block";
@@ -34,7 +33,7 @@
 
 
 // Form
-
+@import "components/form/kenny-new-training-form";
 
 
 // Header
@@ -67,7 +66,7 @@
 
 
 // Theme
-
+@import "components/theme/modal-new-training";
 
 
 // Views

@@ -91,7 +91,7 @@ p {
   line-height: 1.5;
 }
 
-.block-kenny-new-training-man-block {
+.block-kenny-new-training-man-block, .block-kenny-new-training-girls-block {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
   border-radius: 2rem;
@@ -99,100 +99,24 @@ p {
   margin: 0 auto 2rem auto;
 }
 @media (max-width: 1200px) {
-  .block-kenny-new-training-man-block {
+  .block-kenny-new-training-man-block, .block-kenny-new-training-girls-block {
     max-width: calc(100vw - 2rem);
     padding: 1rem 0.5rem;
   }
 }
-.block-kenny-new-training-man-block .exercise-container {
-  display: grid;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  overflow: hidden;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+.block-kenny-new-training-man-block li, .block-kenny-new-training-girls-block li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-@media (max-width: 1200px) {
-  .block-kenny-new-training-man-block .exercise-container {
-    max-width: calc(100vw - 2rem);
-  }
+.block-kenny-new-training-man-block li a, .block-kenny-new-training-girls-block li a {
+  display: inline-block;
+  font-size: 24px;
+  margin: 0;
+  color: cadetblue;
 }
-.block-kenny-new-training-man-block .exercise-container .exercise-item {
-  width: 100%;
-}
-.block-kenny-new-training-man-block .exercise-container .form-item label {
-  display: flex;
-  align-items: center;
-}
-@media (max-width: 1200px) {
-  .block-kenny-new-training-man-block .exercise-container .form-item label {
-    font-size: 10px;
-  }
-}
-.block-kenny-new-training-man-block .exercise-container .form-item select {
-  min-width: 40px;
-  width: 100%;
-}
-.block-kenny-new-training-man-block .js-form-type-textfield {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  width: inherit;
-}
-.block-kenny-new-training-man-block .js-form-type-textfield input {
-  width: 10vw;
-}
-
-.kenny-girls-training-plan-form {
-  max-width: calc(1170px + 2rem);
-  border: 2px solid gray;
-  border-radius: 2rem;
-  padding: 2rem 1rem;
-  margin: 0 auto 2rem auto;
-}
-@media (max-width: 1200px) {
-  .kenny-girls-training-plan-form {
-    max-width: calc(100vw - 2rem);
-    padding: 1rem 0.5rem;
-  }
-}
-.kenny-girls-training-plan-form .exercise-container {
-  display: grid;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  overflow: hidden;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-@media (max-width: 1200px) {
-  .kenny-girls-training-plan-form .exercise-container {
-    max-width: calc(100vw - 2rem);
-  }
-}
-.kenny-girls-training-plan-form .exercise-container .exercise-item {
-  width: 100%;
-}
-.kenny-girls-training-plan-form .exercise-container .form-item label {
-  display: flex;
-  align-items: center;
-}
-@media (max-width: 1200px) {
-  .kenny-girls-training-plan-form .exercise-container .form-item label {
-    font-size: 10px;
-  }
-}
-.kenny-girls-training-plan-form .exercise-container .form-item select {
-  min-width: 40px;
-  width: 100%;
-}
-.kenny-girls-training-plan-form .js-form-type-textfield {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  width: inherit;
-}
-.kenny-girls-training-plan-form .js-form-type-textfield input {
-  width: 10vw;
+.block-kenny-new-training-man-block li a:hover, .block-kenny-new-training-girls-block li a:hover {
+  color: deepskyblue;
 }
 
 .kenny-hero-block {
@@ -533,6 +457,138 @@ p {
   margin-top: 2rem;
 }
 
+.add-favorite {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  color: #0f9b0f;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+}
+.add-favorite:hover {
+  background-color: #074707;
+  color: #fff;
+}
+.add-favorite:active {
+  transform: scale(0.95);
+}
+
+.remove-favorite {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  color: #BD3F32;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+}
+.remove-favorite:hover {
+  background-color: #74271f;
+  color: #fff;
+}
+.remove-favorite:active {
+  transform: scale(0.95);
+}
+
+.kenny-girls-training-plan-form, .kenny-training-plan-form {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto 2rem auto;
+}
+@media (max-width: 1200px) {
+  .kenny-girls-training-plan-form, .kenny-training-plan-form {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.kenny-girls-training-plan-form input, .kenny-girls-training-plan-form select, .kenny-training-plan-form input, .kenny-training-plan-form select {
+  background: rgba(203, 196, 144, 0.53);
+}
+.kenny-girls-training-plan-form .exercise-container, .kenny-training-plan-form .exercise-container {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  overflow: hidden;
+}
+@media (max-width: 1200px) {
+  .kenny-girls-training-plan-form .exercise-container, .kenny-training-plan-form .exercise-container {
+    max-width: calc(100vw - 2rem);
+  }
+}
+.kenny-girls-training-plan-form .exercise-container .form-item label, .kenny-training-plan-form .exercise-container .form-item label {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1200px) {
+  .kenny-girls-training-plan-form .exercise-container .form-item label, .kenny-training-plan-form .exercise-container .form-item label {
+    font-size: 10px;
+  }
+}
+.kenny-girls-training-plan-form .exercise-container .form-item select, .kenny-training-plan-form .exercise-container .form-item select {
+  min-width: 40px;
+  width: 80%;
+}
+.kenny-girls-training-plan-form .js-form-type-textfield, .kenny-training-plan-form .js-form-type-textfield {
+  display: grid;
+  width: 80%;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  width: inherit;
+}
+.kenny-girls-training-plan-form .new-training-form-button, .kenny-training-plan-form .new-training-form-button {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+}
+.kenny-girls-training-plan-form .new-training-form-button:active, .kenny-training-plan-form .new-training-form-button:active {
+  transform: scale(0.95);
+}
+.kenny-girls-training-plan-form .remove-field, .kenny-training-plan-form .remove-field {
+  color: #BD3F32;
+}
+@media (max-width: 1200px) {
+  .kenny-girls-training-plan-form .remove-field, .kenny-training-plan-form .remove-field {
+    background-color: #74271f;
+    color: #fff;
+  }
+}
+.kenny-girls-training-plan-form .remove-field:hover, .kenny-training-plan-form .remove-field:hover {
+  background-color: #74271f;
+  color: #fff;
+}
+.kenny-girls-training-plan-form .add-field, .kenny-girls-training-plan-form .save-new-training-form, .kenny-training-plan-form .add-field, .kenny-training-plan-form .save-new-training-form {
+  color: #0f9b0f;
+}
+@media (max-width: 1200px) {
+  .kenny-girls-training-plan-form .add-field, .kenny-girls-training-plan-form .save-new-training-form, .kenny-training-plan-form .add-field, .kenny-training-plan-form .save-new-training-form {
+    background-color: #074707;
+    color: #fff;
+  }
+}
+.kenny-girls-training-plan-form .add-field:hover, .kenny-girls-training-plan-form .save-new-training-form:hover, .kenny-training-plan-form .add-field:hover, .kenny-training-plan-form .save-new-training-form:hover {
+  background-color: #074707;
+  color: #fff;
+}
+
 .region-header {
   display: flex;
   flex-direction: row;
@@ -683,13 +739,15 @@ p {
   display: inline-flex;
   flex-direction: row;
   gap: 0.3rem;
+  width: 100%;
 }
 @media (max-width: 1200px) {
   .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview {
+    font-size: 14px;
     gap: 0.15rem;
   }
 }
-.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise {
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
   width: 200px;
   margin-right: 2rem;
   overflow: hidden;
@@ -697,9 +755,9 @@ p {
   position: relative;
 }
 @media (max-width: 600px) {
-  .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise {
-    width: 45vw;
-    margin-right: 0.25rem;
+  .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
+    width: 35vw;
+    margin-right: 0.15rem;
   }
 }
 .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition {
@@ -715,12 +773,28 @@ p {
 .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
   position: relative;
   content: "x";
+  display: flex;
+  justify-content: center;
   left: 0.4rem;
 }
 @media (max-width: 1200px) {
   .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
     left: 0.1rem;
   }
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+  display: flex;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+    display: none;
+  }
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-less, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-less {
+  color: #BD3F32;
+}
+.node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-grower, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-grower {
+  color: #0f9b0f;
 }
 .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
   display: flex;
@@ -826,13 +900,15 @@ p {
   display: inline-flex;
   flex-direction: row;
   gap: 0.3rem;
+  width: 100%;
 }
 @media (max-width: 1200px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview {
+    font-size: 14px;
     gap: 0.15rem;
   }
 }
-.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise {
+.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
   width: 200px;
   margin-right: 2rem;
   overflow: hidden;
@@ -840,9 +916,9 @@ p {
   position: relative;
 }
 @media (max-width: 600px) {
-  .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise {
-    width: 45vw;
-    margin-right: 0.25rem;
+  .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
+    width: 35vw;
+    margin-right: 0.15rem;
   }
 }
 .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition {
@@ -858,12 +934,28 @@ p {
 .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
   position: relative;
   content: "x";
+  display: flex;
+  justify-content: center;
   left: 0.4rem;
 }
 @media (max-width: 1200px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
     left: 0.1rem;
   }
+}
+.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+  display: flex;
+}
+@media (min-width: 600px) and (max-width: 1200px) {
+  .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+    display: none;
+  }
+}
+.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-less, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-less {
+  color: #BD3F32;
+}
+.node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-grower, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-grower {
+  color: #0f9b0f;
 }
 .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
   display: flex;
@@ -887,4 +979,40 @@ p {
 }
 .node-girls-training-teaser__total-weight {
   border-top: 1px solid gray;
+}
+
+.ui-dialog {
+  max-width: calc(1170px + 2rem) !important;
+  border: 2px solid gray !important;
+  border-radius: 2rem !important;
+  padding: 2rem 1rem !important;
+  margin: 0 auto !important;
+  width: 60vw !important;
+  color: #000;
+  background: rgb(197, 204, 255);
+}
+.ui-dialog-titlebar {
+  background: rgb(197, 204, 255);
+  border: none;
+}
+.ui-dialog-buttonpane {
+  background: rgb(197, 204, 255);
+}
+.ui-dialog-buttonpane .save-new-training-form {
+  color: #0f9b0f;
+  background: rgb(197, 204, 255);
+}
+@media (max-width: 1200px) {
+  .ui-dialog-buttonpane .save-new-training-form {
+    background-color: #074707;
+    color: #fff;
+  }
+}
+.ui-dialog-buttonpane .save-new-training-form:hover {
+  background-color: #074707;
+  color: #fff;
+}
+.ui-dialog-content {
+  max-height: 100% !important;
+  overflow-y: scroll;
 }

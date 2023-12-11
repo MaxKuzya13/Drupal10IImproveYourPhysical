@@ -113,7 +113,7 @@ function kenny_training_entity_extra_field_info() {
  * Implements hook_ENTITY_TYPE_view().
  */
 function kenny_training_paragraph_view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode) {
-  $bem_block = Html::getClass( 'paragraph-' . $paragraph->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+  $bem_block = Html::getClass('paragraph-' . 'man' . ($view_mode == 'default' ? '' : '-' . $view_mode));
   if ($display->getComponent('exercise_weight') && $display->id() !== 'paragraph.girl_training.preview') {
     /** @var \Drupal\kenny_training\Service\Weight\WeightManager $exercise */
     $exercise = \Drupal::service('kenny_training.weight_manager');

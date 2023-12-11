@@ -186,7 +186,7 @@ class KennyTrainingPlanForm extends FormBase {
       }
     }
 
-    $form['exercise_selection']['actions'] = ['#type' => 'actions'];
+
 
     if ($num_exercises > 1) {
       $form['exercise_selection']['actions']['remove_field'] = [
@@ -197,6 +197,9 @@ class KennyTrainingPlanForm extends FormBase {
           'callback' => '::addMoreCallback',
           'wrapper' => 'exercise-selection',
         ],
+        '#attributes' => [
+          'class' => ['remove-field', 'new-training-form-button'],
+        ]
       ];
     };
 
@@ -208,15 +211,21 @@ class KennyTrainingPlanForm extends FormBase {
         'callback' => '::addMoreCallback',
         'wrapper' => 'exercise-selection',
       ],
+      '#attributes' => [
+        'class' => ['add-field', 'new-training-form-button'],
+      ]
     ];
 
-
+    $form['actions'] = ['#type' => 'actions'];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
       '#submit' => ['::submitForm'],
       '#validate' => ['::ajaxValidateSave'],
+      '#attributes' => [
+        'class' => ['save-new-training-form', 'new-training-form-button'],
+      ]
     ];
 
 

@@ -32,7 +32,7 @@
   .field__item {
 
     a {
-      color: cadetblue;
+      color: $color-active;
 
       &:hover {
         color: deepskyblue;
@@ -55,6 +55,10 @@
     padding: 1rem 0.5rem;
   }
 
+  input, select{
+    background: $color-bg-modal-two;
+  }
+
   .exercise-container {
     display: grid;
     align-items: center;
@@ -64,11 +68,8 @@
     @include mobileDefault {
       max-width: $container-max-mobile;
     }
-    grid-template-columns: 1fr 1fr 1fr 1fr;
 
-    .exercise-item {
-      width: 100%;
-    }
+
 
     .form-item {
       label {
@@ -78,23 +79,70 @@
           font-size: 10px;
         }
       }
+
+
       select {
         min-width: 40px;
-        width: 100%;
+        width: 80%;
       }
     }
   }
 
   .js-form-type-textfield {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 3fr;
     gap: 1rem;
     width: inherit;
 
-    input {
-      width: 10vw;
+
+
+  }
+
+  .new-training-form-button {
+    margin: 0;
+    background: none;
+    cursor: pointer;
+
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    padding: 4px 6px;
+    border-radius: 7px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .remove-field {
+    color: $color-red-button;
+    @include mobileDefault {
+      background-color: darken($color-red-button, 18%);
+      color: $color-text;
     }
 
+    &:hover {
+      background-color: darken($color-red-button, 18%);
+      color: $color-text;
+    }
+
+
+  }
+
+  .add-field, .save-new-training-form {
+    color: $color-green-button;
+    @include mobileDefault {
+      background-color: darken($color-green-button, 18%);
+      color: $color-text;
+    }
+
+    &:hover {
+      background-color: darken($color-green-button, 18%);
+      color: $color-text
+    }
   }
 }
 
@@ -216,13 +264,15 @@
       display: inline-flex;
       flex-direction: row;
       gap: 0.3rem;
+      width: 100%;
 
       @include mobileDefault {
+        font-size: 14px;
         gap: 0.15rem;
       }
 
 
-      .paragraph-field-exercise {
+      .paragraph-field-exercise, .paragraph-field-girl-exercise {
         width: 200px;
         margin-right: 2rem;
         overflow: hidden;
@@ -230,8 +280,8 @@
         position: relative;
 
         @include mobile {
-          width: 45vw;
-          margin-right: 0.25rem;
+          width: 35vw;
+          margin-right: 0.15rem;
         }
       }
 
@@ -245,11 +295,28 @@
         &:after {
           position: relative;
           content: "x";
+          display: flex;
+          justify-content: center;
           left: 0.4rem;
           @include mobileDefault {
             left: 0.1rem;
           }
         }
+      }
+
+      .paragraph-girl-training-preview__exercise-weight, .paragraph-man-preview__exercise-weight{
+        display: flex;
+        @include mobileLarge {
+          display: none;
+        }
+      }
+
+      .paragraph-girl-training-preview__difference-less, .paragraph-man-preview__difference-less {
+        color: $color-red-button;
+      }
+
+      .paragraph-girl-training-preview__difference-grower, .paragraph-man-preview__difference-grower {
+        color: $color-green-button;
       }
 
       .paragraph-field-approaches {
@@ -267,7 +334,10 @@
             left: 0.1rem;
           }
         }
+
       }
+
+
     }
   }
 }
