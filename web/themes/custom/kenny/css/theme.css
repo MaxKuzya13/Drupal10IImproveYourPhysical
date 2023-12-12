@@ -119,6 +119,159 @@ p {
   color: deepskyblue;
 }
 
+.block-kenny-stats {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.block-kenny-stats .kenny-stats-date {
+  display: inline-flex;
+  width: 100%;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .kenny-stats-date {
+    gap: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+.block-kenny-stats .kenny-stats-date input {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: #4286f4;
+  padding: 0.3rem;
+}
+.block-kenny-stats .kenny-stats-date input:hover {
+  cursor: pointer;
+  color: #1267f1;
+}
+.block-kenny-stats .kenny-stats-title {
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.block-kenny-stats .measurements-container-stats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .measurements-container-stats {
+    gap: 0.25rem;
+    font-size: 12px;
+  }
+}
+.block-kenny-stats .measurements-container-stats .node-measurements-teaser__title {
+  display: none;
+  height: 1.5rem;
+}
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-days-by-period {
+  border-bottom: 1px solid gray;
+  height: 1.5rem;
+  color: cadetblue;
+}
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-body-part-by-period {
+  height: 1.5rem;
+  border-bottom: 1px solid gray;
+}
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .grow {
+  color: #0f9b0f;
+}
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .less {
+  color: #BD3F32;
+}
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser {
+  display: flex;
+  border-bottom: 1px solid gray;
+  gap: 0.7rem;
+  height: 1.5rem;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser {
+    gap: 0.3rem;
+  }
+}
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label {
+  display: flex;
+  position: relative;
+  height: 1.5rem;
+}
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
+  position: relative;
+  content: ":";
+  left: 3px;
+}
+@media (max-width: 600px) {
+  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
+    left: 1px;
+  }
+}
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__item {
+  color: cadetblue;
+  height: 1.5rem;
+}
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser__field-created {
+  color: cadetblue;
+  height: 1.5rem;
+}
+.block-kenny-stats .count-of-training {
+  margin-top: 2rem;
+  border-bottom: 1px solid gray;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .count-of-training {
+    font-size: 12px;
+    margin-top: 1rem;
+  }
+}
+.block-kenny-stats .count-of-training__total-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .count-of-training__total-stats {
+    font-size: 12px;
+  }
+}
+.block-kenny-stats .count-of-training__body-part {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .count-of-training__body-part {
+    font-size: 12px;
+  }
+}
+.block-kenny-stats .most-popular-exercises {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid gray;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .most-popular-exercises {
+    font-size: 12px;
+  }
+}
+.block-kenny-stats .most-popular-exercises__title {
+  display: flex;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+@media (max-width: 1200px) {
+  .block-kenny-stats .most-popular-exercises__title {
+    font-size: 1rem;
+  }
+}
+
 .kenny-hero-block {
   position: relative;
   width: calc(1170px + 2rem);
@@ -979,6 +1132,112 @@ p {
 }
 .node-girls-training-teaser__total-weight {
   border-top: 1px solid gray;
+}
+
+.page-favorite-training {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .page-favorite-training {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.page-favorite-training .view-filters form {
+  display: inline-flex;
+  border: 1px solid gray;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters form {
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    padding: 0.25rem;
+  }
+}
+.page-favorite-training .view-filters form .form-type-select {
+  padding: 0.5rem;
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters form .form-type-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.25rem;
+  }
+}
+.page-favorite-training .view-filters form .form-type-select .form-select {
+  margin-left: 0.3rem;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  background-color: inherit;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters form .form-type-select .form-select {
+    padding: 0.15rem;
+    margin-left: unset;
+  }
+}
+.page-favorite-training .view-filters form .form-type-select .form-select option {
+  background-color: rgba(0, 0, 0, 0.8509803922);
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters form .form-type-select .form-select option {
+    font-size: 12px;
+  }
+}
+.page-favorite-training .view-filters form .form-type-select .form-select:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.page-favorite-training .view-filters .form-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  padding-right: 0.5rem;
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters .form-wrapper {
+    margin-left: unset;
+    padding-right: unset;
+    align-items: end;
+    padding-bottom: 0.15rem;
+    justify-content: center;
+  }
+}
+.page-favorite-training .view-filters .form-wrapper .form-submit {
+  background: inherit;
+  border: unset;
+  padding: 0.4rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-filters .form-wrapper .form-submit {
+    padding: 0.2rem 0.5rem;
+  }
+}
+.page-favorite-training .view-filters .form-wrapper .form-submit:hover {
+  border-color: greenyellow;
+  cursor: pointer;
+}
+.page-favorite-training .view-content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 600px) {
+  .page-favorite-training .view-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ui-dialog {

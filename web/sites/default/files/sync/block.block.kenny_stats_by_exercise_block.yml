@@ -16,7 +16,7 @@ plugin: kenny_stats_block
 settings:
   id: kenny_stats_block
   label: 'Kenny Stats by exercise Block'
-  label_display: visible
+  label_display: '0'
   provider: kenny_stats
 visibility:
   request_path:

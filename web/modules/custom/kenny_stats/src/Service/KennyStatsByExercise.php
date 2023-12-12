@@ -78,14 +78,17 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
     $output = [];
 
-    $output['biceps'] = $this->mathResults('biceps', $last, $first);
-    $output['chest'] = $this->mathResults('chest', $last, $first);
-    $output['forearms'] = $this->mathResults('forearms', $last, $first);
+    $output['created'] = $this->mathResults('created', $last, $first);
     $output['height'] = $this->mathResults('height', $last, $first);
-    $output['neck'] = $this->mathResults('neck', $last, $first);
-    $output['thigh'] = $this->mathResults('thigh', $last, $first);
-    $output['waist'] = $this->mathResults('waist', $last, $first);
     $output['weight'] = $this->mathResults('weight', $last, $first);
+    $output['neck'] = $this->mathResults('neck', $last, $first);
+    $output['chest'] = $this->mathResults('chest', $last, $first);
+    $output['biceps'] = $this->mathResults('biceps', $last, $first);
+    $output['forearms'] = $this->mathResults('forearms', $last, $first);
+    $output['waist'] = $this->mathResults('waist', $last, $first);
+    $output['glutes'] = $this->mathResults('glutes', $last, $first);
+    $output['thigh'] = $this->mathResults('thigh', $last, $first);
+
 
     return $output;
 
@@ -103,11 +106,21 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    * @return string
    */
   protected function mathResults($type, $last, $first) {
-    if ($last->get("field_{$type}")->value >= $first->get("field_{$type}")->value) {
-      $result = '+ ' . $last->get("field_{$type}")->value - $first->get("field_{$type}")->value;
+    if($type !== 'created') {
+      if ($last->get("field_{$type}")->value >= $first->get("field_{$type}")->value) {
+        $result = '+ ' . $last->get("field_{$type}")->value - $first->get("field_{$type}")->value;
+      } else {
+        $result = '- ' . $first->get("field_{$type}")->value - $last->get("field_{$type}")->value;
+      }
     } else {
-      $result = '- ' . $first->get("field_{$type}")->value - $last->get("field_{$type}")->value;
+      $date_last = new \DateTime($last->get("field_{$type}")->value);
+      $date_first = new \DateTime($first->get("field_{$type}")->value);
+      $difference = $date_last->diff($date_first);
+      $result = $difference->days;
+
     }
+
+
 
 
     return $result;
@@ -320,9 +333,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    */
 
   public function getNumberOfTraining($training_people, $limit) {
+    $output = [];
 
     $start_date = $this->switchDate($limit);
-
     $input_array = $this->getMainFields($training_people);
     extract($input_array);
 
@@ -337,51 +350,39 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     $nids = $query->execute();
 
     if (!empty($nids)) {
-      $ouput['count'] = count($nids);
-      return $ouput;
-    }
-
-    return 0;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getNumberOfTrainingByTrainingType($training_people, $limit, $name_type_of_training) {
-
-    $start_date = $this->switchDate($limit);
-
-    $input_array = $this->getMainFields($training_people);
-    extract($input_array);
-
-    if ($name_type_of_training == 'force') {
-      $type_of_training_id = $this->entityTypeManager->getStorage('taxonomy_term')
-        ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
-      $type_of_training_id = reset($type_of_training_id)->id();
+      $output['Total'] = count($nids);
     } else {
+      $output['Total'] = 0;
+    }
+
+    $name_type_of_training = ['Force', 'Intensive'];
+    foreach ($name_type_of_training as $name) {
       $type_of_training_id = $this->entityTypeManager->getStorage('taxonomy_term')
-        ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
+        ->loadByProperties(['name' => $name, 'vid' => $type_of_training]);
       $type_of_training_id = reset($type_of_training_id)->id();
+
+      $node_storage = $this->entityTypeManager->getStorage('node');
+
+      $query = $node_storage->getQuery()
+        ->condition('type', $training)
+        ->condition($field_type_of_training, $type_of_training_id)
+        ->exists($field_exercises)
+        ->accessCheck(FALSE)
+        ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+
+      $nids = $query->execute();
+
+      if (!empty($nids)) {
+        $output[$name] = count($nids);
+      } else {
+        $output[$name] = 0;
+      }
     }
 
-    $node_storage = $this->entityTypeManager->getStorage('node');
-
-    $query = $node_storage->getQuery()
-      ->condition('type', $training)
-      ->condition($field_type_of_training, $type_of_training_id)
-      ->exists($field_exercises)
-      ->accessCheck(FALSE)
-      ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
-
-    $nids = $query->execute();
-
-    if (!empty($nids)) {
-      return count($nids);
-    }
-
-    return 0;
-
+    return $output;
   }
+
+
 
   /**
    * {@inheritdoc}
@@ -416,17 +417,17 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     foreach ($taxonomy_tree as $term) {
 
       $query = $node_storage->getQuery()
-      ->condition('type', $training)
-      ->condition($field_body_part, $term->tid)
-      ->exists($field_exercises)
-      ->accessCheck(FALSE)
-      ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
+        ->condition('type', $training)
+        ->condition($field_body_part, $term->tid)
+        ->exists($field_exercises)
+        ->accessCheck(FALSE)
+        ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
 
       $nids = $query->execute();
       if (!empty($nids)) {
-        $output[$term->name] = count($nids);
+        $output[$term->name]['Total'] = count($nids);
       } else {
-        $output[$term->name] = 0;
+        $output[$term->name]['Total'] = 0;
       }
 
       $query_force = $node_storage->getQuery()
@@ -439,9 +440,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $force_ids = $query_force->execute();
       if (!empty($force_ids)) {
-        $output[$term->name . ' Force'] = count($force_ids);
+        $output[$term->name]['Force'] = count($force_ids);
       } else {
-        $output[$term->name . ' Force'] = 0;
+        $output[$term->name]['Force'] = 0;
       }
 
       $query_intensive = $node_storage->getQuery()
@@ -454,9 +455,9 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $intensive_ids = $query_intensive->execute();
       if (!empty($intensive_ids)) {
-        $output[$term->name . ' Intensive'] = count($intensive_ids);
+        $output[$term->name]['Intensive'] = count($intensive_ids);
       } else {
-        $output[$term->name . ' Intensive'] = 0;
+        $output[$term->name]['Intensive'] = 0;
       }
 
 

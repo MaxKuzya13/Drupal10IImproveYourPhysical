@@ -9,6 +9,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\kenny_stats\Service\KennyGirlsStatsByExerciseInterface;
 use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Provides a 'Stats by exercise' block.
@@ -80,7 +81,14 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $limit = !empty($value) ? $value : '1 year';
     // Знищити значення в сесії, оскільки ми його вже отримали.
     unset($_SESSION['kenny_stats_form_value']);
-
+    $output['stats_for_time'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h3',
+      '#value' => 'Stats for the last ' . $limit,
+      '#attributes' => [
+        'class' => ['kenny-stats-title'],
+      ],
+    ];
     $config = $this->configFactory->get('kenny_stats.settings');
     $exercises_array = $this->statsByExercise->getExercisesArray($config);
 
@@ -92,43 +100,79 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $current_uid = \Drupal::currentUser()->id();
     $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
 
-    $output['measurements'] = [
-      'measurements_last' => $this->entityTypeManager
-        ->getViewBuilder('node')
-        ->view($measurements['last_measurements'], 'teaser'),
-      'measurements_first' => $this->entityTypeManager
-        ->getViewBuilder('node')
-        ->view($measurements['first_measurements'], 'teaser')
-      ];
-
-    $result_measurements = $this->statsByExercise
-      ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
-    $output['measurements'][] = [
-      'measurements_height' => [
-        '#markup' => "<span>" . 'Height grower by ' . $limit . ' : ' . $result_measurements['height'] . ' sm' . "</span>"
-      ],
-      'measurements_weight' => [
-        '#markup' => "</br>" . "<span>" . 'Weight grower by ' . $limit . ' : ' . $result_measurements['weight'] . ' kg' . "</span>"
-      ],
-      'measurements_neck' => [
-        '#markup' => "</br>" . "<span>" . 'Neck grower by ' . $limit . ' : ' . $result_measurements['neck'] . ' sm' . "</span>"
-      ],
-      'measurements_chest' => [
-        '#markup' => "</br>" . "<span>" . 'Chest grower by ' . $limit . ' : ' . $result_measurements['chest'] . ' sm' . "</span>"
-      ],
-      'measurements_biceps' => [
-        '#markup' => "</br>" . "<span>" . 'Biceps grower by ' . $limit . ' : ' . $result_measurements['biceps'] . ' sm' . "</span>"
-      ],
-      'measurements_forearms' => [
-        '#markup' => "</br>" . "<span>" . 'Forearms grower by ' . $limit . ' : ' . $result_measurements['forearms'] . ' sm' . "</span>"
-      ],
-      'measurements_waist' => [
-        '#markup' => "</br>" . "<span>" . 'Waist grower by ' . $limit . ' : ' . $result_measurements['waist'] . ' sm' . "</span>"
-      ],
-      'measurements_thigh' => [
-        '#markup' => "</br>" . "<span>" . 'Thigh grower by ' . $limit . ' : ' . $result_measurements['thigh'] . ' sm' . "</span>"
-      ],
+    $output['measurements']['container'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['measurements-container-stats']],
     ];
+
+
+
+    if (isset($measurements['last_measurements'])) {
+      $output['measurements']['container']['measurements_last'] = $this->entityTypeManager
+          ->getViewBuilder('node')
+          ->view($measurements['last_measurements'], 'teaser');
+
+    }
+
+
+    if (isset($measurements['first_measurements'])) {
+      $output['measurements']['container']['measurements_first'] = $this->entityTypeManager
+          ->getViewBuilder('node')
+          ->view($measurements['first_measurements'], 'teaser');
+
+    }
+
+      $result_measurements = $this->statsByExercise
+        ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
+
+
+
+    $output['measurements']['container']['results'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['result-measurements-container-stats']],
+    ];
+
+    foreach ($result_measurements as $name => $res) {
+      if (strpos($res, '-') !== false) {
+        $class = 'less';
+      }  else {
+        $class = 'grow';
+      }
+
+      if ($name == 'created') {
+        $output['measurements']['container']['results'][$name] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $res . ' days',
+          '#attributes' => [
+            'class' => ['kenny-stats-days-by-period'],
+          ],
+        ];
+      } elseif ($name !== 'weight') {
+
+        $output['measurements']['container']['results'][$name] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $res . ' sm',
+          '#attributes' => [
+            'class' => ['kenny-stats-body-part-by-period', $class],
+          ],
+        ];
+      } else {
+        $output['measurements']['container']['results'][$name] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $res . ' kg',
+          '#attributes' => [
+            'class' => ['kenny-stats-body-part-by-period', $class],
+          ],
+        ];
+      }
+
+    }
+
+
+
 
     // ----------------------------------------- Measurements
 
@@ -138,47 +182,96 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $training_people = 'man';
 
     $count_of_training = $this->statsByExercise->getNumberOfTraining($training_people, $limit);
-    $count_of_force_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'force');
-    $count_of_intensive_training = $this->statsByExercise->getNumberOfTrainingByTrainingType($training_people, $limit, 'intensive');
 
-    $output['count_of_training'] = [
-      '#markup' => "</br>" . "<span>" . 'The total number of training per ' . $limit . ' : ' . $count_of_training['count'] . "</span>"
+    $output['count_of_training']['container'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['count-of-training']],
     ];
 
-
-    $output['count_of_force_training'] = [
-      '#markup' => "</br>" . "<span>" . 'Force training : ' . $count_of_force_training . "</span>"
+    $output['count_of_training']['container']['total_stats'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['count-of-training__total-stats']],
     ];
 
-    $output['count_of_intensive_training'] = [
-      '#markup' => "</br>" . "<span>" . 'Intensive training : ' . $count_of_intensive_training . "</span>"
-    ];
+    foreach ($count_of_training as $count => $value) {
 
-    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($training_people, $limit);
-
-    $count_output = array_keys($count_by_body_part);
-
-    foreach ($count_output as $type) {
-      $key = strtolower(str_replace(' ', '_', $type));
-
-      $output["count_of_{$key}"] = [
-        '#markup' => "</br>" . "<span>" . "{$type} training : " . $count_by_body_part[$type] . "</span>"
+      $output['count_of_training']['container']['total_stats'][$count] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $count . ' training: ' . $value,
+        '#attributes' => [
+          'class' => ['count-of-training'],
+        ],
       ];
     }
 
+
+
+    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($training_people, $limit);
+//
+//    $count_output = array_keys($count_by_body_part);
+
+    foreach ($count_by_body_part as $body_part => $value) {
+      $lower_case = strtolower($body_part);
+
+      $output['count_of_training']['container']["count_of_{$lower_case}"] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['count-of-training__body-part']
+        ],
+      ];
+
+      foreach ($value as $name => $val) {
+        $lower_case_name = strtolower($name);
+        $output['count_of_training']['container']["count_of_{$lower_case}"][$lower_case_name] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $body_part . " {$name}: " . $val,
+          '#attributes' => [
+            'class' => ["count-of-{$lower_case_name}"],
+          ],
+        ];
+      }
+    }
+
+
+
+
+
     $most_popular_exercise = $this->statsByExercise->mostPopularExercise($training_people, $limit);
 
-    $output["most_popular_exercise"] = [
-      '#markup' => "</br>" . "<span>" . 'Most popular exercise : '  . "</span>"
+    $output["most_popular_exercises-title"] = [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' =>  "Most popular exercises ({$most_popular_exercise['count']} replacement)",
+      '#attributes' => [
+        'class' => ["most-popular-exercises__title"],
+      ],
     ];
+
+    $output['most_popular_exercises']['container'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['most-popular-exercises']
+      ],
+    ];
+
 
     foreach ($most_popular_exercise['exercises_names'] as $exercise) {
       $type = strtolower(str_replace(' ', '_', $exercise));
 
-      $output["most_popular_exercise_{$type}"] = [
-        '#markup' => "<span>" . $exercise . ' (' . $most_popular_exercise['count'] . ') ' . "</span>"
+      $output['most_popular_exercises']['container']["most_popular_exercise_{$type}"] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $exercise,
+        '#attributes' => [
+          'class' => ["most-popular-exercises__items"],
+        ],
       ];
     }
+
+
+
     //------------------------------------------
 
     foreach ($body_part_list as $term) {

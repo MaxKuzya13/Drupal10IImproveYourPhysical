@@ -22,11 +22,6 @@ final class StatsDateForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
-    $form['submit_1_day'] = [
-      '#type' => 'submit',
-      '#value' => '1 day',
-    ];
-
     $form['submit_1_month'] = [
       '#type' => 'submit',
       '#value' => '1 month',

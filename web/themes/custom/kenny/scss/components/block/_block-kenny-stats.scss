@@ -1,0 +1,167 @@
+.block-kenny-stats {
+  @include mainContainer;
+
+  .kenny-stats-date {
+    display: inline-flex;
+    width: 100%;
+
+    @include mobileDefault {
+      gap: 0.5rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    input {
+      display: inline-block;
+      background: none;
+      border: none;
+      color: $color-date;
+      padding: 0.3rem;
+
+      &:hover {
+        cursor: pointer;
+        color: darken($color-date, 10%);
+      }
+    }
+  }
+
+  .kenny-stats-title {
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+
+  .measurements-container-stats {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @include mobileDefault {
+      gap: 0.25rem;
+      font-size: 12px;
+    }
+
+    .node-measurements-teaser__title {
+      display: none;
+      height: 1.5rem;
+
+    }
+
+    .result-measurements-container-stats {
+
+
+      .kenny-stats-days-by-period {
+        border-bottom: 1px solid gray;
+        height: 1.5rem;
+        color: $color-active;
+      }
+
+     .kenny-stats-body-part-by-period {
+        height: 1.5rem;
+        border-bottom: 1px solid gray;
+      }
+
+      .grow {
+        color: $color-green-button;
+      }
+
+      .less {
+        color: $color-red-button;
+      }
+
+    }
+
+    .node__content {
+
+      .node-measurements-teaser {
+        display: flex;
+        border-bottom: 1px solid gray;
+        gap: 0.7rem;
+        height: 1.5rem;
+
+        @include mobileDefault {
+          gap: 0.3rem;
+        }
+
+        .field__label {
+          display: flex;
+          position: relative;
+          height: 1.5rem;
+
+
+          &:after {
+            position: relative;
+            content: ":";
+            left: 3px;
+            @include mobile {
+              left: 1px;
+            }
+
+          }
+        }
+
+        .field__item {
+          color: $color-active;
+          height: 1.5rem;
+
+        }
+
+        &__field-created {
+          color: $color-active;
+          height: 1.5rem;
+        }
+
+      }
+    }
+  }
+
+  .count-of-training {
+    margin-top: 2rem;
+    border-bottom: 1px solid gray;
+    @include mobileDefault {
+      font-size: 12px;
+      margin-top: 1rem;
+    }
+
+
+
+    &__total-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      @include mobileDefault {
+        font-size: 12px;
+      }
+
+    }
+
+    &__body-part {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      @include mobileDefault {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .most-popular-exercises {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid gray;
+    @include mobileDefault {
+      font-size: 12px;
+    }
+
+    &__title {
+      display: flex;
+      justify-content: center;
+      font-size: 1.3rem;
+
+      @include mobileDefault {
+        font-size: 1rem;
+      }
+    }
+  }
+
+}
