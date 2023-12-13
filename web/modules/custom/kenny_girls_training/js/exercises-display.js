@@ -9,24 +9,26 @@
       once(name, selector, context).forEach(function (element){
         let button = $(element);
         let termIdentifier = $(element).data('term-identifier');
+        console.log(termIdentifier);
 
         button.click(function (e) {
           e.preventDefault();
           for (let i = 0; i < 10; i++) {
             $("." + termIdentifier + '_' + i).show();
+            // .exercise-container-shoulders_0
           }
           if(button.hasClass('show-all-exercises-button')) {
             for (let i = 2; i < 10; i++) {
-              $("." + termIdentifier + '_' + i).show();
+              $("." + termIdentifier + '_' + i).removeClass('hide-exercises');
             }
             button.removeClass('show-all-exercises-button');
             button.addClass('hide-all-exercises-button');
             button.val('Hide exercises');
           } else {
             for (let i = 3; i < 10; i++) {
-              $("." + termIdentifier + '_' + i).hide();
+              $("." + termIdentifier + '_' + i).addClass('hide-exercises');
             }
-            button.addClass('hide-all-exercises-button');
+            button.removeClass('hide-all-exercises-button');
             button.addClass('show-all-exercises-button');
             button.val('Show all exercises');
           }

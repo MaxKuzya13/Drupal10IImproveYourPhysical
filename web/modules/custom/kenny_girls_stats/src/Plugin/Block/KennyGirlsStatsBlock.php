@@ -303,6 +303,8 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
       $paragraph = $this->statsByExercise->getCurrentParagraph($training_people, $exercise_id);
       $reformated_exercise_name = ucwords(str_replace('_', ' ', $exercise_name));
 
+      $media = $this->statsByExercise->getMedia($reformated_exercise_name);
+
       $output['paragraph']['exercise_container'][$exercise_name] = [
         '#type' => 'container',
         '#attributes' => [
@@ -374,13 +376,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
           $output['paragraph']['exercise_container'][$exercise_name]['working_weight'] = [];
         }
 
-//        $output['paragraph']['exercise_container'][$exercise_name]['media'] = $this->entityTypeManager
-//          ->getViewBuilder('media')
-//          ->view($media, 'full');
-//
-//        $output['paragraph']['exercise_container'][$exercise_name]['media']['#attributes']['class'] = [
-//          'stats-exercise-container__exercise-media',
-//        ];
+
 
       } else {
         // Відобразити повідомлення про відсутність тренувань для "Body part".
@@ -397,6 +393,14 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
 
       }
+
+      $output['paragraph']['exercise_container'][$exercise_name]['media'] = $this->entityTypeManager
+        ->getViewBuilder('media')
+        ->view($media, 'full');
+
+      $output['paragraph']['exercise_container'][$exercise_name]['media']['#attributes']['class'] = [
+        'stats-exercise-container__exercise-media',
+      ];
 
 
     }

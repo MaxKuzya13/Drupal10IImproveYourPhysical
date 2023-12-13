@@ -320,6 +320,30 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
         return $media_storage->load(72);
         break;
 
+      case 'Quadriceps':
+        /** @var \Drupal\media\MediaStorage $media_storage */
+        $media_storage = $this->entityTypeManager->getStorage('media');
+        return $media_storage->load(73);
+        break;
+
+      case 'Hamstring':
+        /** @var \Drupal\media\MediaStorage $media_storage */
+        $media_storage = $this->entityTypeManager->getStorage('media');
+        return $media_storage->load(74);
+        break;
+
+      case 'Glutes':
+        /** @var \Drupal\media\MediaStorage $media_storage */
+        $media_storage = $this->entityTypeManager->getStorage('media');
+        return $media_storage->load(75);
+        break;
+
+      case 'Inner Thigh':
+        /** @var \Drupal\media\MediaStorage $media_storage */
+        $media_storage = $this->entityTypeManager->getStorage('media');
+        return $media_storage->load(76);
+        break;
+
     }
 
     return null;

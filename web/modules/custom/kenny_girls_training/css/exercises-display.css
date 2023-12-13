@@ -1,5 +1,5 @@
 .hide-exercises {
-    display: none;
+    display: none!important;
 }
 
 .hide-video {

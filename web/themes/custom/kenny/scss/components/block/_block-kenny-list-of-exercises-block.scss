@@ -1,0 +1,77 @@
+.block-kenny-list-of-exercises-block {
+  @include mainContainer;
+
+ .muscles-container {
+
+   &__title {
+     font-size: 3rem;
+     color: $color-violet;
+   }
+
+   &__exercises {
+     margin-left: 1rem;
+   }
+
+   .container-exercise {
+     display: flex;
+     flex-direction: column;
+
+     input {
+       background: none;
+       border: none;
+       color: $color-text;
+       font-size: 2rem;
+       text-align: start;
+
+       &:hover {
+         color: $color-active-hover;
+         cursor: pointer;
+       }
+     }
+
+     .container-video {
+       display: inline-flex;
+
+       video {
+         width: 100%;
+         height: auto;
+       }
+     }
+   }
+
+   .show-all-exercises-button {
+     background: none;
+     border: none;
+     color: $color-active;
+     font-size: 1rem;
+
+     &:hover {
+       cursor: pointer;
+       color: darken($color-active, 10%);
+     }
+   }
+
+   .hide-all-exercises-button {
+     background: none;
+     border: none;
+     color: $color-red-button;
+     font-size: 1rem;
+
+     &:hover {
+       cursor: pointer;
+       color: darken($color-red-button, 10%);
+     }
+   }
+
+   .links {
+     @include resetLi;
+
+     a {
+       border: 1px solid gray;
+       padding: 0.3rem;
+       background: darken($color-green-button, 13%);
+       color: $color-text;
+     }
+   }
+ }
+}

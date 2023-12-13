@@ -91,6 +91,80 @@ p {
   line-height: 1.5;
 }
 
+.block-kenny-list-of-exercises-block {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .block-kenny-list-of-exercises-block {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.block-kenny-list-of-exercises-block .muscles-container__title {
+  font-size: 3rem;
+  color: #6441A5;
+}
+.block-kenny-list-of-exercises-block .muscles-container__exercises {
+  margin-left: 1rem;
+}
+.block-kenny-list-of-exercises-block .muscles-container .container-exercise {
+  display: flex;
+  flex-direction: column;
+}
+.block-kenny-list-of-exercises-block .muscles-container .container-exercise input {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  text-align: start;
+}
+.block-kenny-list-of-exercises-block .muscles-container .container-exercise input:hover {
+  color: deepskyblue;
+  cursor: pointer;
+}
+.block-kenny-list-of-exercises-block .muscles-container .container-exercise .container-video {
+  display: inline-flex;
+}
+.block-kenny-list-of-exercises-block .muscles-container .container-exercise .container-video video {
+  width: 100%;
+  height: auto;
+}
+.block-kenny-list-of-exercises-block .muscles-container .show-all-exercises-button {
+  background: none;
+  border: none;
+  color: cadetblue;
+  font-size: 1rem;
+}
+.block-kenny-list-of-exercises-block .muscles-container .show-all-exercises-button:hover {
+  cursor: pointer;
+  color: #4c7e80;
+}
+.block-kenny-list-of-exercises-block .muscles-container .hide-all-exercises-button {
+  background: none;
+  border: none;
+  color: #BD3F32;
+  font-size: 1rem;
+}
+.block-kenny-list-of-exercises-block .muscles-container .hide-all-exercises-button:hover {
+  cursor: pointer;
+  color: #953227;
+}
+.block-kenny-list-of-exercises-block .muscles-container .links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.block-kenny-list-of-exercises-block .muscles-container .links a {
+  border: 1px solid gray;
+  padding: 0.3rem;
+  background: #095f09;
+  color: #fff;
+}
+
 .block-kenny-new-training-man-block, .block-kenny-new-training-girls-block {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;

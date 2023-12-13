@@ -73,6 +73,12 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
     };
     $terms_muscle = array_udiff($body_plus_muscle_term_tree, $body_term_tree, $compareFunction);
     $output['#attached']['library'][] = 'kenny_girls_training/exercises-display';
+    $output['container'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['muscles']
+      ],
+    ];
     foreach ($terms_muscle as $term) {
       $query = $term_storage->getQuery()
         ->condition('vid', 'girls_training')
@@ -83,17 +89,30 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
         $exercises_ids["exercises_{$term->name}"] = $query;
         $exercises = $term_storage->loadMultiple($exercises_ids["exercises_{$term->name}"]);
       }
-      $output["exercises_{$term->name}"] = [
-        '#markup' => "</br>" . "<h1>" . $term->name . "</h1>",
 
+      $muscle_name = $term->name;
+      $muscle_name_lower = strtolower(str_replace(' ', '-', $term->name));
+
+      $output['container'][$muscle_name_lower] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['muscles-container']
+        ],
+      ];
+      $output['container'][$muscle_name_lower][$muscle_name_lower . '_title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $muscle_name,
+        '#attributes' => [
+          'class' => ["muscles-container__title"],
+        ],
       ];
 
 
-      $muscle_name = strtolower(str_replace(' ', '-', $term->name));
-      $muscle_container_class = 'exercises-container-' . $muscle_name;
-      $output[$muscle_name] = [
+      $muscle_container_class = 'exercises-container-' . $muscle_name_lower;
+      $output['container'][$muscle_name_lower]['exercises_container'] = [
         '#type' => 'container',
-        '#attributes' => ['class' => [$muscle_container_class, 'container-muscle']],
+        '#attributes' => ['class' => [$muscle_container_class, 'muscles-container__exercises']],
       ];
 
       $i = 0;
@@ -110,13 +129,13 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
         $exercise_container_class = 'exercise-container-'. $exercise_container;
         $exercise_class = 'exercises-' . strtolower(str_replace(' ', '-', $term->name));
 
-        $output[$muscle_name][$exercise_container] = [
+        $output['container'][$muscle_name_lower]['exercises_container'][$exercise_container] = [
           '#type' => 'container',
           '#attributes' => ['class' => [$exercise_container_class, 'container-exercise']],
         ];
         // Hidden exercises after 3;
         if ($i > 2) {
-          $output[$muscle_name][$exercise_container] = [
+          $output['container'][$muscle_name_lower]['exercises_container'][$exercise_container] = [
             '#type' => 'container',
             '#attributes' => ['class' => [$exercise_container_class, 'hide-exercises', 'container-exercise']],
           ];
@@ -125,7 +144,7 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
         $class_video = 'exercise-container-' . $exercise_container . '_video';
 
         // Video hidden by default.
-        $output[$muscle_name][$exercise_container]['exercise'] = [
+        $output['container'][$muscle_name_lower]['exercises_container'][$exercise_container]['exercise'] = [
           'button' => [
             '#type' => 'button',
             '#value' => $exercise_name,
@@ -145,15 +164,15 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
         ];
         $i++;
       };
-      $output[$muscle_name]['button'] = [
+      $output['container'][$muscle_name_lower]['exercises_container']['button'] = [
         '#type' => 'button',
         '#value' => $this->t('Show all exercises'),
         '#attributes' => [
           'class' => ['show-all-exercises-button'],
-          'data-term-identifier' => "exercise-container-" . $muscle_name,
+          'data-term-identifier' => "exercise-container-" . $muscle_name_lower,
         ],
       ];
-      $output[$muscle_name]['add_exercise'] = [
+      $output['container'][$muscle_name_lower]['exercises_container']['add_exercise'] = [
         '#theme' => 'links',
         '#links' => [
           'link' => [
