@@ -6,10 +6,9 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\kenny_stats\Service\KennyGirlsStatsByExerciseInterface;
+use Drupal\Core\Url;
 use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Provides a 'Stats by exercise' block.
@@ -75,12 +74,16 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
   public function build() {
 
     $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\StatsDateForm');
+
+    // Form with timeline (1month, 3month, 6 month, 1 year)
     $output['form'] = $form;
     // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
     $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
     $limit = !empty($value) ? $value : '1 year';
     // Знищити значення в сесії, оскільки ми його вже отримали.
     unset($_SESSION['kenny_stats_form_value']);
+
+    // Title for measurements by last period
     $output['stats_for_time'] = [
       '#type' => 'html_tag',
       '#tag' => 'h3',
@@ -89,24 +92,24 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
         'class' => ['kenny-stats-title'],
       ],
     ];
+
     $config = $this->configFactory->get('kenny_stats.settings');
     $exercises_array = $this->statsByExercise->getExercisesArray($config);
 
-    /** @var \Drupal\taxonomy\TermStorageInterface $body_part_list */
-    $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
-      ->loadTree('body_part');
+
 
     // ----------------------------------------- Measurements
     $current_uid = \Drupal::currentUser()->id();
     $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
 
+    // Container for all measurements result
     $output['measurements']['container'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['measurements-container-stats']],
     ];
 
 
-
+    // Last measurements
     if (isset($measurements['last_measurements'])) {
       $output['measurements']['container']['measurements_last'] = $this->entityTypeManager
           ->getViewBuilder('node')
@@ -114,19 +117,18 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
     }
 
-
+    // First measurement
     if (isset($measurements['first_measurements'])) {
       $output['measurements']['container']['measurements_first'] = $this->entityTypeManager
           ->getViewBuilder('node')
           ->view($measurements['first_measurements'], 'teaser');
-
     }
 
-      $result_measurements = $this->statsByExercise
-        ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
+    $result_measurements = $this->statsByExercise
+      ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
 
 
-
+    // Container for results (Last - first)
     $output['measurements']['container']['results'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['result-measurements-container-stats']],
@@ -171,23 +173,21 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
     }
 
-
-
-
     // ----------------------------------------- Measurements
 
 
 
     //------------------------------------------
     $training_people = 'man';
-
     $count_of_training = $this->statsByExercise->getNumberOfTraining($training_people, $limit);
 
+    // Container for count
     $output['count_of_training']['container'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['count-of-training']],
     ];
 
+    // Container for total
     $output['count_of_training']['container']['total_stats'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['count-of-training__total-stats']],
@@ -211,6 +211,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 //
 //    $count_output = array_keys($count_by_body_part);
 
+    // Results by body part
     foreach ($count_by_body_part as $body_part => $value) {
       $lower_case = strtolower($body_part);
 
@@ -236,10 +237,8 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
 
-
-
     $most_popular_exercise = $this->statsByExercise->mostPopularExercise($training_people, $limit);
-
+    // Most popular exercises
     $output["most_popular_exercises-title"] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
@@ -256,23 +255,59 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       ],
     ];
 
-
+    $i = 1;
     foreach ($most_popular_exercise['exercises_names'] as $exercise) {
+
       $type = strtolower(str_replace(' ', '_', $exercise));
 
       $output['most_popular_exercises']['container']["most_popular_exercise_{$type}"] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' =>  $exercise,
+        '#value' =>  $i . ") " . $exercise,
         '#attributes' => [
           'class' => ["most-popular-exercises__items"],
         ],
       ];
+      $i++;
     }
 
 
 
     //------------------------------------------
+
+
+    $output['paragraph']['change_exercise'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' =>  $this->t('Do u want change exercise?'),
+      '#attributes' => [
+        'class' => ["stats-exercise-container__change-exercises"],
+      ],
+    ];
+
+    $output['paragraph']['change_exercise']['link'] = [
+      '#theme' => 'links',
+      '#links' => [
+        'link' => [
+          'title' => $this->t('Click here'),
+          'url' => Url::fromRoute('kenny_stats.stats_exercise'),
+          'attributes' => [
+            'class' => ['stats-exercise-container__change-exercises-link']
+          ],
+        ],
+      ]
+    ];
+
+    $output['paragraph']['exercise_container'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['stats-exercise-container']
+      ],
+    ];
+
+    /** @var \Drupal\taxonomy\TermStorageInterface $body_part_list */
+    $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadTree('body_part');
 
     foreach ($body_part_list as $term) {
       $body_part = $term->name;
@@ -283,8 +318,55 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
       $media = $this->statsByExercise->getMedia($body_part);
 
+
+
+      $output['paragraph']['exercise_container'][$lower_body_part] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['stats-exercise-container__exercise']
+        ],
+      ];
+
+      $output['paragraph']['exercise_container'][$lower_body_part]['body_part'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $body_part,
+        '#attributes' => [
+          'class' => ["stats-exercise-container__exercise-body-part"],
+        ],
+
+      ];
+
       if (!is_null($paragraph)) {
-        $relative_paragraph = $this->statsByExercise->getCurrentParagraph('man', '', $paragraph, $limit);
+        $relative_paragraph = $this->statsByExercise->getCurrentParagraph($training_people, '', $paragraph, $limit);
+
+
+        // Відображення параграфа, якщо він існує.
+
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = $this->entityTypeManager
+          ->getViewBuilder('paragraph')
+          ->view($paragraph, 'stats');
+
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph']['#attributes']['class'] = [
+          'stats-exercise-container__exercise-last',
+        ];
+
+        if ($relative_paragraph) {
+          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = $this->entityTypeManager
+            ->getViewBuilder('paragraph')
+            ->view($relative_paragraph, 'stats');
+        } else {
+          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  'No relative training by ' . $body_part,
+
+          ];
+        }
+
+        $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph']['#attributes']['class'] = [
+          'stats-exercise-container__exercise-first',
+        ];
 
         if (!empty($relative_paragraph)) {
           $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
@@ -294,33 +376,44 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
             '@correlation_weight' => $result['correlation_weight'],
 
           ]);
-        } else {
-          $relative_output = [
-            '#prefix' => '<p>' . 'No relative training by ' . $body_part . '</p>',
+          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $workWeightText,
+            '#attributes' => [
+              'class' => ["stats-exercise-container__exercise-working-weight"],
+            ],
           ];
+        } else {
+          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [];
         }
-        // Відображення параграфа, якщо він існує.
 
-        $output['paragraph_' . $lower_body_part] = [
-          '#prefix' => '<p>' . $body_part . '</p>',
-          'paragraph' => $this->entityTypeManager
-            ->getViewBuilder('paragraph')
-            ->view($paragraph, 'stats'),
-          'relative_paragraph' => !$relative_paragraph ? $relative_output : $this->entityTypeManager
-            ->getViewBuilder('paragraph')
-            ->view($relative_paragraph, 'stats'),
-          'working_weight' => $relative_paragraph ? [
-            '#markup' => '<p>' . $workWeightText . '</p>',
-          ] : [],
-          'media_paragraph' => $this->entityTypeManager
-            ->getViewBuilder('media')
-            ->view($media, 'full')
+        $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
+          ->getViewBuilder('media')
+          ->view($media, 'full');
+
+        $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
+          'stats-exercise-container__exercise-media',
         ];
 
       } else {
+
+
         // Відобразити повідомлення про відсутність тренувань для "Body part".
-        $output['paragraph_' . $lower_body_part] = [
-          '#prefix' => '<p>' . 'No training by ' . $body_part . '</p>',
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  'No training by ' . $body_part ,
+          '#attributes' => [
+            'class' => ["stats-exercise-container__exercise-last"],
+          ],
+        ];
+        $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
+          ->getViewBuilder('media')
+          ->view($media, 'full');
+
+        $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
+          'stats-exercise-container__exercise-media',
         ];
       }
     }

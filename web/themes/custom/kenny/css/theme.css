@@ -119,7 +119,7 @@ p {
   color: deepskyblue;
 }
 
-.block-kenny-stats {
+.block-kenny-stats, .block-kenny-girls-stats {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
   border-radius: 2rem;
@@ -127,148 +127,218 @@ p {
   margin: 0 auto;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats {
+  .block-kenny-stats, .block-kenny-girls-stats {
     max-width: calc(100vw - 2rem);
     padding: 1rem 0.5rem;
   }
 }
-.block-kenny-stats .kenny-stats-date {
+.block-kenny-stats .kenny-stats-date, .block-kenny-girls-stats .kenny-stats-date {
   display: inline-flex;
   width: 100%;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .kenny-stats-date {
+  .block-kenny-stats .kenny-stats-date, .block-kenny-girls-stats .kenny-stats-date {
     gap: 0.5rem;
     display: flex;
     justify-content: space-evenly;
   }
 }
-.block-kenny-stats .kenny-stats-date input {
+.block-kenny-stats .kenny-stats-date input, .block-kenny-girls-stats .kenny-stats-date input {
   display: inline-block;
   background: none;
   border: none;
   color: #4286f4;
   padding: 0.3rem;
 }
-.block-kenny-stats .kenny-stats-date input:hover {
+.block-kenny-stats .kenny-stats-date input:hover, .block-kenny-girls-stats .kenny-stats-date input:hover {
   cursor: pointer;
   color: #1267f1;
 }
-.block-kenny-stats .kenny-stats-title {
+.block-kenny-stats .kenny-stats-title, .block-kenny-girls-stats .kenny-stats-title {
   display: flex;
   justify-content: center;
   font-size: 1.8rem;
 }
-.block-kenny-stats .measurements-container-stats {
+.block-kenny-stats .measurements-container-stats, .block-kenny-girls-stats .measurements-container-stats {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .measurements-container-stats {
+  .block-kenny-stats .measurements-container-stats, .block-kenny-girls-stats .measurements-container-stats {
     gap: 0.25rem;
     font-size: 12px;
   }
 }
-.block-kenny-stats .measurements-container-stats .node-measurements-teaser__title {
+.block-kenny-stats .measurements-container-stats .node-measurements-teaser__title, .block-kenny-girls-stats .measurements-container-stats .node-measurements-teaser__title {
   display: none;
   height: 1.5rem;
 }
-.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-days-by-period {
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-days-by-period, .block-kenny-girls-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-days-by-period {
   border-bottom: 1px solid gray;
   height: 1.5rem;
   color: cadetblue;
 }
-.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-body-part-by-period {
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-body-part-by-period, .block-kenny-girls-stats .measurements-container-stats .result-measurements-container-stats .kenny-stats-body-part-by-period {
   height: 1.5rem;
   border-bottom: 1px solid gray;
 }
-.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .grow {
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .grow, .block-kenny-girls-stats .measurements-container-stats .result-measurements-container-stats .grow {
   color: #0f9b0f;
 }
-.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .less {
+.block-kenny-stats .measurements-container-stats .result-measurements-container-stats .less, .block-kenny-girls-stats .measurements-container-stats .result-measurements-container-stats .less {
   color: #BD3F32;
 }
-.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser {
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser {
   display: flex;
   border-bottom: 1px solid gray;
   gap: 0.7rem;
   height: 1.5rem;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser {
+  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser {
     gap: 0.3rem;
   }
 }
-.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label {
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label {
   display: flex;
   position: relative;
   height: 1.5rem;
 }
-.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
   position: relative;
   content: ":";
   left: 3px;
 }
-@media (max-width: 600px) {
-  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
+@media (max-width: 700px) {
+  .block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser .field__label:after {
     left: 1px;
   }
 }
-.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__item {
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser .field__item, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser .field__item {
   color: cadetblue;
   height: 1.5rem;
 }
-.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser__field-created {
+.block-kenny-stats .measurements-container-stats .node__content .node-measurements-teaser__field-created, .block-kenny-girls-stats .measurements-container-stats .node__content .node-measurements-teaser__field-created {
   color: cadetblue;
   height: 1.5rem;
 }
-.block-kenny-stats .count-of-training {
+.block-kenny-stats .count-of-training, .block-kenny-girls-stats .count-of-training {
   margin-top: 2rem;
   border-bottom: 1px solid gray;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .count-of-training {
+  .block-kenny-stats .count-of-training, .block-kenny-girls-stats .count-of-training {
     font-size: 12px;
     margin-top: 1rem;
   }
 }
-.block-kenny-stats .count-of-training__total-stats {
+.block-kenny-stats .count-of-training__total-stats, .block-kenny-girls-stats .count-of-training__total-stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .count-of-training__total-stats {
+  .block-kenny-stats .count-of-training__total-stats, .block-kenny-girls-stats .count-of-training__total-stats {
     font-size: 12px;
   }
 }
-.block-kenny-stats .count-of-training__body-part {
+.block-kenny-stats .count-of-training__body-part, .block-kenny-girls-stats .count-of-training__body-part {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .count-of-training__body-part {
+  .block-kenny-stats .count-of-training__body-part, .block-kenny-girls-stats .count-of-training__body-part {
     font-size: 12px;
   }
 }
-.block-kenny-stats .most-popular-exercises {
+.block-kenny-stats .most-popular-exercises, .block-kenny-girls-stats .most-popular-exercises {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border-bottom: 1px solid gray;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .most-popular-exercises {
+  .block-kenny-stats .most-popular-exercises, .block-kenny-girls-stats .most-popular-exercises {
     font-size: 12px;
   }
 }
-.block-kenny-stats .most-popular-exercises__title {
+.block-kenny-stats .most-popular-exercises__title, .block-kenny-girls-stats .most-popular-exercises__title {
   display: flex;
   justify-content: center;
   font-size: 1.3rem;
 }
 @media (max-width: 1200px) {
-  .block-kenny-stats .most-popular-exercises__title {
+  .block-kenny-stats .most-popular-exercises__title, .block-kenny-girls-stats .most-popular-exercises__title {
     font-size: 1rem;
+  }
+}
+.block-kenny-stats .stats-exercise-container, .block-kenny-girls-stats .stats-exercise-container {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+}
+@media (max-width: 700px) {
+  .block-kenny-stats .stats-exercise-container, .block-kenny-girls-stats .stats-exercise-container {
+    grid-template-columns: 1fr;
+  }
+}
+.block-kenny-stats .stats-exercise-container__change-exercises, .block-kenny-girls-stats .stats-exercise-container__change-exercises {
+  display: inline-flex;
+  margin-top: 0.3rem;
+  padding: 0.3rem;
+  border: 1px solid gray;
+  gap: 0.3rem;
+}
+.block-kenny-stats .stats-exercise-container__change-exercises .links, .block-kenny-girls-stats .stats-exercise-container__change-exercises .links {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.block-kenny-stats .stats-exercise-container__change-exercises .links a, .block-kenny-girls-stats .stats-exercise-container__change-exercises .links a {
+  color: cadetblue;
+}
+.block-kenny-stats .stats-exercise-container__change-exercises .links a:hover, .block-kenny-girls-stats .stats-exercise-container__change-exercises .links a:hover {
+  color: deepskyblue;
+}
+.block-kenny-stats .stats-exercise-container__exercise, .block-kenny-girls-stats .stats-exercise-container__exercise {
+  display: flex;
+  flex-direction: column;
+}
+.block-kenny-stats .stats-exercise-container__exercise-body-part, .block-kenny-girls-stats .stats-exercise-container__exercise-body-part {
+  font-size: 1.3rem;
+  color: cadetblue;
+}
+.block-kenny-stats .stats-exercise-container__exercise-last, .block-kenny-stats .stats-exercise-container__exercise-first, .block-kenny-girls-stats .stats-exercise-container__exercise-last, .block-kenny-girls-stats .stats-exercise-container__exercise-first {
+  display: inline-flex;
+  gap: 0.7rem;
+}
+.block-kenny-stats .stats-exercise-container__exercise-last .field__item, .block-kenny-stats .stats-exercise-container__exercise-first .field__item, .block-kenny-girls-stats .stats-exercise-container__exercise-last .field__item, .block-kenny-girls-stats .stats-exercise-container__exercise-first .field__item {
+  display: flex;
+  position: relative;
+}
+.block-kenny-stats .stats-exercise-container__exercise-last .field__item:not(:first-child):not(:last-child):after, .block-kenny-stats .stats-exercise-container__exercise-first .field__item:not(:first-child):not(:last-child):after, .block-kenny-girls-stats .stats-exercise-container__exercise-last .field__item:not(:first-child):not(:last-child):after, .block-kenny-girls-stats .stats-exercise-container__exercise-first .field__item:not(:first-child):not(:last-child):after {
+  position: relative;
+  content: "x";
+  display: flex;
+  justify-content: center;
+  left: 0.4rem;
+}
+.block-kenny-stats .stats-exercise-container__exercise-last .field__item:first-child:after, .block-kenny-stats .stats-exercise-container__exercise-first .field__item:first-child:after, .block-kenny-girls-stats .stats-exercise-container__exercise-last .field__item:first-child:after, .block-kenny-girls-stats .stats-exercise-container__exercise-first .field__item:first-child:after {
+  position: relative;
+  content: ":";
+  display: flex;
+  justify-content: center;
+  left: 0.1rem;
+}
+@media (min-width: 700px) and (max-width: 1200px) {
+  .block-kenny-stats .stats-exercise-container__exercise-media img, .block-kenny-girls-stats .stats-exercise-container__exercise-media img {
+    width: auto;
+    height: auto;
+  }
+}
+@media (max-width: 700px) {
+  .block-kenny-stats .stats-exercise-container__exercise-media img, .block-kenny-girls-stats .stats-exercise-container__exercise-media img {
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -278,13 +348,13 @@ p {
   height: 500px;
   margin: 0 auto;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .kenny-hero-block {
     width: calc(100vw - 2rem);
     height: 70vh;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .kenny-hero-block {
     width: calc(100vw - 2rem);
     height: 50vh;
@@ -298,12 +368,12 @@ p {
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .kenny-hero-block__content {
     width: calc(100vw - 2rem);
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .kenny-hero-block__content {
     width: calc(100vw - 2rem);
   }
@@ -334,13 +404,13 @@ p {
   height: 500px;
   margin: 0 auto;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .kenny-hero-block-training-body-part {
     width: calc(100vw - 2rem);
     max-height: 70vh;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .kenny-hero-block-training-body-part {
     flex-direction: column;
     gap: 0;
@@ -356,13 +426,13 @@ p {
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .kenny-hero-block-training-body-part__content {
     width: 40vw;
     overflow-y: scroll;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .kenny-hero-block-training-body-part__content {
     width: calc(100vw - 2rem);
     display: none;
@@ -372,7 +442,7 @@ p {
   margin-top: unset;
   text-align: center;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .kenny-hero-block-training-body-part__title {
     margin-bottom: 1rem;
   }
@@ -406,7 +476,7 @@ p {
   padding: 0.5rem;
   border-radius: 1rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters form {
     display: grid;
     grid-template-columns: 3fr 3fr 1fr;
@@ -416,7 +486,7 @@ p {
 .training-block .view-filters form .form-type-select {
   padding: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters form .form-type-select {
     display: flex;
     flex-direction: column;
@@ -432,7 +502,7 @@ p {
   background-color: inherit;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters form .form-type-select .form-select {
     padding: 0.15rem;
     margin-left: unset;
@@ -441,7 +511,7 @@ p {
 .training-block .view-filters form .form-type-select .form-select option {
   background-color: rgba(0, 0, 0, 0.8509803922);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters form .form-type-select .form-select option {
     font-size: 12px;
   }
@@ -456,7 +526,7 @@ p {
   margin-left: 1rem;
   padding-right: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters .form-wrapper {
     margin-left: unset;
     padding-right: unset;
@@ -473,7 +543,7 @@ p {
   border-radius: 1rem;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-filters .form-wrapper .form-submit {
     padding: 0.2rem 0.5rem;
   }
@@ -487,7 +557,7 @@ p {
   gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-block .view-content {
     grid-template-columns: 1fr;
   }
@@ -512,7 +582,7 @@ p {
   padding: 0.5rem;
   border-radius: 1rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters form {
     display: grid;
     grid-template-columns: 3fr 3fr 1fr;
@@ -522,7 +592,7 @@ p {
 .training-girls-block .view-filters form .form-type-select {
   padding: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters form .form-type-select {
     display: flex;
     flex-direction: column;
@@ -538,7 +608,7 @@ p {
   background-color: inherit;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters form .form-type-select .form-select {
     padding: 0.15rem;
     margin-left: unset;
@@ -547,7 +617,7 @@ p {
 .training-girls-block .view-filters form .form-type-select .form-select option {
   background-color: rgba(0, 0, 0, 0.8509803922);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters form .form-type-select .form-select option {
     font-size: 12px;
   }
@@ -562,7 +632,7 @@ p {
   margin-left: 1rem;
   padding-right: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters .form-wrapper {
     margin-left: unset;
     padding-right: unset;
@@ -579,7 +649,7 @@ p {
   border-radius: 1rem;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-filters .form-wrapper .form-submit {
     padding: 0.2rem 0.5rem;
   }
@@ -593,7 +663,7 @@ p {
   gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .training-girls-block .view-content {
     grid-template-columns: 1fr;
   }
@@ -752,7 +822,7 @@ p {
   justify-content: space-between;
   border-bottom: 2px solid gray;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .region-header {
     width: calc(100vw - 2rem - 1rem);
   }
@@ -784,7 +854,7 @@ p {
   border: 1px solid gray;
   border-radius: 1rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .region-header .menu-item {
     font-size: 14px;
     padding: 0.15rem 0.5rem;
@@ -804,7 +874,30 @@ p {
   min-height: 100vh;
 }
 
-@media (max-width: 600px) {
+.tabs .primary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+@media (max-width: 1200px) {
+  .tabs .primary {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.tabs .primary .is-active {
+  color: cadetblue;
+}
+
+@media (max-width: 700px) {
   .media-video-full video {
     margin-left: 1rem;
     width: 90%;
@@ -829,7 +922,7 @@ p {
 .node-training-plan-teaser__field-body-part .field__label {
   margin-right: 0.7rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser__field-body-part .field__label {
     margin-right: 0.35rem;
   }
@@ -839,7 +932,7 @@ p {
   content: ":";
   left: 3px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser__field-body-part .field__label:after {
     left: 1px;
   }
@@ -858,7 +951,7 @@ p {
 .node-training-plan-teaser__field-type-of-training .field__label {
   margin-right: 0.7rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser__field-type-of-training .field__label {
     margin-right: 0.35rem;
   }
@@ -868,7 +961,7 @@ p {
   content: ":";
   left: 3px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser__field-type-of-training .field__label:after {
     left: 1px;
   }
@@ -879,7 +972,7 @@ p {
 .node-training-plan-teaser__field-type-of-training .field__item a:hover {
   color: deepskyblue;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser .node__content {
     width: calc(100vw - 2rem - 1rem);
   }
@@ -907,7 +1000,7 @@ p {
   display: flex;
   position: relative;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
     width: 35vw;
     margin-right: 0.15rem;
@@ -938,7 +1031,7 @@ p {
 .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
   display: flex;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-teaser__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
     display: none;
   }
@@ -990,7 +1083,7 @@ p {
 .node-girls-training-teaser__field-girls-body-part .field__label {
   margin-right: 0.7rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser__field-girls-body-part .field__label {
     margin-right: 0.35rem;
   }
@@ -1000,7 +1093,7 @@ p {
   content: ":";
   left: 3px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser__field-girls-body-part .field__label:after {
     left: 1px;
   }
@@ -1019,7 +1112,7 @@ p {
 .node-girls-training-teaser__field-girls-type-of-training .field__label {
   margin-right: 0.7rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser__field-girls-type-of-training .field__label {
     margin-right: 0.35rem;
   }
@@ -1029,7 +1122,7 @@ p {
   content: ":";
   left: 3px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser__field-girls-type-of-training .field__label:after {
     left: 1px;
   }
@@ -1040,7 +1133,7 @@ p {
 .node-girls-training-teaser__field-girls-type-of-training .field__item a:hover {
   color: deepskyblue;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser .node__content {
     width: calc(100vw - 2rem - 1rem);
   }
@@ -1068,7 +1161,7 @@ p {
   display: flex;
   position: relative;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
     width: 35vw;
     margin-right: 0.15rem;
@@ -1099,7 +1192,7 @@ p {
 .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
   display: flex;
 }
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
   .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-girls-training-teaser__field-girls-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
     display: none;
   }
@@ -1153,7 +1246,7 @@ p {
   padding: 0.5rem;
   border-radius: 1rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters form {
     display: grid;
     grid-template-columns: 3fr 3fr 1fr;
@@ -1163,7 +1256,7 @@ p {
 .page-favorite-training .view-filters form .form-type-select {
   padding: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters form .form-type-select {
     display: flex;
     flex-direction: column;
@@ -1179,7 +1272,7 @@ p {
   background-color: inherit;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters form .form-type-select .form-select {
     padding: 0.15rem;
     margin-left: unset;
@@ -1188,7 +1281,7 @@ p {
 .page-favorite-training .view-filters form .form-type-select .form-select option {
   background-color: rgba(0, 0, 0, 0.8509803922);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters form .form-type-select .form-select option {
     font-size: 12px;
   }
@@ -1203,7 +1296,7 @@ p {
   margin-left: 1rem;
   padding-right: 0.5rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters .form-wrapper {
     margin-left: unset;
     padding-right: unset;
@@ -1220,7 +1313,7 @@ p {
   border-radius: 1rem;
   color: #fff;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-filters .form-wrapper .form-submit {
     padding: 0.2rem 0.5rem;
   }
@@ -1234,7 +1327,7 @@ p {
   gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .page-favorite-training .view-content {
     grid-template-columns: 1fr;
   }

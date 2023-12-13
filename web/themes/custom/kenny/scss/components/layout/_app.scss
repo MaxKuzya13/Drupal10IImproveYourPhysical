@@ -8,3 +8,15 @@
 
   }
 }
+
+.tabs .primary {
+  @include resetLi;
+  @include mainContainer;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  .is-active {
+    color: $color-active;
+  }
+}

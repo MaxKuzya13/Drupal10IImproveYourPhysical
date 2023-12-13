@@ -317,7 +317,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
       case 'Back':
         /** @var \Drupal\media\MediaStorage $media_storage */
         $media_storage = $this->entityTypeManager->getStorage('media');
-        return $media_storage->load(3);
+        return $media_storage->load(72);
         break;
 
     }

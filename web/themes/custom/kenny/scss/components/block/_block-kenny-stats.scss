@@ -1,4 +1,4 @@
-.block-kenny-stats {
+.block-kenny-stats, .block-kenny-girls-stats {
   @include mainContainer;
 
   .kenny-stats-date {
@@ -161,6 +161,97 @@
       @include mobileDefault {
         font-size: 1rem;
       }
+    }
+  }
+
+  .stats-exercise-container {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    &__change-exercises {
+      display: inline-flex;
+      margin-top: 0.3rem;
+      padding: 0.3rem;
+      border: 1px solid gray;
+      gap: 0.3rem;
+      .links {
+        display: inline-flex;
+        @include resetLi;
+        a {
+          color: $color-active;
+
+          &:hover {
+            color: $color-active-hover;
+          }
+        }
+
+      }
+    }
+
+
+
+    &__exercise {
+      display: flex;
+      flex-direction: column;
+
+      &-body-part {
+        font-size: 1.3rem;
+        color: $color-active;
+      }
+
+      &-last, &-first {
+        display: inline-flex;
+        gap: 0.7rem;
+
+        .field__item {
+          display: flex;
+          position: relative;
+
+          &:not(:first-child):not(:last-child) {
+            &:after {
+              position: relative;
+              content: "x";
+              display: flex;
+              justify-content: center;
+              left: 0.4rem;
+
+            }
+          }
+          &:first-child {
+            &:after {
+              position: relative;
+              content: ":";
+              display: flex;
+              justify-content: center;
+              left: 0.1rem;
+
+            }
+          }
+
+
+        }
+      }
+
+      &-media {
+        img {
+
+          @include mobileLarge {
+            width: auto;
+            height: auto;
+          }
+
+          @include mobile {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+
+
     }
   }
 
