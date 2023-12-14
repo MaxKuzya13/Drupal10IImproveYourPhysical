@@ -6,10 +6,9 @@
       let selector = '.show-all-exercises-button';
 
 
-      once(name, selector, context).forEach(function (element){
+      once(name, selector, context).forEach(function (element) {
         let button = $(element);
         let termIdentifier = $(element).data('term-identifier');
-        console.log(termIdentifier);
 
         button.click(function (e) {
           e.preventDefault();
@@ -38,19 +37,48 @@
       })
 
       let selector_video = '.show-video';
-      once(name, selector_video, context).forEach(function (element){
+      once(name, selector_video, context).forEach(function (element) {
         let button = $(element);
         let showVideo = $(element).data('show-video');
 
         button.click(function (e) {
 
           e.preventDefault();
-          console.log(showVideo);
+
+          // Знаходження всіх елементів .playable-video video і ставлення їх на паузу
+          $('.playable-video video').each(function () {
+            this.pause();
+          });
+
           $("." + showVideo + '_video').toggleClass('hide-exercises');
           $(element).toggleClass('hide-video');
 
         })
       })
+
+      let videos = '.playable-video video';
+      once(name, videos, context).forEach(function (video) {
+
+        // Додайте клас '.autoplay-video' для відстеження відео, яке слід автоматично відтворювати
+        $(video).addClass('autoplay-video');
+        video.muted = true;
+
+        video.addEventListener('click', function () {
+          // Переконайтеся, що відео не відтворюється
+          if (video.paused) {
+            video.play(); // Запустіть відео при кліку
+          } else {
+            video.pause(); // Пауза відео, якщо воно вже відтворюється
+          }
+        });
+
+        video.addEventListener('ended', function () {
+          // Переконайтеся, що відео має клас '.autoplay-video', і якщо так, зациклюйте його
+          if ($(video).hasClass('autoplay-video')) {
+            video.play();
+          }
+        });
+      });
 
     }
   };

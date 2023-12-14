@@ -5,7 +5,9 @@ namespace Drupal\kenny_stats\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Drupal\kenny_stats\Service\KennyStatsByExerciseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -42,15 +44,31 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   protected $statsByExercise;
 
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface;;
+   */
+  protected $currentUser;
+
+  /**
+   * The form builder.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected FormBuilderInterface $formBuilder;
+
 
   /**
    * Constructor for KennyStatsBlock.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, KennyStatsByExerciseInterface $stats_by_exercise, AccountProxyInterface $current_user, FormBuilderInterface $form_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
     $this->statsByExercise = $stats_by_exercise;
+    $this->currentUser = $current_user;
+    $this->formBuilder = $form_builder;
   }
 
   /**
@@ -64,6 +82,8 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $container->get('entity_type.manager'),
       $container->get('config.factory'),
       $container->get('kenny_stats.exercise_stats'),
+      $container->get('current_user'),
+      $container->get('form_builder'),
     );
   }
 
@@ -73,10 +93,15 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function build() {
 
-    $form = \Drupal::formBuilder()->getForm('Drupal\kenny_stats\Form\StatsDateForm');
+    $form = $this->formBuilder->getForm('Drupal\kenny_stats\Form\StatsDateForm');
+
+
 
     // Form with timeline (1month, 3month, 6 month, 1 year)
     $output['form'] = $form;
+
+
+
     // Отримати значення, яке приходить з форми, якщо воно встановлено в сесії.
     $value = isset($_SESSION['kenny_stats_form_value']) ? $_SESSION['kenny_stats_form_value'] : '';
     $limit = !empty($value) ? $value : '1 year';
@@ -99,7 +124,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
     // ----------------------------------------- Measurements
-    $current_uid = \Drupal::currentUser()->id();
+    $current_uid = $this->currentUser->id();
     $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
 
     // Container for all measurements result
@@ -175,7 +200,22 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
     // ----------------------------------------- Measurements
 
-
+    // Title for measurements by last period
+    $output['#attached']['library'] = 'core/drupal.dialog.ajax';
+    $output['new_measurement'] = [
+      '#theme' => 'links',
+      '#links' => [
+        'link' => [
+          'title' => $this->t('Enter your a new measurement'),
+          'url' => Url::fromRoute('kenny_measurements.form'),
+          'attributes' => [
+            'class' => ['use-ajax', 'create-a-new-measurement'],
+            'data-dialog-type' => 'modal',
+            'data-dialog-options' => json_encode(['height' => 600, 'width' => '50vw']),
+          ],
+        ],
+      ]
+    ];
 
     //------------------------------------------
     $training_people = 'man';

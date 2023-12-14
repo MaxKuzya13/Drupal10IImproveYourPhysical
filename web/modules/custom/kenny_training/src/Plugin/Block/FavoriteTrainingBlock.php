@@ -36,27 +36,6 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
    */
   protected $currentUser;
 
-  /**
-   * The request stack
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-  /**
-   * The entity type manager
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The node storage.
-   *
-   * @var \Drupal\node\NodeStorageInterface
-   *
-   */
-  protected $nodeStorage;
-
 
   /**
   * Constructs a new FavoriteTrainingBlock.
@@ -70,19 +49,11 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
   * @param \Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface $favorite_manager
   *   The favorite manager service.
   * @param \Drupal\Core\Session\AccountInterface $current_user
-  *   The current user.
-  * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
-  *   The request stack.
-  * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-  *  The entity type manager.
   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FavoriteManagerInterface $favorite_manager, AccountInterface $current_user, RequestStack $request_stack, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FavoriteManagerInterface $favorite_manager, AccountInterface $current_user) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->favoriteManager = $favorite_manager;
     $this->currentUser = $current_user;
-    $this->requestStack = $request_stack;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->nodeStorage = $entity_type_manager->getStorage('node');
   }
 
   /**
@@ -95,8 +66,6 @@ class FavoriteTrainingBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_definition,
       $container->get('kenny_training.favorite_manager'),
       $container->get('current_user'),
-      $container->get('request_stack'),
-      $container->get('entity_type.manager'),
     );
   }
 

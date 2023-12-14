@@ -1,5 +1,5 @@
-kenny_measurements.formdemo:
-  path: '/measurementsdemo'
+kenny_measurements.form:
+  path: '/measurements/new'
   defaults:
     _form: '\Drupal\kenny_measurements\Form\KennyMeasurementsForm'
     _title: 'Measurements'

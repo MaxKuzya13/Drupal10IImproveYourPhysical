@@ -20,6 +20,7 @@
 
       &:hover {
         cursor: pointer;
+        cursor: pointer;
         color: darken($color-date, 10%);
       }
     }
@@ -32,6 +33,7 @@
   }
 
   .measurements-container-stats {
+    margin-bottom: 1rem;
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
@@ -115,12 +117,23 @@
     }
   }
 
+  .create-a-new-measurement {
+    color: $color-active;
+    border: 1px solid gray;
+    padding: 0.5rem;
+
+    &:hover {
+      color: $color-active-hover;
+      cursor: pointer;
+    }
+  }
+
   .count-of-training {
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-bottom: 1px solid gray;
     @include mobileDefault {
       font-size: 12px;
-      margin-top: 1rem;
+
     }
 
 

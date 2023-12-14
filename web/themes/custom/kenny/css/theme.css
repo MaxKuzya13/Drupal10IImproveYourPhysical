@@ -104,9 +104,21 @@ p {
     padding: 1rem 0.5rem;
   }
 }
+.block-kenny-list-of-exercises-block .playable-video video {
+  mute: true;
+}
+.block-kenny-list-of-exercises-block .muscles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 700px) {
+  .block-kenny-list-of-exercises-block .muscles {
+    grid-template-columns: 1fr;
+  }
+}
 .block-kenny-list-of-exercises-block .muscles-container__title {
   font-size: 3rem;
-  color: #6441A5;
+  color: cadetblue;
 }
 .block-kenny-list-of-exercises-block .muscles-container__exercises {
   margin-left: 1rem;
@@ -114,16 +126,18 @@ p {
 .block-kenny-list-of-exercises-block .muscles-container .container-exercise {
   display: flex;
   flex-direction: column;
+  border: 1px solid gray;
+  padding: 1rem;
 }
 .block-kenny-list-of-exercises-block .muscles-container .container-exercise input {
   background: none;
   border: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: start;
 }
 .block-kenny-list-of-exercises-block .muscles-container .container-exercise input:hover {
-  color: deepskyblue;
+  color: #0f9b0f;
   cursor: pointer;
 }
 .block-kenny-list-of-exercises-block .muscles-container .container-exercise .container-video {
@@ -138,6 +152,7 @@ p {
   border: none;
   color: cadetblue;
   font-size: 1rem;
+  margin: 0.5rem 0;
 }
 .block-kenny-list-of-exercises-block .muscles-container .show-all-exercises-button:hover {
   cursor: pointer;
@@ -148,6 +163,7 @@ p {
   border: none;
   color: #BD3F32;
   font-size: 1rem;
+  margin: 0.5rem 0;
 }
 .block-kenny-list-of-exercises-block .muscles-container .hide-all-exercises-button:hover {
   cursor: pointer;
@@ -226,6 +242,7 @@ p {
 }
 .block-kenny-stats .kenny-stats-date input:hover, .block-kenny-girls-stats .kenny-stats-date input:hover {
   cursor: pointer;
+  cursor: pointer;
   color: #1267f1;
 }
 .block-kenny-stats .kenny-stats-title, .block-kenny-girls-stats .kenny-stats-title {
@@ -234,6 +251,7 @@ p {
   font-size: 1.8rem;
 }
 .block-kenny-stats .measurements-container-stats, .block-kenny-girls-stats .measurements-container-stats {
+  margin-bottom: 1rem;
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
@@ -297,14 +315,22 @@ p {
   color: cadetblue;
   height: 1.5rem;
 }
+.block-kenny-stats .create-a-new-measurement, .block-kenny-girls-stats .create-a-new-measurement {
+  color: cadetblue;
+  border: 1px solid gray;
+  padding: 0.5rem;
+}
+.block-kenny-stats .create-a-new-measurement:hover, .block-kenny-girls-stats .create-a-new-measurement:hover {
+  color: deepskyblue;
+  cursor: pointer;
+}
 .block-kenny-stats .count-of-training, .block-kenny-girls-stats .count-of-training {
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-bottom: 1px solid gray;
 }
 @media (max-width: 1200px) {
   .block-kenny-stats .count-of-training, .block-kenny-girls-stats .count-of-training {
     font-size: 12px;
-    margin-top: 1rem;
   }
 }
 .block-kenny-stats .count-of-training__total-stats, .block-kenny-girls-stats .count-of-training__total-stats {
@@ -796,16 +822,66 @@ p {
   transform: scale(0.95);
 }
 
-.kenny-girls-training-plan-form, .kenny-training-plan-form {
+.kenny-measurements-form {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
   border-radius: 2rem;
   padding: 2rem 1rem;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (max-width: 1200px) {
+  .kenny-measurements-form {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.kenny-measurements-form .js-form-item {
+  width: 100%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 5fr;
+}
+@media (max-width: 1200px) {
+  .kenny-measurements-form .js-form-item {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+.kenny-measurements-form .js-form-item label {
+  font-size: 14px;
+}
+.kenny-measurements-form .js-form-item input {
+  width: 100%;
+}
+.kenny-measurements-form .js-form-submit {
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  width: 5rem !important;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  padding: 4px 6px;
+  border-radius: 7px;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+.kenny-measurements-form .js-form-submit:active {
+  transform: scale(0.95);
+}
+
+.kenny-girls-training-plan-form, .kenny-training-plan-form {
+  width: 100%;
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+  border: none;
 }
 @media (max-width: 1200px) {
   .kenny-girls-training-plan-form, .kenny-training-plan-form {
-    max-width: calc(100vw - 2rem);
     padding: 1rem 0.5rem;
   }
 }
@@ -816,13 +892,15 @@ p {
   display: grid;
   align-items: center;
   gap: 1rem;
+  margin-top: 2rem;
   width: 100%;
   overflow: hidden;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
 }
-@media (max-width: 1200px) {
-  .kenny-girls-training-plan-form .exercise-container, .kenny-training-plan-form .exercise-container {
-    max-width: calc(100vw - 2rem);
-  }
+.kenny-girls-training-plan-form .exercise-container .form-item, .kenny-training-plan-form .exercise-container .form-item {
+  width: 100%;
 }
 .kenny-girls-training-plan-form .exercise-container .form-item label, .kenny-training-plan-form .exercise-container .form-item label {
   display: flex;
@@ -833,8 +911,12 @@ p {
     font-size: 10px;
   }
 }
+.kenny-girls-training-plan-form .exercise-container .form-item input, .kenny-training-plan-form .exercise-container .form-item input {
+  min-width: 2.5rem;
+  width: 100%;
+}
 .kenny-girls-training-plan-form .exercise-container .form-item select, .kenny-training-plan-form .exercise-container .form-item select {
-  min-width: 40px;
+  min-width: 2.5rem;
   width: 80%;
 }
 .kenny-girls-training-plan-form .js-form-type-textfield, .kenny-training-plan-form .js-form-type-textfield {
@@ -842,7 +924,6 @@ p {
   width: 80%;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
-  width: inherit;
 }
 .kenny-girls-training-plan-form .new-training-form-button, .kenny-training-plan-form .new-training-form-button {
   margin: 0;
@@ -861,6 +942,7 @@ p {
 }
 .kenny-girls-training-plan-form .remove-field, .kenny-training-plan-form .remove-field {
   color: #BD3F32;
+  font-size: 14px;
 }
 @media (max-width: 1200px) {
   .kenny-girls-training-plan-form .remove-field, .kenny-training-plan-form .remove-field {
@@ -874,6 +956,7 @@ p {
 }
 .kenny-girls-training-plan-form .add-field, .kenny-girls-training-plan-form .save-new-training-form, .kenny-training-plan-form .add-field, .kenny-training-plan-form .save-new-training-form {
   color: #0f9b0f;
+  font-size: 14px;
 }
 @media (max-width: 1200px) {
   .kenny-girls-training-plan-form .add-field, .kenny-girls-training-plan-form .save-new-training-form, .kenny-training-plan-form .add-field, .kenny-training-plan-form .save-new-training-form {
@@ -969,6 +1052,12 @@ p {
 }
 .tabs .primary .is-active {
   color: cadetblue;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 700px) {
@@ -1417,6 +1506,13 @@ p {
   color: #000;
   background: rgb(197, 204, 255);
 }
+@media (max-width: 1200px) {
+  .ui-dialog {
+    max-width: calc(100vw - 2rem) !important;
+    width: 80vw !important;
+    padding: 0.8rem 0.4rem !important;
+  }
+}
 .ui-dialog-titlebar {
   background: rgb(197, 204, 255);
   border: none;
@@ -1439,6 +1535,7 @@ p {
   color: #fff;
 }
 .ui-dialog-content {
+  display: flex;
   max-height: 100% !important;
   overflow-y: scroll;
 }

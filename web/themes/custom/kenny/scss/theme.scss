@@ -6,6 +6,7 @@
 @import "base/breakpoints";
 @import "base/variables";
 @import "base/mixins";
+@import "base/modal-form";
 @import "base/layouts";
 @import "base/typography";
 
@@ -35,6 +36,7 @@
 
 
 // Form
+@import "components/form/kenny-measurements-form";
 @import "components/form/kenny-new-training-form";
 
 

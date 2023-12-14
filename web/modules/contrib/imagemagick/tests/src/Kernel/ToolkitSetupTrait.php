@@ -3,8 +3,8 @@
 namespace Drupal\Tests\imagemagick\Kernel;
 
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\TestFileCreationTrait;
 
 /**
  * Trait to manage toolkit setup tasks common across tests.

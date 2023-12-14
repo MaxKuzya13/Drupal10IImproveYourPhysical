@@ -99,60 +99,61 @@ class KennyMeasurementsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $form['weight'] = [
-      '#type' => 'textfield',
-      '#title' => t('Your bodyweight'),
-      '#required' => TRUE,
-      '#suffix' => 'kg',
-    ];
+
     $form['height'] = [
       '#type' => 'textfield',
-      '#title' => t('Your height'),
+      '#title' => t('Your height (sm)'),
       '#required' => TRUE,
-      '#suffix' => 'sm',
     ];
-    $form['biceps'] = [
+
+    $form['weight'] = [
       '#type' => 'textfield',
-      '#title' => t('Your biceps'),
+      '#title' => t('Your bodyweight (kg)'),
       '#required' => TRUE,
-      '#suffix' => 'sm',
     ];
-    $form['forearms'] = [
-      '#type' => 'textfield',
-      '#title' => t('Your forearms'),
-      '#required' => TRUE,
-      '#suffix' => 'sm',
-    ];
-    $form['chest'] = [
-      '#type' => 'textfield',
-      '#title' => t('Your chest'),
-      '#required' => TRUE,
-      '#suffix' => 'sm',
-    ];
+
     $form['neck'] = [
       '#type' => 'textfield',
-      '#title' => t('Your neck'),
+      '#title' => t('Your neck (sm)'),
       '#required' => TRUE,
-      '#suffix' => 'sm',
     ];
+
+    $form['chest'] = [
+      '#type' => 'textfield',
+      '#title' => t('Your chest (sm)'),
+      '#required' => TRUE,
+    ];
+
+    $form['biceps'] = [
+      '#type' => 'textfield',
+      '#title' => t('Your biceps (sm)'),
+      '#required' => TRUE,
+    ];
+
+    $form['forearms'] = [
+      '#type' => 'textfield',
+      '#title' => t('Your forearms (sm)'),
+      '#required' => TRUE,
+    ];
+
     $form['waist'] = [
       '#type' => 'textfield',
-      '#title' => t('Your waist'),
+      '#title' => t('Your waist (sm)'),
       '#required' => TRUE,
-      '#suffix' => 'sm',
     ];
-    $form['thigh'] = [
-      '#type' => 'textfield',
-      '#title' => t('Your thigh'),
-      '#required' => TRUE,
-      '#suffix' => 'sm',
-    ];
+
     $form['glutes'] = [
       '#type' => 'textfield',
-      '#title' => t('Your glutes'),
+      '#title' => t('Your glutes (sm)'),
       '#required' => TRUE,
-      '#suffix' => 'sm',
     ];
+
+    $form['thigh'] = [
+      '#type' => 'textfield',
+      '#title' => t('Your thigh (sm)'),
+      '#required' => TRUE,
+    ];
+
     $form['date'] = [
       '#type' => 'date',
       '#title' => $this->t('Date'),
@@ -166,7 +167,7 @@ class KennyMeasurementsForm extends FormBase {
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Measurements'),
+      '#value' => t('Save'),
     ];
    return $form;
 
@@ -237,6 +238,8 @@ class KennyMeasurementsForm extends FormBase {
       $this->messenger->addMessage(
         t('Thank you for your measurements')
       );
+
+      $form_state->setRedirectUrl(Url::fromUri('internal:/training/man-stats'));
 
     } catch (\Exception $e) {
       $this->messenger->addError(

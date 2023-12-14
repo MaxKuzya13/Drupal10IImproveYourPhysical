@@ -24,6 +24,8 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * Provides a list of available modules.
+   *
    * @var \Drupal\Core\Extension\ModuleExtensionList
    */
   protected $moduleList;
@@ -77,7 +79,7 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
     // Test default supported image extensions.
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('GIF, JPEG, PNG');
-    $this->assertSession()->responseContains('gif, jpe, jpeg, jpg, png');
+    $this->assertSession()->responseContains('gif, jfif, jpe, jpeg, jpg, png');
 
     $config = \Drupal::configFactory()->getEditable('imagemagick.settings');
 
@@ -89,7 +91,7 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('GIF, JPEG, PNG, TIFF');
-    $this->assertSession()->responseContains('gif, jpe, jpeg, jpg, png, tif, tiff');
+    $this->assertSession()->responseContains('gif, jfif, jpe, jpeg, jpg, png, tif, tiff');
 
     // Enable BMP.
     $image_formats['BMP']['enabled'] = TRUE;
@@ -98,7 +100,7 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('BMP, GIF, JPEG, PNG, TIFF');
-    $this->assertSession()->responseContains('bmp, dib, gif, jpe, jpeg, jpg, png, tif, tiff');
+    $this->assertSession()->responseContains('bmp, dib, gif, jfif, jpe, jpeg, jpg, png, tif, tiff');
 
     // Disable PNG.
     $image_formats['PNG']['enabled'] = FALSE;
@@ -107,7 +109,7 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('BMP, GIF, JPEG, TIFF');
-    $this->assertSession()->responseContains('bmp, dib, gif, jpe, jpeg, jpg, tif, tiff');
+    $this->assertSession()->responseContains('bmp, dib, gif, jfif, jpe, jpeg, jpg, tif, tiff');
 
     // Disable some extensions.
     $image_formats['TIFF']['exclude_extensions'] = 'tif, gif';
@@ -116,14 +118,14 @@ class ToolkitImagemagickFormTest extends BrowserTestBase {
     $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('BMP, GIF, JPEG, TIFF');
-    $this->assertSession()->responseContains('bmp, dib, gif, jpe, jpeg, jpg, tiff');
+    $this->assertSession()->responseContains('bmp, dib, gif, jfif, jpe, jpeg, jpg, tiff');
     $image_formats['JPEG']['exclude_extensions'] = 'jpe, jpg';
     $config->set('image_formats', $image_formats)->save();
     $this->drupalGet($admin_path);
     $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->responseNotContains('Image format errors');
     $this->assertSession()->responseContains('BMP, GIF, JPEG, TIFF');
-    $this->assertSession()->responseContains('bmp, dib, gif, jpeg, tiff');
+    $this->assertSession()->responseContains('bmp, dib, gif, jfif, jpeg, tiff');
 
     // Add a format with missing mimetype.
     $image_formats['BAX']['mime_type'] = 'foo/bar';

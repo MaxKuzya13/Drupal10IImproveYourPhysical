@@ -147,7 +147,7 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
         $output['container'][$muscle_name_lower]['exercises_container'][$exercise_container]['exercise'] = [
           'button' => [
             '#type' => 'button',
-            '#value' => $exercise_name,
+            '#value' => '- ' . $exercise_name,
             '#attributes' => [
               'class' => [$class_button],
               'data-show-video' => $exercise_container_class,
@@ -157,7 +157,7 @@ class ListOfxercises extends BlockBase implements ContainerFactoryPluginInterfac
             '#type' => 'container',
             'video_element' => $entity_type_manager->getViewBuilder('media')->view($video, 'preview'),
             '#attributes' => [
-              'class' => ['hide-exercises', $class_video, 'container-video'],
+              'class' => ['hide-exercises', $class_video, 'container-video', 'playable-video']
             ],
           ],
 

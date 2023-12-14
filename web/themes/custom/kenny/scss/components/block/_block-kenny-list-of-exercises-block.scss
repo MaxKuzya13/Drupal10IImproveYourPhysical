@@ -1,11 +1,26 @@
 .block-kenny-list-of-exercises-block {
   @include mainContainer;
 
+  .playable-video video  {
+    mute: true;
+  }
+
+
+
+  .muscles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
  .muscles-container {
 
    &__title {
      font-size: 3rem;
-     color: $color-violet;
+     color: $color-active;
    }
 
    &__exercises {
@@ -15,16 +30,18 @@
    .container-exercise {
      display: flex;
      flex-direction: column;
+     border: 1px solid gray;
+     padding: 1rem;
 
      input {
        background: none;
        border: none;
        color: $color-text;
-       font-size: 2rem;
+       font-size: 1.5rem;
        text-align: start;
 
        &:hover {
-         color: $color-active-hover;
+         color: $color-green-button;
          cursor: pointer;
        }
      }
@@ -44,6 +61,7 @@
      border: none;
      color: $color-active;
      font-size: 1rem;
+     margin: 0.5rem 0;
 
      &:hover {
        cursor: pointer;
@@ -56,6 +74,7 @@
      border: none;
      color: $color-red-button;
      font-size: 1rem;
+     margin: 0.5rem 0;
 
      &:hover {
        cursor: pointer;

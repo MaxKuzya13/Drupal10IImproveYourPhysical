@@ -1,0 +1,47 @@
+.kenny-measurements-form {
+
+
+  @include mainContainer;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .js-form-item {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 5fr;
+
+    @include mobileDefault {
+      grid-template-columns: 1.5fr 1fr;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+
+  }
+
+  .js-form-submit {
+    margin: 0;
+    background: none;
+    cursor: pointer;
+    width: 5rem!important;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    padding: 4px 6px;
+    border-radius: 7px;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
