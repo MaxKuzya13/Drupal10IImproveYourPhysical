@@ -442,6 +442,40 @@ p {
   }
 }
 
+.block-kenny-tracker {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .block-kenny-tracker {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.block-kenny-tracker .tracker__selected-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.8rem;
+}
+.block-kenny-tracker .tracker__started-measurements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.8rem;
+}
+.block-kenny-tracker .tracker__relative-measurements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.8rem;
+}
+.block-kenny-tracker .tracker__decired-measurements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.8rem;
+}
+
 .kenny-hero-block {
   position: relative;
   width: calc(1170px + 2rem);

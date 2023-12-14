@@ -1,0 +1,32 @@
+
+
+.block-kenny-tracker {
+  @include mainContainer;
+
+  .tracker {
+
+    &__selected-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+      gap: 0.8rem
+    }
+
+    &__started-measurements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+      gap: 0.8rem
+    }
+
+    &__relative-measurements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+      gap: 0.8rem
+    }
+
+    &__decired-measurements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+      gap: 0.8rem
+    }
+  }
+}

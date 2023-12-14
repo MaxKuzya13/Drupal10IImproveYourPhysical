@@ -123,6 +123,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
         ]
       ];
     } else {
+
       $tracking_measurements_id = $this->trackerMeasurements->getTrackedMeasurements($uid);
       $tracking_measurements_id = reset($tracking_measurements_id);
 
@@ -138,33 +139,126 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       // Values of desired measurements.
       $decired_measurements = $this->trackerMeasurements->getDecired($tracking_measurements_id);
 
+      // ------------------------------------------------------------------------------------------------- //
+
+      $output['selected_fields']['container'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['tracker__selected-fields']],
+      ];
+
+      $output['selected_fields']['container']['title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $this->t('Body part:'),
+        '#attributes' => [
+          'class' => ['tracker__selected-fields__body-part'],
+        ],
+      ];
 
       foreach ($selected_fields['group'] as $k => $value) {
-        $output['selected_fields'][$k] = [
-          '#markup' => "</br>" . "<span>" . $value . "</span>"
+        $output['selected_fields']['container'][$k] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $value,
+          '#attributes' => [
+            'class' => ['tracker__selected-fields__body-part'],
+          ],
         ];
       };
 
+      // ------------------------------------------------------------------------------------------------- //
+
+      $output['started_measurements']['container'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['tracker__started-measurements']],
+      ];
+
+      $output['started_measurements']['container']['title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $this->t('Started value:'),
+        '#attributes' => [
+          'class' => ['tracker__started-measurements-values'],
+        ],
+      ];
+
       foreach ($started_measurements as $k => $value) {
-        $output['started_measurements'][$k] = [
-          '#markup' => "</br>" . "<span>" . 'Started value ' . $value . "</span>"
+        $output['started_measurements']['container'][$k] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>   $value ,
+          '#attributes' => [
+            'class' => ['tracker__started-measurements-values'],
+          ],
         ];
       };
+
+      // ------------------------------------------------------------------------------------------------- //
+
+      $output['relative_measurements']['container'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['tracker__relative-measurements']],
+      ];
+
+      $output['relative_measurements']['container']['title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $this->t('Relative value:'),
+        '#attributes' => [
+          'class' => ['tracker__relative-measurements__each'],
+        ],
+      ];
 
       foreach ($relative_measurements as $k => $value) {
 
+        $output['relative_measurements']['container'][$k] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['tracker__relative-measurements__each']],
+        ];
+
+
         foreach ($value as $key => $val) {
-          $output['relative_measurements'][$k][$key] = [
-            '#markup' => "</br>" . "<span>" . 'Relative value ' . $val . "</span>"
+          $output['relative_measurements']['container'][$k][$key] = [
+
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $val ,
+            '#attributes' => [
+              'class' => ['tracker__relative-measurements__each__result'],
+            ],
           ];
         }
 
       };
 
+      // ------------------------------------------------------------------------------------------------- //
+
+      $output['decired_measurements']['container'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['tracker__decired-measurements']],
+      ];
+
+      $output['decired_measurements']['container']['title'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' =>  $this->t('Decired value:'),
+        '#attributes' => [
+          'class' => ['tracker__decired-measurements__each'],
+        ],
+      ];
+
       foreach ($decired_measurements as $k => $value) {
-        $output['decired_measurements'][$k] = [
-          '#markup' => "</br>" . "<span>" . 'Decired value ' . $value . "</span>"
+
+        $output['decired_measurements']['container'][$k] = [
+
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $value,
+          '#attributes' => [
+            'class' => ['tracker__decired-measurements-values'],
+          ],
         ];
+
       };
 
 

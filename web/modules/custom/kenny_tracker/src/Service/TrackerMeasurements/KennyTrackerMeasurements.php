@@ -47,6 +47,7 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
     return new static(
       $container->get('database'),
       $container->get('entity_type.manager'),
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -269,7 +270,8 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
       $started_field_names['fields'][] = "field_{$field_name}";
 
     }
-
+    $started_field_names['group']['created'] = 'Created';
+    $started_field_names['fields']['created'] = "field_created";
     return $started_field_names;
 
   }
@@ -306,7 +308,6 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
           foreach ($selected_fields as $field) {
             $values[$field][] = $sm->get($field)->value;
           }
-        $values['date'][] = $sm->get('field_created')->value;
       }
 
     return $values;
