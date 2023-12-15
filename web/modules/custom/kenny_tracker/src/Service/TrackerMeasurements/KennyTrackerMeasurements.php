@@ -112,6 +112,7 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
       ->accessCheck('FALSE')
       ->execute();
 
+
     foreach ($tracker_measurements_ids as $tracker_measurements_id) {
       $tracker_measurements = $this->nodeStorage->load($tracker_measurements_id);
       $tracker_measurements->field_relevant_measurements[] = [
@@ -129,7 +130,6 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
     /** @var \Drupal\node\NodeStorageInterface $node_storage */
     $node_storage = $this->entityTypeManager->getStorage('node');
     $tracker = $node_storage->load($nid);
-
     $relevant_measurements = $tracker->get('field_relevant_measurements')->referencedEntities();
     if ($relevant_measurements) {
       // Get only last measurement by period, not all.
@@ -145,18 +145,23 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
 
     $progression_values = [];
 
-    if ($last_measurement) {
-
+    if (isset($last_measurement)) {
       foreach ($tracker_measurement as $tm) {
         $name = $tm->get('field_measurement_name')->value;
         $tracker_name = strtolower($name);
 
         $started_value = $started_measurements->get("field_{$tracker_name}")->value;
         $relevant_values = $last_measurement->get("field_{$tracker_name}")->value;
-        $progression_values[$tracker_name] = $relevant_values - $started_value;
+        $progression_values['body_part'][$tracker_name] = $relevant_values - $started_value;
+        if ($relevant_values >= $started_value) {
+          $progression_values['class'][] = 'grow';
+        } else {
+          $progression_values['class'][] = 'decrease';
+        }
+
       }
 
-      $created_start = $tracker->get('field_created')->value;
+      $created_start = $started_measurements->get('field_created')->value;
       $date_created = new \DateTime($created_start);
       $created_relative = $last_measurement->get('field_created')->value;
       $date_relative = new \DateTime($created_relative);
@@ -172,18 +177,8 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
         $timeline = $interval->days . ' days';
       }
 
-      $progression_values['date'] = $timeline;
-
-    } else {
-      foreach ($tracker_measurement as $tm) {
-        $name = $tm->get('field_measurement_name')->value;
-        $tracker_name = strtolower($name);
-
-        $started_value = $started_measurements->get("field_{$tracker_name}")->value;
-        $relevant_values = $tm->get("field_measurement_value")->value;
-        $progression_values[$tracker_name] = $relevant_values - $started_value;
-      }
-
+      $progression_values['body_part']['date'] = $timeline;
+      $progression_values['class']['date'] = '';
     }
 
 
@@ -236,7 +231,7 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
 
     $progression_values = [];
 
-    if ($last_measurement) {
+    if (isset($last_measurement)) {
 
       foreach ($tracker_measurement as $tm) {
         $name = $tm->get('field_measurement_name')->value;
@@ -244,7 +239,12 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
 
         $decired_value = $tm->get("field_measurement_value")->value;
         $relevant_values = $last_measurement->get("field_{$tracker_name}")->value;
-        $progression_values[$tracker_name] = $decired_value - $relevant_values;
+        $progression_values['body_part'][$tracker_name] = $decired_value - $relevant_values;
+        if ($decired_value >= $relevant_values) {
+          $progression_values['class'][] = 'grow';
+        } else {
+          $progression_values['class'][] = 'decrease';
+        }
       }
 
       return $progression_values;

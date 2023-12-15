@@ -448,6 +448,7 @@ p {
   border-radius: 2rem;
   padding: 2rem 1rem;
   margin: 0 auto;
+  margin-top: 2rem;
 }
 @media (max-width: 1200px) {
   .block-kenny-tracker {
@@ -455,25 +456,46 @@ p {
     padding: 1rem 0.5rem;
   }
 }
+@media (max-width: 700px) {
+  .block-kenny-tracker {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  .block-kenny-tracker {
+    font-size: 14px;
+  }
+}
+.block-kenny-tracker .tracker-container {
+  border-bottom: 1px solid gray;
+}
+.block-kenny-tracker .tracker-container__title {
+  display: flex;
+  align-self: center;
+  color: cadetblue;
+}
+.block-kenny-tracker .tracker-container__each {
+  display: flex;
+  align-self: center;
+}
+.block-kenny-tracker .tracker-container .grow {
+  color: #0f9b0f;
+}
+.block-kenny-tracker .tracker-container .decrease {
+  color: #BD3F32;
+}
 .block-kenny-tracker .tracker__selected-fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  gap: 0.8rem;
+  color: cadetblue;
 }
-.block-kenny-tracker .tracker__started-measurements {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  gap: 0.8rem;
+
+.block-kenny-new-tracker-warning-block {
+  display: none;
+  margin-top: 2rem;
 }
-.block-kenny-tracker .tracker__relative-measurements {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  gap: 0.8rem;
-}
-.block-kenny-tracker .tracker__decired-measurements {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  gap: 0.8rem;
+@media (max-width: 700px) {
+  .block-kenny-new-tracker-warning-block {
+    display: flex;
+  }
 }
 
 .kenny-hero-block {

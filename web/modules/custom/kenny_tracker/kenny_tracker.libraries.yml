@@ -1,0 +1,8 @@
+kenny_tracker_script:
+  version: 1.x
+  js:
+    js/kenny_tracker_script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once

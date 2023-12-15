@@ -400,60 +400,94 @@ class KennyTrackerMeasurements extends FormBase {
     // Get id of started measurement by tracker.
     if ($nids) {
       $current_measurement_id = reset($nids);
+    } else {
+      $query = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', 'measurements')
+        ->condition('field_uid', $uid)
+        ->condition('field_created', $date, '>')
+        ->sort('field_created', 'ASC')
+        ->accessCheck(FALSE); // Bypass node access check, or adjust as needed.
+      $nids = $query->execute();
+
+      if ($nids) {
+        $current_measurement_id = reset($nids);
+      }
     }
-
-    // Create tracker measurements object.
-    $tracker_measurements = $this->nodeStorage->create([
-      'type' => 'tracker_measurements',
-      'title' => $title,
-      'field_created' => $date,
-      'field_uid' => $uid,
-    ]);
-
-    // Set started measurement field.
-    $tracker_measurements->field_current_measurements = $current_measurement_id;
-
-    // Delete actions by array.
-    $measurements_selection = $form_state->getValue('measurements_selection');
-    unset($measurements_selection['actions']);
-
-
-    // Create desired result.
-    foreach ($measurements_selection as $paragraph_tracker_measurements) {
-      $name = $paragraph_tracker_measurements['measurement_name'];
-      $value = $paragraph_tracker_measurements['measurement_value'];
-
-      $paragraph = $this->paragraphStorage->create([
-        'type' => 'prefered_measurements',
-        'field_measurement_name' => $name,
-        'field_measurement_value' => $value,
+    if(isset($current_measurement_id)) {
+      // Create tracker measurements object.
+      $tracker_measurements = $this->nodeStorage->create([
+        'type' => 'tracker_measurements',
+        'title' => $title,
+        'field_created' => $date,
+        'field_uid' => $uid,
       ]);
 
-      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
-      $paragraph->save();
+      // Set started measurement field.
+      $tracker_measurements->field_current_measurements = $current_measurement_id;
 
-      // Set desired result.
-      $tracker_measurements->field_tracker_measurement[] = $paragraph;
+      // Relative measureents.
+      $query_relative = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', 'measurements')
+        ->condition('field_uid',$uid)
+        ->condition('field_created', $date, '>')
+        ->sort('field_created', 'ASC')
+        ->accessCheck(FALSE); // Bypass node access check, or adjust as needed.
+      $nids_relative = $query_relative->execute();
+
+      // Get id of started measurement by tracker.
+      if ($nids_relative) {
+        foreach ($nids_relative as $nid) {
+          $tracker_measurements->field_relevant_measurements[] = [
+            'target_id' => $nid,
+          ];
+        }
+      }
+
+
+      // Delete actions by array.
+      $measurements_selection = $form_state->getValue('measurements_selection');
+      unset($measurements_selection['actions']);
+
+
+      // Create desired result.
+      foreach ($measurements_selection as $paragraph_tracker_measurements) {
+        $name = $paragraph_tracker_measurements['measurement_name'];
+        $value = $paragraph_tracker_measurements['measurement_value'];
+
+        $paragraph = $this->paragraphStorage->create([
+          'type' => 'prefered_measurements',
+          'field_measurement_name' => $name,
+          'field_measurement_value' => $value,
+        ]);
+
+        /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+        $paragraph->save();
+
+        // Set desired result.
+        $tracker_measurements->field_tracker_measurement[] = $paragraph;
+      }
+
+      // Save tracker measurements object.
+      $tracker_measurements->save();
+
+
+      // Check to have a content of Track Measurements.
+      $is_track = $this->trackerMeasurements->isTrack($uid);
+
+      if (!$is_track) {
+        // Add to database that this user have a track.
+        $this->trackerMeasurements->setTrack($uid, $tracker_measurements->id());
+      }
+
+
+      $this->messenger->addMessage(
+        t('The @title successfully add', [
+          '@title' => $title,
+        ])
+      );
     }
 
-    // Save tracker measurements object.
-    $tracker_measurements->save();
 
-
-    // Check to have a content of Track Measurements.
-    $is_track = $this->trackerMeasurements->isTrack($uid);
-
-    if (!$is_track) {
-      // Add to database that this user have a track.
-      $this->trackerMeasurements->setTrack($uid, $tracker_measurements->id());
-    }
-
-
-    $this->messenger->addMessage(
-      t('The @title successfully add', [
-        '@title' => $title,
-      ])
-    );
 
     $form_state->setRedirectUrl(Url::fromUri('internal:/test-tracker'));
 

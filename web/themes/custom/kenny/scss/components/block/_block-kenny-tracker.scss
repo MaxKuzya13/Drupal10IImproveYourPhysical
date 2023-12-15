@@ -1,32 +1,56 @@
 
 
 .block-kenny-tracker {
+
   @include mainContainer;
+  margin-top: 2rem;
+  @include mobile {
+    display: none;
+  }
+
+  @include mobileDefault {
+    font-size: 14px;
+  }
+
 
   .tracker {
 
+
+    &-container {
+      border-bottom: 1px solid gray;
+
+      &__title {
+        display: flex;
+        align-self: center;
+        color: $color-active;
+      }
+
+      &__each {
+        display: flex;
+        align-self: center;
+      }
+
+      .grow {
+        color: $color-green-button;
+      }
+
+      .decrease {
+        color: $color-red-button;
+      }
+    }
+
     &__selected-fields {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-      gap: 0.8rem
+      color: $color-active;
     }
 
-    &__started-measurements {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-      gap: 0.8rem
-    }
 
-    &__relative-measurements {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-      gap: 0.8rem
-    }
-
-    &__decired-measurements {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-      gap: 0.8rem
-    }
   }
+}
+
+.block-kenny-new-tracker-warning-block {
+  display: none;
+  @include mobile {
+    display: flex;
+  }
+  margin-top: 2rem;
 }
