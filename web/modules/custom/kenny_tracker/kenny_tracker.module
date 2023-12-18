@@ -10,96 +10,96 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 
-/**
- * Implements hook_entity_extra_field_info().
- */
-function kenny_tracker_entity_extra_field_info() {
-  $extra = [];
-  $extra['node']['tracker_measurements']['display']['progress_over_time'] = [
-    'label' => t('Progress over time'),
-    'weight' => 100,
-    'visible' => FALSE,
-  ];
-  $extra['node']['tracker_measurements']['display']['desired_result'] = [
-    'label' => t('Desired result'),
-    'weight' => 100,
-    'visible' => FALSE,
-  ];
-  $extra['node']['tracker_measurements']['display']['still_left'] = [
-    'label' => t('Left to the desired result'),
-    'weight' => 100,
-    'visible' => FALSE,
-  ];
-
-  return $extra;
-}
-
-/**
- * Implements hook_ENTITY_TYPE_view().
- */
-function kenny_tracker_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
-  $bem_block = Html::getClass( 'node-' . $node->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
-  if ($display->getComponent('progress_over_time') && $node->bundle() == 'tracker_measurements') {
-    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
-    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
-    $nid = $node->id();
-    $progress_over_time = $tracker_measurements->getProgressOverTime($nid);
-//    dump($progress_over_time);
-    foreach ($progress_over_time as $progress_key => $progress_value) {
-      $progress_row = "progress_over_time_{$progress_key}";
-      $build[$progress_row] = [
-        '#type' => 'inline_template',
-        '#template' => '<div class="{{ class }}">{{ progress_row }}</div>',
-        '#context' => [
-          'progress_row' => 'Progress: ' . $progress_value,
-          'class' => $bem_block . $progress_row
-        ],
-      ];
-    }
+///**
+// * Implements hook_entity_extra_field_info().
+// */
+//function kenny_tracker_entity_extra_field_info() {
+//  $extra = [];
+//  $extra['node']['tracker_measurements']['display']['progress_over_time'] = [
+//    'label' => t('Progress over time'),
+//    'weight' => 100,
+//    'visible' => FALSE,
+//  ];
+//  $extra['node']['tracker_measurements']['display']['desired_result'] = [
+//    'label' => t('Desired result'),
+//    'weight' => 100,
+//    'visible' => FALSE,
+//  ];
+//  $extra['node']['tracker_measurements']['display']['still_left'] = [
+//    'label' => t('Left to the desired result'),
+//    'weight' => 100,
+//    'visible' => FALSE,
+//  ];
 //
-
-  }
-
-  if ($display->getComponent('desired_result') && $node->bundle() == 'tracker_measurements') {
-    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
-    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
-    $nid = $node->id();
-    $desired_result = $tracker_measurements->getDesiredResult($nid);
-    foreach ($desired_result as $desired_key => $desired_value) {
-      $desired_row = "desired_result_{$desired_key}";
-      $build[$desired_row] = [
-        '#type' => 'inline_template',
-        '#template' => '<div class="{{ class }}">{{ desired_row }}</div>',
-        '#context' => [
-          'desired_row' => 'Desired Result: ' . $desired_value,
-          'class' => $bem_block . $desired_row
-        ],
-      ];
-    }
-
-
-  }
-
-  if ($display->getComponent('still_left') && $node->bundle() == 'tracker_measurements') {
-    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
-    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
-    $nid = $node->id();
-    $left_to_desired_result = $tracker_measurements->isStillLeft($nid);
-    foreach ($left_to_desired_result as $left_to_desired_result_key => $left_to_desired_result_value) {
-      $left_to_desired_result_row = "lef_to_desired_result_{$left_to_desired_result_key}";
-      $build[$left_to_desired_result_row] = [
-        '#type' => 'inline_template',
-        '#template' => '<div class="{{ class }}">{{ left_to_desired_row }}</div>',
-        '#context' => [
-          'left_to_desired_row' => 'Left to the desired result: ' . $left_to_desired_result_value,
-          'class' => $bem_block . $left_to_desired_result_row
-        ],
-      ];
-    }
-
-
-  }
-}
+//  return $extra;
+//}
+//
+///**
+// * Implements hook_ENTITY_TYPE_view().
+// */
+//function kenny_tracker_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+//  $bem_block = Html::getClass( 'node-' . $node->bundle() . ($view_mode == 'default' ? '' : '-' . $view_mode));
+//  if ($display->getComponent('progress_over_time') && $node->bundle() == 'tracker_measurements') {
+//    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
+//    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
+//    $nid = $node->id();
+//    $progress_over_time = $tracker_measurements->getProgressOverTime($nid);
+////    dump($progress_over_time);
+//    foreach ($progress_over_time as $progress_key => $progress_value) {
+//      $progress_row = "progress_over_time_{$progress_key}";
+//      $build[$progress_row] = [
+//        '#type' => 'inline_template',
+//        '#template' => '<div class="{{ class }}">{{ progress_row }}</div>',
+//        '#context' => [
+//          'progress_row' => 'Progress: ' . $progress_value,
+//          'class' => $bem_block . $progress_row
+//        ],
+//      ];
+//    }
+////
+//
+//  }
+//
+//  if ($display->getComponent('desired_result') && $node->bundle() == 'tracker_measurements') {
+//    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
+//    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
+//    $nid = $node->id();
+//    $desired_result = $tracker_measurements->getDesiredResult($nid);
+//    foreach ($desired_result as $desired_key => $desired_value) {
+//      $desired_row = "desired_result_{$desired_key}";
+//      $build[$desired_row] = [
+//        '#type' => 'inline_template',
+//        '#template' => '<div class="{{ class }}">{{ desired_row }}</div>',
+//        '#context' => [
+//          'desired_row' => 'Desired Result: ' . $desired_value,
+//          'class' => $bem_block . $desired_row
+//        ],
+//      ];
+//    }
+//
+//
+//  }
+//
+//  if ($display->getComponent('still_left') && $node->bundle() == 'tracker_measurements') {
+//    /** @var \Drupal\kenny_training\Service\Weight\WeightManager $training */
+//    $tracker_measurements = \Drupal::service('kenny_tracker.tracker_measurements');
+//    $nid = $node->id();
+//    $left_to_desired_result = $tracker_measurements->isStillLeft($nid);
+//    foreach ($left_to_desired_result as $left_to_desired_result_key => $left_to_desired_result_value) {
+//      $left_to_desired_result_row = "lef_to_desired_result_{$left_to_desired_result_key}";
+//      $build[$left_to_desired_result_row] = [
+//        '#type' => 'inline_template',
+//        '#template' => '<div class="{{ class }}">{{ left_to_desired_row }}</div>',
+//        '#context' => [
+//          'left_to_desired_row' => 'Left to the desired result: ' . $left_to_desired_result_value,
+//          'class' => $bem_block . $left_to_desired_result_row
+//        ],
+//      ];
+//    }
+//
+//
+//  }
+//}
 
 
 /**
@@ -122,6 +122,8 @@ function kenny_tracker_node_delete($node) {
     // Наприклад, drupal_set_message(t('Tracker node deleted.'));
   }
 }
+
+
 
 /**
  * Implements hook_entity_insert().

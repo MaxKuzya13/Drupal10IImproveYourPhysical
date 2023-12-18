@@ -1,6 +1,10 @@
 .block-kenny-stats, .block-kenny-girls-stats {
   @include mainContainer;
 
+  @include mobileDefault {
+    font-size: 14px;
+  }
+
   .kenny-stats-date {
     display: inline-flex;
     width: 100%;

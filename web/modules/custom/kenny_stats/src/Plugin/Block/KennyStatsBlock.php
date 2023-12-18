@@ -118,8 +118,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       ],
     ];
 
-    $config = $this->configFactory->get('kenny_stats.settings');
-    $exercises_array = $this->statsByExercise->getExercisesArray($config);
+
 
 
 
@@ -218,8 +217,14 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     ];
 
     //------------------------------------------
-    $training_people = 'man';
-    $count_of_training = $this->statsByExercise->getNumberOfTraining($training_people, $limit);
+    $user = $this->entityTypeManager->getStorage('user');
+    $uid = $this->currentUser->id();
+
+    $current_user = $user->load($uid);
+    $gender = $current_user->get('field_gender')->value;
+
+
+    $count_of_training = $this->statsByExercise->getNumberOfTraining($gender, $limit);
 
     // Container for count
     $output['count_of_training']['container'] = [
@@ -247,7 +252,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
 
-    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($training_people, $limit);
+    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($gender, $limit);
 //
 //    $count_output = array_keys($count_by_body_part);
 
@@ -277,7 +282,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
 
-    $most_popular_exercise = $this->statsByExercise->mostPopularExercise($training_people, $limit);
+    $most_popular_exercise = $this->statsByExercise->mostPopularExercise($gender, $limit);
     // Most popular exercises
     $output["most_popular_exercises-title"] = [
       '#type' => 'html_tag',
@@ -325,18 +330,36 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       ],
     ];
 
-    $output['paragraph']['change_exercise']['link'] = [
-      '#theme' => 'links',
-      '#links' => [
-        'link' => [
-          'title' => $this->t('Click here'),
-          'url' => Url::fromRoute('kenny_stats.stats_exercise'),
-          'attributes' => [
-            'class' => ['stats-exercise-container__change-exercises-link']
+    if ($gender !== 'woman') {
+      $output['paragraph']['change_exercise']['link'] = [
+        '#theme' => 'links',
+        '#links' => [
+          'link' => [
+            'title' => $this->t('Click here'),
+            'url' => Url::fromRoute('kenny_stats.stats_exercise'),
+            'attributes' => [
+              'class' => ['stats-exercise-container__change-exercises-link']
+            ],
           ],
-        ],
-      ]
-    ];
+        ]
+      ];
+    } else {
+      $output['paragraph']['change_exercise']['link'] = [
+        '#theme' => 'links',
+        '#links' => [
+          'link' => [
+            'title' => $this->t('Click here'),
+            'url' => Url::fromRoute('kenny_girls_stats.girls_stats_exercise'),
+            'attributes' => [
+              'class' => ['stats-exercise-container__change-exercises-link']
+            ],
+          ],
+        ]
+      ];
+    }
+
+
+
 
     $output['paragraph']['exercise_container'] = [
       '#type' => 'container',
@@ -345,18 +368,20 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       ],
     ];
 
-    /** @var \Drupal\taxonomy\TermStorageInterface $body_part_list */
-    $body_part_list = $this->entityTypeManager->getStorage('taxonomy_term')
-      ->loadTree('body_part');
 
-    foreach ($body_part_list as $term) {
-      $body_part = $term->name;
-      $lower_body_part = strtolower(str_replace(' ', '', $body_part));
+    if ($gender !== 'woman') {
+      $config = $this->configFactory->get('kenny_stats.settings');
+    } else {
+      $config = $this->configFactory->get('kenny_girls_stats.settings');
+    }
 
-      // Отримати параграф для поточного "Body part".
-      $paragraph = $this->statsByExercise->getParagraph($body_part, $exercises_array);
+    $exercises_array = $config->get();
 
-      $media = $this->statsByExercise->getMedia($body_part);
+
+    foreach ($exercises_array as $lower_body_part => $muscle_id) {
+      $paragraph = $this->statsByExercise->getCurrentParagraph($gender, $muscle_id);
+      $reformated_exercise_name = ucwords(str_replace('_', ' ', $lower_body_part));
+      $media = $this->statsByExercise->getMedia($reformated_exercise_name);
 
 
 
@@ -370,7 +395,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       $output['paragraph']['exercise_container'][$lower_body_part]['body_part'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' =>  $body_part,
+        '#value' =>  $reformated_exercise_name,
         '#attributes' => [
           'class' => ["stats-exercise-container__exercise-body-part"],
         ],
@@ -378,7 +403,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       ];
 
       if (!is_null($paragraph)) {
-        $relative_paragraph = $this->statsByExercise->getCurrentParagraph($training_people, '', $paragraph, $limit);
+        $relative_paragraph = $this->statsByExercise->getCurrentParagraph($gender, '', $paragraph, $limit);
 
 
         // Відображення параграфа, якщо він існує.

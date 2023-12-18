@@ -97,6 +97,8 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
   public function build() {
 
     $uid = $this->currentUser->id();
+
+
     $tracking = $this->trackerMeasurements->isTrack($uid);
 
     /** @var \Drupal\node\NodeStorageInterface $node_storage */
@@ -104,6 +106,15 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
 
     /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
     $entity_type_manager = $this->entityTypeManager;
+
+    $output['title'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h2',
+      '#value' =>  $this->t('Active tracking'),
+      '#attributes' => [
+        'class' => ['tracker__title'],
+      ],
+    ];
 
 
     if (!$tracking) {
@@ -390,6 +401,7 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
       }
 
 
+
 //      $tracking_measurements = $node_storage->load($tracking_measurements_id);
 ////      dump($tracking_measurements);
 //      $output['#markup'] = '<span> U have an available track </span>' ;
@@ -400,8 +412,20 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
 //      ];
     }
 
+    $nid = $tracking_measurements_id;
 
-
+    $output['delete_tracker']['link'] = [
+      '#theme' => 'links',
+      '#links' => [
+        'link' => [
+          'title' => $this->t('Delete this track'),
+          'url' => Url::fromRoute('entity.node.delete_form', ['node' => $nid]),
+          'attributes' => [
+            'class' => ['tracker__delete']
+          ],
+        ],
+      ]
+    ];
     return $output;
 
 

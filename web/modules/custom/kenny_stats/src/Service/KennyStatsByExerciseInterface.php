@@ -51,14 +51,6 @@ interface KennyStatsByExerciseInterface {
    */
   public function getCurrentParagraph($training_people, $exercise_id = '', $paragraph = '', $limit = '');
 
-  /**
-   * Get list of body part and exercise id.
-   *
-   * @param $config
-   *   Current config.
-   * @return array
-   */
-  public function getExercisesArray($config);
 
   /**
    * Get stats results.

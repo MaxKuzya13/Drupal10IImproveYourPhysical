@@ -220,31 +220,6 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   }
 
 
-  /**
-   * {@inheritdoc }
-   */
-  public function getExercisesArray($config) {
-
-    /** @var \Drupal\taxonomy\TermStorageInterface $body_parts */
-    $body_parts = $this->entityTypeManager->getStorage('taxonomy_term')
-      ->loadTree('body_part');
-
-    // Get array of body part
-    $body_part_names = [];
-    foreach ($body_parts as $body_part) {
-      $name = $body_part->name;
-      $body_part_names[] = strtolower(str_replace(' ', '_', $name));
-    }
-
-    // Get array of body part name => tid
-    $exercises_array = [];
-    foreach ($body_part_names as $exercise) {
-      $exercises_array[$exercise] = $config->get($exercise);
-    }
-
-
-    return $exercises_array;
-  }
 
   /**
    * {@inheritdoc }
@@ -430,7 +405,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
         ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
     $intensive_id = reset($intensive_id)->id();
 
-    if ($training_people == 'girl') {
+    if ($training_people == 'woman') {
       $taxonomy_tree = $term_storage->loadTree('girls_body_part');
     } else {
       $taxonomy_tree = $term_storage->loadTree('body_part');
@@ -512,7 +487,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 //      ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
 //    $intensive_id = reset($intensive_id)->id();
 
-    if ($training_people == 'girl') {
+    if ($training_people == 'woman') {
       $taxonomy_tree = $term_storage->loadTree('girls_body_part');
     } else {
       $taxonomy_tree = $term_storage->loadTree('body_part');
@@ -590,7 +565,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
       $output['condition_exercises'] = 'field_exercises.entity:paragraph.field_exercise';
       $output['field_training_date'] = 'field_training_date';
 
-    } elseif ($training_people == 'girl') {
+    } elseif ($training_people == 'woman') {
       $output['training'] = 'girls_training';
       $output['type_of_training'] = 'girls_type_of_training';
       $output['field_type_of_training'] = 'field_girls_type_of_training';

@@ -334,20 +334,20 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
     $config = $this->configFactory->get('kenny_girls_stats.settings');
     $exercises_array = $config->get();
 
-    foreach ($exercises_array as $exercise_name => $exercise_id) {
-      $paragraph = $this->statsByExercise->getCurrentParagraph($training_people, $exercise_id);
-      $reformated_exercise_name = ucwords(str_replace('_', ' ', $exercise_name));
+    foreach ($exercises_array as $lower_body_part => $muscle_id) {
+      $paragraph = $this->statsByExercise->getCurrentParagraph($training_people, $muscle_id);
+      $reformated_exercise_name = ucwords(str_replace('_', ' ', $lower_body_part));
 
       $media = $this->statsByExercise->getMedia($reformated_exercise_name);
 
-      $output['paragraph']['exercise_container'][$exercise_name] = [
+      $output['paragraph']['exercise_container'][$lower_body_part] = [
         '#type' => 'container',
         '#attributes' => [
           'class' => ['stats-exercise-container__exercise']
         ],
       ];
 
-      $output['paragraph']['exercise_container'][$exercise_name]['body_part'] = [
+      $output['paragraph']['exercise_container'][$lower_body_part]['body_part'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
         '#value' =>  $reformated_exercise_name,
@@ -363,21 +363,21 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
         // Відображення параграфа, якщо він існує.
 
-        $output['paragraph']['exercise_container'][$exercise_name]['paragraph'] = $this->entityTypeManager
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = $this->entityTypeManager
           ->getViewBuilder('paragraph')
           ->view($paragraph, 'stats');
 
-        $output['paragraph']['exercise_container'][$exercise_name]['paragraph']['#attributes']['class'] = [
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph']['#attributes']['class'] = [
           'stats-exercise-container__exercise-last',
         ];
 
 
         if ($relative_paragraph) {
-          $output['paragraph']['exercise_container'][$exercise_name]['relative_paragraph'] = $this->entityTypeManager
+          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = $this->entityTypeManager
             ->getViewBuilder('paragraph')
             ->view($relative_paragraph, 'stats');
         } else {
-          $output['paragraph']['exercise_container'][$exercise_name]['relative_paragraph'] = [
+          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = [
             '#type' => 'html_tag',
             '#tag' => 'div',
             '#value' =>  'No relative training by ' . $body_part,
@@ -385,7 +385,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
           ];
         }
 
-        $output['paragraph']['exercise_container'][$exercise_name]['relative_paragraph']['#attributes']['class'] = [
+        $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph']['#attributes']['class'] = [
           'stats-exercise-container__exercise-first',
         ];
 
@@ -398,7 +398,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
           ]);
 
-          $output['paragraph']['exercise_container'][$exercise_name]['working_weight'] = [
+          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [
             '#type' => 'html_tag',
             '#tag' => 'div',
             '#value' =>  $workWeightText,
@@ -408,7 +408,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
           ];
 
         } else {
-          $output['paragraph']['exercise_container'][$exercise_name]['working_weight'] = [];
+          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [];
         }
 
 
@@ -416,7 +416,7 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
       } else {
 
         // Відобразити повідомлення про відсутність тренувань для "Body part".
-        $output['paragraph']['exercise_container'][$exercise_name]['paragraph'] = [
+        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = [
           '#type' => 'html_tag',
           '#tag' => 'div',
           '#value' =>  'No training by ' . $reformated_exercise_name ,
@@ -428,11 +428,11 @@ class KennyGirlsStatsBlock extends BlockBase implements ContainerFactoryPluginIn
 
       }
 
-      $output['paragraph']['exercise_container'][$exercise_name]['media'] = $this->entityTypeManager
+      $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
         ->getViewBuilder('media')
         ->view($media, 'full');
 
-      $output['paragraph']['exercise_container'][$exercise_name]['media']['#attributes']['class'] = [
+      $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
         'stats-exercise-container__exercise-media',
       ];
 

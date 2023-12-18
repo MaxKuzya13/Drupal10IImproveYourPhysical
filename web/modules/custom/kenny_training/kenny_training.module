@@ -305,3 +305,5 @@ function kenny_training_cron() {
   $event = new MonthlyReminderEvent();
   $event_dispatcher->dispatch($event, MonthlyReminderEvent::MONTHLY_REMINDER_EVENT);
 }
+
+
