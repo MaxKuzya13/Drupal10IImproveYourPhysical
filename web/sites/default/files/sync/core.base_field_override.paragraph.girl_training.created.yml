@@ -1,0 +1,18 @@
+uuid: c1c1b760-7ceb-407b-a09a-cfea0c33ee57
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.girl_training
+id: paragraph.girl_training.created
+field_name: created
+entity_type: paragraph
+bundle: girl_training
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

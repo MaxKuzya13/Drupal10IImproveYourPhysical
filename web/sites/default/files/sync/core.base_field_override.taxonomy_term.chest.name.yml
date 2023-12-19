@@ -1,0 +1,18 @@
+uuid: d079ca2e-81de-4202-a242-386f8b7de718
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.chest
+id: taxonomy_term.chest.name
+field_name: name
+entity_type: taxonomy_term
+bundle: chest
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

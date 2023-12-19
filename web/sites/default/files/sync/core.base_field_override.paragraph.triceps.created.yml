@@ -1,0 +1,18 @@
+uuid: 64af71f9-7345-4bcf-ae29-f0624c0b1ef3
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.triceps
+id: paragraph.triceps.created
+field_name: created
+entity_type: paragraph
+bundle: triceps
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

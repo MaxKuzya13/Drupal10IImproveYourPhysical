@@ -1,0 +1,18 @@
+uuid: debe14bc-bc48-4a45-98a8-1e1ff26dbdb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.back
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.back
+target_entity_type_id: taxonomy_term
+target_bundle: back
+default_langcode: site_default
+language_alterable: true

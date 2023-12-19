@@ -1,0 +1,18 @@
+uuid: f21d47f9-f6c2-4f66-b781-2d21216fae4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.tracker_measurements
+target_entity_type_id: node
+target_bundle: tracker_measurements
+default_langcode: site_default
+language_alterable: true

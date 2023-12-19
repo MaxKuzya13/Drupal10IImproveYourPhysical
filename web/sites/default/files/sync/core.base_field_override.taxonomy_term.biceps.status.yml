@@ -1,0 +1,22 @@
+uuid: c7c3fb26-694e-4cef-8007-3264780fdc93
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.biceps
+id: taxonomy_term.biceps.status
+field_name: status
+entity_type: taxonomy_term
+bundle: biceps
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

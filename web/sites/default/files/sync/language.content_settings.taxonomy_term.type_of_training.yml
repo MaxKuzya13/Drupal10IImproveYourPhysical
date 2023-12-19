@@ -1,0 +1,18 @@
+uuid: bbf267be-f4ee-49dc-878f-00a0e09644dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.type_of_training
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.type_of_training
+target_entity_type_id: taxonomy_term
+target_bundle: type_of_training
+default_langcode: site_default
+language_alterable: true

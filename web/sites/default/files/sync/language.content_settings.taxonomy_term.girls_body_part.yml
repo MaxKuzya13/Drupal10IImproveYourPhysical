@@ -1,0 +1,18 @@
+uuid: f2a5306a-93d3-489a-86cf-df2ffe9b1b87
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_body_part
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.girls_body_part
+target_entity_type_id: taxonomy_term
+target_bundle: girls_body_part
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,20 @@
+uuid: 2fc1bf82-5801-434a-8bc1-70aa1038e882
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.training_plan
+id: node.training_plan.menu_link
+field_name: menu_link
+entity_type: node
+bundle: training_plan
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

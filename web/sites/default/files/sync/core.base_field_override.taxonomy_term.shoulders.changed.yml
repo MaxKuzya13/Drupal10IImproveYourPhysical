@@ -1,0 +1,18 @@
+uuid: faa30288-c169-44d0-a0c3-2bb8538d1d7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.shoulders
+id: taxonomy_term.shoulders.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: shoulders
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

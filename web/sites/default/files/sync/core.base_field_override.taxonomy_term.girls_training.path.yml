@@ -1,0 +1,20 @@
+uuid: c8395ace-bbc3-41e7-ad24-099772f31c4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_training
+  module:
+    - path
+id: taxonomy_term.girls_training.path
+field_name: path
+entity_type: taxonomy_term
+bundle: girls_training
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

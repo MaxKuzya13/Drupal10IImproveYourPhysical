@@ -1,0 +1,21 @@
+uuid: d22b6d45-67f7-4cd6-a025-97662822ffb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.chest
+  module:
+    - text
+id: taxonomy_term.chest.description
+field_name: description
+entity_type: taxonomy_term
+bundle: chest
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

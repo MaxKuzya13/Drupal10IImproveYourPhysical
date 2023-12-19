@@ -1,0 +1,20 @@
+uuid: 29950cf6-22de-4254-94a2-09c6e3498865
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.triceps
+  module:
+    - path
+id: taxonomy_term.triceps.path
+field_name: path
+entity_type: taxonomy_term
+bundle: triceps
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

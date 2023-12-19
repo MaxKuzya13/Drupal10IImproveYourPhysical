@@ -1,0 +1,22 @@
+uuid: b477a5b7-8d01-4b77-80c8-7b8f68665e85
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.triceps
+id: taxonomy_term.triceps.status
+field_name: status
+entity_type: taxonomy_term
+bundle: triceps
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

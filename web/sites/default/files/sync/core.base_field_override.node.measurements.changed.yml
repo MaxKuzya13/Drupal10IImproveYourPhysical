@@ -1,0 +1,18 @@
+uuid: 6fd8f537-5106-4265-8404-37df5591780f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.measurements
+id: node.measurements.changed
+field_name: changed
+entity_type: node
+bundle: measurements
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

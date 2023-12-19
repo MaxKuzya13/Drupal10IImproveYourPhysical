@@ -1,0 +1,18 @@
+uuid: 80a82a92-5000-4227-b2ec-f8cfa6b3cd94
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.chest
+id: paragraph.chest.created
+field_name: created
+entity_type: paragraph
+bundle: chest
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

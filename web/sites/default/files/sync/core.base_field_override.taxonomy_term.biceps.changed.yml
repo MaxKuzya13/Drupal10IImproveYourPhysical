@@ -1,0 +1,18 @@
+uuid: 8102b0f0-c698-4c0c-b092-ff41879df590
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.biceps
+id: taxonomy_term.biceps.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: biceps
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

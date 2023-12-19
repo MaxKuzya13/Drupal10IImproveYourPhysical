@@ -1,0 +1,20 @@
+uuid: 6b77bc44-3143-483a-bdfb-372d989e7f68
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.type_of_training
+  module:
+    - path
+id: taxonomy_term.type_of_training.path
+field_name: path
+entity_type: taxonomy_term
+bundle: type_of_training
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

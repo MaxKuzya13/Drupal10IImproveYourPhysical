@@ -14,7 +14,7 @@ bundle: girls_training
 label: video_training
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

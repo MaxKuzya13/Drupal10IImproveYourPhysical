@@ -1,0 +1,22 @@
+uuid: 992b7a0e-00a0-4f6a-bedb-278a4e43ab40
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+id: node.tracker_measurements.status
+field_name: status
+entity_type: node
+bundle: tracker_measurements
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

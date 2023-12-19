@@ -1,0 +1,18 @@
+uuid: 3d6bebde-322b-4896-9508-c503f52ab091
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.biceps
+id: paragraph.biceps.created
+field_name: created
+entity_type: paragraph
+bundle: biceps
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

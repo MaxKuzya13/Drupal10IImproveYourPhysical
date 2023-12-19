@@ -1,0 +1,18 @@
+uuid: 408cc529-155d-4be5-8e2c-25ca606c887c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_body_part
+id: taxonomy_term.girls_body_part.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: girls_body_part
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

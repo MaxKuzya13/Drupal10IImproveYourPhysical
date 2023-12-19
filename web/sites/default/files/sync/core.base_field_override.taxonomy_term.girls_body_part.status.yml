@@ -1,0 +1,22 @@
+uuid: 5b79b31f-8ff0-478f-87e9-3c6fdcf2569e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_body_part
+id: taxonomy_term.girls_body_part.status
+field_name: status
+entity_type: taxonomy_term
+bundle: girls_body_part
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

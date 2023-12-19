@@ -1,0 +1,18 @@
+uuid: 6a49e21a-1429-4d45-be02-3aec09aae580
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.triceps
+id: taxonomy_term.triceps.name
+field_name: name
+entity_type: taxonomy_term
+bundle: triceps
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

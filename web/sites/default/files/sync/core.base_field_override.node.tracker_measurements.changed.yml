@@ -1,0 +1,18 @@
+uuid: ccd43624-d1eb-4d2d-9a3d-d1b64df4eaf7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+id: node.tracker_measurements.changed
+field_name: changed
+entity_type: node
+bundle: tracker_measurements
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,22 @@
+uuid: 77a35c4f-a49b-4424-b696-279e99e5e6ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.biceps
+id: paragraph.biceps.status
+field_name: status
+entity_type: paragraph
+bundle: biceps
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -12,7 +12,7 @@ bundle: prefered_measurements
 label: 'Measurement value'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -1,0 +1,20 @@
+uuid: c0e0b533-3034-4d7e-92a7-f82455ef8288
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+  module:
+    - path
+id: node.girls_training.path
+field_name: path
+entity_type: node
+bundle: girls_training
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

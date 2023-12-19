@@ -1,0 +1,18 @@
+uuid: 16070e45-191a-4162-ab65-33864cf89e3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+id: node.tracker_measurements.title
+field_name: title
+entity_type: node
+bundle: tracker_measurements
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

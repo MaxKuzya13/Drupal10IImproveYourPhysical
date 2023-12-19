@@ -1,0 +1,22 @@
+uuid: 0b959d2c-4b1b-4be6-8109-0005addc10e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.training_plan
+id: node.training_plan.status
+field_name: status
+entity_type: node
+bundle: training_plan
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

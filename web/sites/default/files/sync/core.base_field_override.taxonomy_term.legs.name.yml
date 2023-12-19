@@ -1,0 +1,18 @@
+uuid: ea6974f8-31ab-4445-bf8b-63f5a6e31a90
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.legs
+id: taxonomy_term.legs.name
+field_name: name
+entity_type: taxonomy_term
+bundle: legs
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

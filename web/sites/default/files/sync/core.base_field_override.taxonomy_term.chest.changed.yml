@@ -1,0 +1,18 @@
+uuid: c9b11523-a6e8-4bdc-8b28-99d9c704cec5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.chest
+id: taxonomy_term.chest.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: chest
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

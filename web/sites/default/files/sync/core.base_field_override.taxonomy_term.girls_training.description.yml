@@ -1,0 +1,21 @@
+uuid: 92d0b918-3a14-431d-a2dc-6241ae56046b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_training
+  module:
+    - text
+id: taxonomy_term.girls_training.description
+field_name: description
+entity_type: taxonomy_term
+bundle: girls_training
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

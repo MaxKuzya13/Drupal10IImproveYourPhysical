@@ -1030,6 +1030,34 @@ p {
   color: #fff;
 }
 
+.user-login-form {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .user-login-form {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+
+.user-register-form {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .user-register-form {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+
 .region-header {
   display: flex;
   flex-direction: row;

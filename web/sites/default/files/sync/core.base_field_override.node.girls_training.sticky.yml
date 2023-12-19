@@ -1,0 +1,22 @@
+uuid: 732b0d58-c3be-49cc-b0f6-99ac045066c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+id: node.girls_training.sticky
+field_name: sticky
+entity_type: node
+bundle: girls_training
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

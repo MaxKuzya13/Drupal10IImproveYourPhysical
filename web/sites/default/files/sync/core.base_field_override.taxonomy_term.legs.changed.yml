@@ -1,0 +1,18 @@
+uuid: 92882d6b-55f5-43c7-9a9b-5d3f24f4f033
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.legs
+id: taxonomy_term.legs.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: legs
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

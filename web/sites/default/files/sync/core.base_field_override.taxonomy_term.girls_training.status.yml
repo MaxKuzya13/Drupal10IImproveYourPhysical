@@ -1,0 +1,22 @@
+uuid: 0aa86bd5-6aa2-4655-822f-40e59308c9ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_training
+id: taxonomy_term.girls_training.status
+field_name: status
+entity_type: taxonomy_term
+bundle: girls_training
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

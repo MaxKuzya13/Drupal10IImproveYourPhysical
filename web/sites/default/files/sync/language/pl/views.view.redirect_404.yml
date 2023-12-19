@@ -1,0 +1,41 @@
+display:
+  default:
+    display_title: Główny
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtr
+          reset_button_label: Resetuj
+          exposed_sorts_label: 'Sortuj po'
+          sort_asc_label: Rosnąco
+          sort_desc_label: Malejąco
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementów na stronę'
+            items_per_page_options_all_label: '- Wszystko -'
+            offset_label: Przesunięcie
+          tags:
+            previous: ‹‹
+            next: ››
+      fields:
+        path:
+          label: Ścieżka
+        count:
+          label: Liczba
+        timestamp:
+          label: 'Ostatnio użyte'
+        langcode:
+          label: Język
+        redirect_404_operations:
+          label: Operacje
+      filters:
+        path:
+          expose:
+            label: Ścieżka
+        langcode:
+          expose:
+            label: Język
+      title: 'Napraw błędy 404'
+  page_1:
+    display_title: Strona

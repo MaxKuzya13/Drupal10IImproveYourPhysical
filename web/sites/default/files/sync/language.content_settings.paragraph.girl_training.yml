@@ -1,0 +1,18 @@
+uuid: b331cfca-43ac-4417-a8f2-dfa715ba881f
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.girl_training
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.girl_training
+target_entity_type_id: paragraph
+target_bundle: girl_training
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,18 @@
+uuid: a2bf7402-8107-476d-be6c-e24da66b13fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.chest
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.chest
+target_entity_type_id: paragraph
+target_bundle: chest
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,18 @@
+uuid: 96d31aa6-5408-4d9c-b90b-62d4d18a3071
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.measurements
+id: node.measurements.title
+field_name: title
+entity_type: node
+bundle: measurements
+label: Title
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

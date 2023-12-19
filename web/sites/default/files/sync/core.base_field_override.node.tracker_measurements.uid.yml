@@ -1,0 +1,20 @@
+uuid: 7bad7ac2-7c7a-4b6f-bfe5-ed64932d2455
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+id: node.tracker_measurements.uid
+field_name: uid
+entity_type: node
+bundle: tracker_measurements
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

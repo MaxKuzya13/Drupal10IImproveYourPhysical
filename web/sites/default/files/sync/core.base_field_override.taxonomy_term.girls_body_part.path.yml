@@ -1,0 +1,20 @@
+uuid: b66e0a36-e5a1-4bce-b8d6-d3d1a7cf9b1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.girls_body_part
+  module:
+    - path
+id: taxonomy_term.girls_body_part.path
+field_name: path
+entity_type: taxonomy_term
+bundle: girls_body_part
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

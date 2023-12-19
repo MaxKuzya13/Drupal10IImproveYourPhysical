@@ -101,6 +101,14 @@ use Drupal\node\NodeInterface;
 //  }
 //}
 
+///**
+// * Implements hook_preprocess_HOOK().
+// */
+//function kenny_tracker_preprocess_page(&$variables) {
+//  $current_route_name = \Drupal::routeMatch()->getRouteName();
+//  dump($current_route_name);
+//}
+
 
 /**
  * Implements hook_ENTITY_TYPE_delete() for nodes.

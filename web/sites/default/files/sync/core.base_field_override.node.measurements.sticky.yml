@@ -1,0 +1,22 @@
+uuid: b9fbf2b1-bd43-4c01-a4b2-42e1d074fcae
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.measurements
+id: node.measurements.sticky
+field_name: sticky
+entity_type: node
+bundle: measurements
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

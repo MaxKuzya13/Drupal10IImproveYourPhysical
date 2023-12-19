@@ -1,0 +1,20 @@
+uuid: 59f1ebb7-cf08-49fb-abf6-97663d2a48e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+  module:
+    - path
+id: node.tracker_measurements.path
+field_name: path
+entity_type: node
+bundle: tracker_measurements
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

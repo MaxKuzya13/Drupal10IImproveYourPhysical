@@ -1,0 +1,22 @@
+uuid: f552d2b6-76ae-4bdf-b297-54521faf34fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.legs
+id: taxonomy_term.legs.status
+field_name: status
+entity_type: taxonomy_term
+bundle: legs
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

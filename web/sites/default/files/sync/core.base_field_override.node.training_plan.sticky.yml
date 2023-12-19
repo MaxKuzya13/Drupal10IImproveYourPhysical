@@ -1,0 +1,22 @@
+uuid: 2465f8e9-87d6-4a14-985d-8e97717c9d1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.training_plan
+id: node.training_plan.sticky
+field_name: sticky
+entity_type: node
+bundle: training_plan
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

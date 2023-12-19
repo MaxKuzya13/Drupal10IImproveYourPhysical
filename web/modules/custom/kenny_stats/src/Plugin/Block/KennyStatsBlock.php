@@ -93,6 +93,24 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function build() {
 
+    $user = $this->currentUser->id();
+    if ($user == 0) {
+      return [
+        '#theme' => 'links',
+        '#links' => [
+          'link' => [
+            'title' => $this->t('Login if u want to see stats'),
+            'url' => Url::fromRoute('user.login'),
+            'attributes' => [
+              'class' => ['incognito__title'],
+              'data-dialog-type' => 'modal',
+              'data-dialog-options' => json_encode(['height' => 600, 'width' => '50vw']),
+            ],
+          ],
+        ]
+      ];
+    }
+
     $form = $this->formBuilder->getForm('Drupal\kenny_stats\Form\StatsDateForm');
 
 

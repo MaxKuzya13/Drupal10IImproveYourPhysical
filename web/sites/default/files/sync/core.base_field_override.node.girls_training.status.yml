@@ -1,0 +1,22 @@
+uuid: 299d693f-9846-4f38-80e2-f53b3709b60d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+id: node.girls_training.status
+field_name: status
+entity_type: node
+bundle: girls_training
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

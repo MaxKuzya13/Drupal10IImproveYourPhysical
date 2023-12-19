@@ -1,0 +1,21 @@
+uuid: f2a8ebbd-9b2b-4230-aa53-dfc0127ecb37
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.body_part
+  module:
+    - text
+id: taxonomy_term.body_part.description
+field_name: description
+entity_type: taxonomy_term
+bundle: body_part
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

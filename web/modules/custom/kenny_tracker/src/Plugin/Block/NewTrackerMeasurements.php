@@ -437,6 +437,12 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
    */
   protected function blockAccess(AccountInterface $account) {
 
+    $user = $account->id();
+
+    if ($user == 0) {
+      return AccessResult::forbidden();
+    }
+
     return AccessResult::allowed();
   }
 }

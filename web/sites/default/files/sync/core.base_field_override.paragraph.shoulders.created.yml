@@ -1,0 +1,18 @@
+uuid: 84a4469e-48d4-4509-9444-d476e4e98dbf
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.shoulders
+id: paragraph.shoulders.created
+field_name: created
+entity_type: paragraph
+bundle: shoulders
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

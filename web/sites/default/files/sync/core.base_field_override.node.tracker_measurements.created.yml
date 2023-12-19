@@ -1,0 +1,18 @@
+uuid: 4e441916-bcb6-4d28-aaa1-946dddae8b0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tracker_measurements
+id: node.tracker_measurements.created
+field_name: created
+entity_type: node
+bundle: tracker_measurements
+label: 'Authored on'
+description: 'The time that the node was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

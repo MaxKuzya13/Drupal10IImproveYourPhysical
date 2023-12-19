@@ -1,0 +1,22 @@
+uuid: b6531ba4-b102-4326-b32e-59be04dffae2
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.chest
+id: taxonomy_term.chest.status
+field_name: status
+entity_type: taxonomy_term
+bundle: chest
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

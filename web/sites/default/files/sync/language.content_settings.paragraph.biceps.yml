@@ -1,0 +1,18 @@
+uuid: c4a77f78-2c02-4c38-b9bd-85089c135e56
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.biceps
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.biceps
+target_entity_type_id: paragraph
+target_bundle: biceps
+default_langcode: site_default
+language_alterable: true

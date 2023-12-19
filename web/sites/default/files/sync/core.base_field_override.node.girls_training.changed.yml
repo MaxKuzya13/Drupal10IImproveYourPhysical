@@ -1,0 +1,18 @@
+uuid: f2b3d2b4-9148-4adf-a765-d3ab6700fba4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+id: node.girls_training.changed
+field_name: changed
+entity_type: node
+bundle: girls_training
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

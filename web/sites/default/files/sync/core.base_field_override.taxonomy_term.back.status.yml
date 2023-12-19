@@ -1,0 +1,22 @@
+uuid: bb0465ab-dfc7-42fa-a162-d2403f2c1031
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.back
+id: taxonomy_term.back.status
+field_name: status
+entity_type: taxonomy_term
+bundle: back
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

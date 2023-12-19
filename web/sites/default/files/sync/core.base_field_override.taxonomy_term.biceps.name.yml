@@ -1,0 +1,18 @@
+uuid: 089b01b5-111e-47f0-9393-6bbbe9e51eba
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.biceps
+id: taxonomy_term.biceps.name
+field_name: name
+entity_type: taxonomy_term
+bundle: biceps
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

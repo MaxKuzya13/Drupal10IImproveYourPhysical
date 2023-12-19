@@ -1,0 +1,18 @@
+uuid: 90dc9583-54fe-4bbd-a865-4f3adb8bf947
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.girls_training
+target_entity_type_id: node
+target_bundle: girls_training
+default_langcode: current_interface
+language_alterable: true

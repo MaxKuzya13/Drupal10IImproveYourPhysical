@@ -1,0 +1,18 @@
+uuid: b1bba4c7-ef72-4600-b30c-556e86699682
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.prefered_measurements
+id: paragraph.prefered_measurements.created
+field_name: created
+entity_type: paragraph
+bundle: prefered_measurements
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

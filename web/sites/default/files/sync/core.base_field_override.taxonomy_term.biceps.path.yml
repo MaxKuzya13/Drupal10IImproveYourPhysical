@@ -1,0 +1,20 @@
+uuid: af4fe40e-7407-4d13-8ffd-6900cb02cf0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.biceps
+  module:
+    - path
+id: taxonomy_term.biceps.path
+field_name: path
+entity_type: taxonomy_term
+bundle: biceps
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

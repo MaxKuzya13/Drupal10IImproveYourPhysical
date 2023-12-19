@@ -1,0 +1,18 @@
+uuid: a27fc847-3e21-483c-9cfa-c17ee5ffc186
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.girls_training
+id: node.girls_training.created
+field_name: created
+entity_type: node
+bundle: girls_training
+label: 'Authored on'
+description: 'The time that the node was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created
