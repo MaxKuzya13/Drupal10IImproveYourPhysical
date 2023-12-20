@@ -85,43 +85,46 @@
   is_favorite ? 'remove-favorite' : 'add-favorite'
   ]
 %}
-<article{{ attributes.addClass(classes) }}>
 
-  {{ title_prefix }}
-  {% if label and not page %}
-    <h2{{ title_attributes }} class="{{ title_class }}__title">
-      <div>{{ label }}</div>
-    </h2>
-  {% endif %}
-  {{ title_suffix }}
-  {% block node %}
-    {% if display_submitted %}
+<div class="training__container">
 
-      <footer class="node__meta">
-        {{ author_picture }}
-        <div{{ author_attributes.addClass('node__submitted') }}>
-          {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-          {{ metadata }}
-        </div>
-      </footer>
+  <article{{ attributes.addClass(classes) }}>
 
+    {{ title_prefix }}
+    {% if label%}
+      <h2{{ title_attributes }} class="{{ title_class }}__title">
+        <div>{{ label }}</div>
+      </h2>
     {% endif %}
-  {% endblock %}
+    {{ title_suffix }}
+    {% block node %}
+      {% if display_submitted %}
 
-  <div{{ content_attributes.addClass('node__content') }}>
-    {% block content %}
-      {{ content|without('girls_total_weight') }}
+        <footer class="node__meta">
+          {{ author_picture }}
+          <div{{ author_attributes.addClass('node__submitted') }}>
+            {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+            {{ metadata }}
+          </div>
+        </footer>
 
-      <div class="node__content-favorite">
-        {{ content.girls_total_weight}}
-        <button{{ content_attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
-        {{ is_favorite ? 'Remove from favorite' : "Add to favorite" }}
-        </button>
-
-      </div>
+      {% endif %}
     {% endblock %}
-  </div>
+
+    <div{{ content_attributes.addClass('node__content') }}>
+      {% block content %}
+        {{ content|without('girls_total_weight') }}
+
+        <div class="node__content-favorite">
+          {{ content.girls_total_weight}}
+          <button{{ content_attributes.addClass(favorite_classes) }} data-uid="{{ user_id }}" data-nid="{{ node_id }}">
+          {{ is_favorite ? 'Remove from favorite' : "Add to favorite" }}
+          </button>
+
+        </div>
+      {% endblock %}
+    </div>
 
 
-</article>
-
+  </article>
+</div>

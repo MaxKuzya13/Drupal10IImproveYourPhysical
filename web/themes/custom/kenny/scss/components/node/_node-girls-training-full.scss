@@ -1,10 +1,21 @@
-.node-girls-training-teaser {
+.training__container {
+  @include mainContainer;
+}
+
+.node-girls-training-full {
 
   &__title {
     font-size: 24px;
-    color: $color-active
   }
 
+  &__link {
+    color: cadetblue;
+
+    &:hover {
+      color: deepskyblue;
+      cursor: pointer;
+    }
+  }
 
   &__field-girls-body-part {
     @include bodyPartAndTraining;

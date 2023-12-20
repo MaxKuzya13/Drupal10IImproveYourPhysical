@@ -306,4 +306,14 @@ function kenny_training_cron() {
   $event_dispatcher->dispatch($event, MonthlyReminderEvent::MONTHLY_REMINDER_EVENT);
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function kenny_training_preprocess_node(&$variables) {
+  if ($variables['node']) {
+    if($variables['node']->getType() == 'girls_training') {
+      $variables['title_attributes']['url'] = NULL;
+    }
+  }
+}
 
