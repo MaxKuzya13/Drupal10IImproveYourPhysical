@@ -33,7 +33,7 @@ content:
     region: content
   field_girls_exercises:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: preview
       link: ''
@@ -42,12 +42,12 @@ content:
     region: content
   field_girls_training_date:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      format_type: olivero_medium
     third_party_settings: {  }
-    weight: 4
+    weight: 0
     region: content
   field_girls_type_of_training:
     type: entity_reference_label
@@ -57,10 +57,10 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  links:
+  girls_total_weight:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 4
     region: content
   total_weight:
     settings: {  }
@@ -68,5 +68,5 @@ content:
     weight: 5
     region: content
 hidden:
-  girls_total_weight: true
   langcode: true
+  links: true

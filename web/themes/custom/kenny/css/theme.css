@@ -43,6 +43,40 @@ body {
   display: none;
 }
 
+.app__footer {
+  margin-top: 2rem !important;
+  flex-direction: start;
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+  border: none;
+}
+@media (max-width: 1200px) {
+  .app__footer {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.app__footer .region-footer {
+  display: flex;
+  gap: 3rem;
+}
+.app__footer .region-footer .menu--account .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem;
+}
+.app__footer .region-footer .menu--account .menu a {
+  color: cadetblue;
+}
+.app__footer .region-footer .menu--account .menu a:hover {
+  color: deepskyblue;
+}
+
 body {
   font-size: 1rem;
   font-weight: 400;
@@ -1476,6 +1510,155 @@ p {
   }
 }
 .node-girls-training-teaser__total-weight {
+  border-top: 1px solid gray;
+}
+
+.node-training-plan-full__title {
+  font-size: 24px;
+  color: cadetblue;
+}
+.node-training-plan-full__field-body-part {
+  display: flex;
+  position: relative;
+}
+.node-training-plan-full__field-body-part .field__label {
+  margin-right: 0.7rem;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full__field-body-part .field__label {
+    margin-right: 0.35rem;
+  }
+}
+.node-training-plan-full__field-body-part .field__label:after {
+  position: relative;
+  content: ":";
+  left: 3px;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full__field-body-part .field__label:after {
+    left: 1px;
+  }
+}
+.node-training-plan-full__field-body-part .field__item {
+  color: cadetblue;
+}
+.node-training-plan-full__field-type-of-training {
+  border-bottom: 1px solid gray;
+  display: flex;
+  position: relative;
+}
+.node-training-plan-full__field-type-of-training .field__label {
+  margin-right: 0.7rem;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full__field-type-of-training .field__label {
+    margin-right: 0.35rem;
+  }
+}
+.node-training-plan-full__field-type-of-training .field__label:after {
+  position: relative;
+  content: ":";
+  left: 3px;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full__field-type-of-training .field__label:after {
+    left: 1px;
+  }
+}
+.node-training-plan-full__field-type-of-training .field__item {
+  color: cadetblue;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full .node__content {
+    width: calc(100vw - 2rem - 1rem);
+  }
+}
+.node-training-plan-full__field-exercises {
+  display: flex;
+  flex-direction: column;
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  width: 100%;
+}
+@media (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview {
+    font-size: 14px;
+    gap: 0.15rem;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
+  width: 200px;
+  margin-right: 2rem;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+@media (max-width: 700px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-exercise, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-girl-exercise {
+    width: 35vw;
+    margin-right: 0.15rem;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition {
+  display: flex;
+  position: relative;
+  margin-right: 0.4rem;
+}
+@media (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition {
+    margin-right: 0.1rem;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
+  position: relative;
+  content: "x";
+  display: flex;
+  justify-content: center;
+  left: 0.4rem;
+}
+@media (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-weight:after, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-repetition:after {
+    left: 0.1rem;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+  display: flex;
+}
+@media (min-width: 700px) and (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__exercise-weight, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__exercise-weight {
+    display: none;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-less, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-less {
+  color: #BD3F32;
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-girl-training-preview__difference-grower, .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-man-preview__difference-grower {
+  color: #0f9b0f;
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
+  display: flex;
+  position: relative;
+  margin-right: 0.4rem;
+}
+@media (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches {
+    margin-right: 0.1rem;
+  }
+}
+.node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches:after {
+  position: relative;
+  content: "|";
+  left: 0.4rem;
+}
+@media (max-width: 1200px) {
+  .node-training-plan-full__field-exercises .field__item .paragraph--view-mode--preview .paragraph-field-approaches:after {
+    left: 0.1rem;
+  }
+}
+.node-training-plan-full__total-weight {
   border-top: 1px solid gray;
 }
 

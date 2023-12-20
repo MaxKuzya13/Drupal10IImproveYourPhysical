@@ -7,12 +7,12 @@ dependencies:
 id: body_part
 label: 'Body part'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'training/[term:name]'
+pattern: 'training-man/[term:name]'
 selection_criteria:
-  5fd1b370-8ba4-4955-9914-0603cc386b69:
+  dd877bfb-f898-40d1-b696-687137fb2579:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 5fd1b370-8ba4-4955-9914-0603cc386b69
+    uuid: dd877bfb-f898-40d1-b696-687137fb2579
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:

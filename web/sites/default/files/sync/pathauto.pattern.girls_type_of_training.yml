@@ -1,22 +1,22 @@
-uuid: 7ea5e3d3-d2dc-440f-997a-00b764733120
+uuid: b8fff82e-3fa8-4527-ac85-f632d87205bb
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: type_of_training
-label: 'Type of training'
+id: girls_type_of_training
+label: 'Girls Type of Training'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'training-man/[term:name]'
+pattern: 'training-girls/[term:name]'
 selection_criteria:
-  b50ea29f-2040-434d-9abd-7fad4173d7ea:
+  f7d17529-3c9f-41e1-bc2d-afc6e855bf37:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: b50ea29f-2040-434d-9abd-7fad4173d7ea
+    uuid: f7d17529-3c9f-41e1-bc2d-afc6e855bf37
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
-      type_of_training: type_of_training
+      girls_type_of_training: girls_type_of_training
 selection_logic: and
 weight: -5
 relationships: {  }

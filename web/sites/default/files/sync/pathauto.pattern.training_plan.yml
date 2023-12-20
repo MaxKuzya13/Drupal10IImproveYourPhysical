@@ -7,12 +7,12 @@ dependencies:
 id: training_plan
 label: 'Training plan'
 type: 'canonical_entities:node'
-pattern: 'training/[node:field_body_part:entity]/[node:field_type_of_training:entity]/[node:title]'
+pattern: 'training-man/[node:field_body_part:entity]/[node:field_type_of_training:entity]/[node:title]'
 selection_criteria:
-  6a2ba353-90e2-4414-8ff9-c59bbfd5d9b3:
+  4b01a204-fd49-4f24-8524-951953671fa4:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 6a2ba353-90e2-4414-8ff9-c59bbfd5d9b3
+    uuid: 4b01a204-fd49-4f24-8524-951953671fa4
     context_mapping:
       node: node
     bundles:

@@ -14,7 +14,7 @@ bundle: tracker_measurements
 label: Created
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     default_date_type: now

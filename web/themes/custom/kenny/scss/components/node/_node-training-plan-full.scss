@@ -1,27 +1,15 @@
-.training__container {
-  @include mainContainer;
-}
-
-.node-girls-training-full{
+.node-training-plan-full {
 
   &__title {
     font-size: 24px;
+    color: $color-active;
   }
 
-  &__link {
-    color: cadetblue;
-
-    &:hover {
-      color: deepskyblue;
-      cursor: pointer;
-    }
-  }
-
-  &__field-girls-body-part {
+  &__field-body-part {
     @include bodyPartAndTraining;
   }
 
-  &__field-girls-type-of-training {
+  &__field-type-of-training {
     border-bottom: 1px solid gray;
     @include bodyPartAndTraining;
 
@@ -33,7 +21,7 @@
     }
   }
 
-  &__field-girls-exercises {
+  &__field-exercises {
     @include fieldExercises;
   }
 

@@ -46,3 +46,34 @@ body {
   display: none;
 }
 
+.app__footer {
+  margin-top: 2rem!important;
+
+  flex-direction: start;
+  @include mainContainer;
+  border: none;
+
+  .region-footer {
+    display: flex;
+    gap: 3rem;
+
+    .menu--account {
+
+      .menu {
+        @include resetLi;
+        display: flex;
+        gap: 1.5rem;
+
+        a {
+          color: $color-active;
+
+          &:hover {
+            color: $color-active-hover;
+          }
+        }
+
+      }
+
+    }
+  }
+}

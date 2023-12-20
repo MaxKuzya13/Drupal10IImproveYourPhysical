@@ -1,0 +1,22 @@
+uuid: c6f9f81d-f8a7-4fad-9623-b4238b6a5eb9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: training_pgirls
+label: 'Training girls'
+type: 'canonical_entities:node'
+pattern: 'training-girls/[node:field_body_part:entity]/[node:field_type_of_training:entity]/[node:title]'
+selection_criteria:
+  62e5ac6b-b657-4512-bec9-23a5db1e2453:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 62e5ac6b-b657-4512-bec9-23a5db1e2453
+    context_mapping:
+      node: node
+    bundles:
+      girls_training: girls_training
+selection_logic: and
+weight: -5
+relationships: {  }
