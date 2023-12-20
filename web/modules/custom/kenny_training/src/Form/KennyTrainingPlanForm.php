@@ -375,6 +375,10 @@ class KennyTrainingPlanForm extends FormBase {
       $repetition = $exercise_container['repetition']['repetition'];
       $approaches = $exercise_container['approaches']['approaches'];
 
+      if (empty($exercise_name) && $i == 0) {
+        $form_state->setErrorByName('exercise', $this->t('Exercise must be selected'));
+      }
+
       if (!empty($exercise)) {
         $this->validateNumericField($form_state, $weight,'Weight', $exercise_name);
         $this->validateNumericField($form_state, $repetition, 'Repetition', $exercise_name);
@@ -492,7 +496,10 @@ class KennyTrainingPlanForm extends FormBase {
       ])
     );
 
-    $form_state->setRedirectUrl(Url::fromUri('internal:/training'));
+    // Якщо немає помилок, виконуємо інші дії та можливо перенаправлення.
+    $form_state->setRedirectUrl(Url::fromUri($this->getRequest()->headers->get('referer')));
+
+
 
   }
 }

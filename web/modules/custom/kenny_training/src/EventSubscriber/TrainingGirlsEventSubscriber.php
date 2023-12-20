@@ -96,7 +96,7 @@ class TrainingGirlsEventSubscriber implements EventSubscriberInterface, Containe
       $params['date'] = $date;
 
       // Send email
-//      \Drupal::service('plugin.manager.mail')->mail($module, $key, $email, $langcode, $params, NULL, TRUE);
+      \Drupal::service('plugin.manager.mail')->mail($module, $key, $email, $langcode, $params, NULL, TRUE);
 
 
       $message_text = $this->getMotivation();
@@ -114,13 +114,18 @@ class TrainingGirlsEventSubscriber implements EventSubscriberInterface, Containe
    */
   protected function getMotivation() {
     return [
-      'Долай виклики разом!',
-      'Завдай удар сьогодні.',
-      'Переверни гру!',
-      'Бий із силою!',
-      "Спробуй, хоч як",
-      "Ти непридатний для цього",
-      "Забудь про свої мрії.",
+      'Для чого взагалі ти це робиш?',
+      'Тобі не здається, що цього замало?',
+      'Розслабся, в тебе нічого не вийде!',
+      'І це ти називаєш тренуванням?',
+      "Спробуй, хоча б якось!",
+      "Ти не спроможна!",
+      "Забудь про свої мрії!",
+      "Все найгірше попереду!",
+      "Посміхнись, ти зробила це!",
+      "Ще одне тренування завершено вдало!",
+      "На один крок ближча до мети!",
+      "Просто посміховисько",
     ];
   }
 

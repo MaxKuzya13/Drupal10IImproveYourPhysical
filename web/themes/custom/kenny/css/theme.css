@@ -43,6 +43,20 @@ body {
   display: none;
 }
 
+.block-system-main-block {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .block-system-main-block {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+
 body {
   font-size: 1rem;
   font-weight: 400;
@@ -1193,11 +1207,8 @@ p {
     left: 1px;
   }
 }
-.node-training-plan-teaser__field-body-part .field__item a {
+.node-training-plan-teaser__field-body-part .field__item {
   color: cadetblue;
-}
-.node-training-plan-teaser__field-body-part .field__item a:hover {
-  color: deepskyblue;
 }
 .node-training-plan-teaser__field-type-of-training {
   border-bottom: 1px solid gray;
@@ -1222,11 +1233,8 @@ p {
     left: 1px;
   }
 }
-.node-training-plan-teaser__field-type-of-training .field__item a {
+.node-training-plan-teaser__field-type-of-training .field__item {
   color: cadetblue;
-}
-.node-training-plan-teaser__field-type-of-training .field__item a:hover {
-  color: deepskyblue;
 }
 @media (max-width: 700px) {
   .node-training-plan-teaser .node__content {
@@ -1354,11 +1362,8 @@ p {
     left: 1px;
   }
 }
-.node-girls-training-teaser__field-girls-body-part .field__item a {
+.node-girls-training-teaser__field-girls-body-part .field__item {
   color: cadetblue;
-}
-.node-girls-training-teaser__field-girls-body-part .field__item a:hover {
-  color: deepskyblue;
 }
 .node-girls-training-teaser__field-girls-type-of-training {
   border-bottom: 1px solid gray;
@@ -1383,11 +1388,8 @@ p {
     left: 1px;
   }
 }
-.node-girls-training-teaser__field-girls-type-of-training .field__item a {
+.node-girls-training-teaser__field-girls-type-of-training .field__item {
   color: cadetblue;
-}
-.node-girls-training-teaser__field-girls-type-of-training .field__item a:hover {
-  color: deepskyblue;
 }
 @media (max-width: 700px) {
   .node-girls-training-teaser .node__content {
