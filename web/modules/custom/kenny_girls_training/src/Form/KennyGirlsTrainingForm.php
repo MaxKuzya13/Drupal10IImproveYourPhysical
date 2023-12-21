@@ -105,6 +105,16 @@ class KennyGirlsTrainingForm extends FormBase {
       $body_part_options[$term->tid] = $term->name;
     }
 
+    $form['success'] = [
+      '#type' => 'markup',
+      '#markup' => "<div class='success'></div>",
+    ];
+
+    $form['reject'] = [
+      '#type' => 'markup',
+      '#markup' => "<div class='reject'></div>",
+    ];
+
     $form['date'] = [
       '#type' => 'date',
       '#title' => $this->t('Date'),
@@ -170,9 +180,9 @@ class KennyGirlsTrainingForm extends FormBase {
         ];
 
         $form['exercise_selection'][$exercise_container_id]['exercises'] = $this->createExerciseSelectField($form, $form_state, $i);
-        $form['exercise_selection'][$exercise_container_id]['weight'] = $this->createExerciseField($form_state, 'weight', 'Weight');
-        $form['exercise_selection'][$exercise_container_id]['repetition'] = $this->createExerciseField($form_state,'repetition', 'Repetition');
-        $form['exercise_selection'][$exercise_container_id]['approaches'] = $this->createExerciseField($form_state,'approaches', 'Approaches');
+        $form['exercise_selection'][$exercise_container_id]['weight'] = $this->createExerciseField($form_state, 'weight', 'Weight', $i);
+        $form['exercise_selection'][$exercise_container_id]['repetition'] = $this->createExerciseField($form_state,'repetition', 'Repetition', $i);
+        $form['exercise_selection'][$exercise_container_id]['approaches'] = $this->createExerciseField($form_state,'approaches', 'Approaches', $i);
       }
     }
 
@@ -207,6 +217,10 @@ class KennyGirlsTrainingForm extends FormBase {
     ];
 
 
+    $form['actions'] = [
+      '#type' => 'actions',
+    ];
+
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -217,6 +231,7 @@ class KennyGirlsTrainingForm extends FormBase {
         'class' => ['save-new-training-form', 'new-training-form-button'],
       ]
     ];
+
 
     return $form;
 
@@ -320,8 +335,7 @@ class KennyGirlsTrainingForm extends FormBase {
           '#type' => 'select',
           '#options' => $exercises_options,
           '#empty_option' => $this->t('- Select an exercise -'),
-          '#prefix' => '<div class="exercise-item" id="exercises_' . $index . '">',
-          '#suffix' => '</div>',
+          '#suffix' => '<div class="exercise-item error" id="exercises_' . $index . '"></div>',
         ],
       ];
 
@@ -345,18 +359,17 @@ class KennyGirlsTrainingForm extends FormBase {
    * @return array
    *   Form element.
    */
-  public function createExerciseField(FormStateInterface $form_state, $field_name, $title, $unit = '') {
+  public function createExerciseField(FormStateInterface $form_state, $field_name, $title, $index) {
 
     if (!empty($form_state->getValue('muscle_groups'))) {
       $formField = [
         $field_name => [
           '#type' => 'textfield',
-          '#title' => $this->t($title)
+          '#title' => $this->t($title),
+          '#suffix' => '<div class="error" id="' . $field_name . '_' . $index . '"></div>',
         ],
       ];
-      if (!empty($unit)) {
-        $formField[$field_name]['#prefix'] = $unit;
-      }
+
       return $formField;
     }
 
@@ -468,6 +481,8 @@ class KennyGirlsTrainingForm extends FormBase {
    * {@inheritdoc}
    */
   public function ajaxValidateSave(array &$form, FormStateInterface $form_state) {
+
+
     $exercise_selection = $form_state->getValue('exercise_selection');
     unset($exercise_selection['actions']);
 
@@ -484,7 +499,7 @@ class KennyGirlsTrainingForm extends FormBase {
       }
 
       if (!empty($exercise)) {
-        $this->validateNumericField($form_state, $weight,'Weight', $exercise_name);
+        $this->validateNumericField($form_state, $weight, 'Weight', $exercise_name );
         $this->validateNumericField($form_state, $repetition, 'Repetition', $exercise_name);
         $this->validateNumericField($form_state, $approaches, 'Approaches', $exercise_name);
       } else {
@@ -493,6 +508,7 @@ class KennyGirlsTrainingForm extends FormBase {
         $this->validateNonEmptyField($form_state, $approaches, 'Approaches');
       }
     }
+
 
   }
 
@@ -508,7 +524,7 @@ class KennyGirlsTrainingForm extends FormBase {
    * @param string $exercise_name
    *   Назва вправи.
    */
-  public function validateNumericField(FormStateInterface $form_state, $value, $field_label, $exercise_name = '') {
+  public function validateNumericField(FormStateInterface $form_state, $value,  $field_label, $exercise_name = '') {
     if (!is_numeric($value) || intval($value) <= 0) {
       $field_name = strtolower($field_label);
       $form_state->setErrorByName($field_name, $this->t('%field_label for @exercise must be a positive integer.', [
@@ -543,74 +559,71 @@ class KennyGirlsTrainingForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $training_type = $form_state->getValue('training_type');
+    $training_type_name = !empty($training_type) ? $this->termStorage
+      ->load($training_type)->getName() : '';
 
-      $training_type = $form_state->getValue('training_type');
-      $training_type_name = !empty($training_type) ? $this->termStorage
-        ->load($training_type)->getName() : '';
+    $body_part = $form_state->getValue('muscle_groups');
+    $body_part_name = !empty($body_part) ? $this->termStorage
+      ->load($body_part)->getName() : '';
 
-      $body_part = $form_state->getValue('muscle_groups');
-      $body_part_name = !empty($body_part) ? $this->termStorage
-        ->load($body_part)->getName() : '';
+    $date = $form_state->getValue('date');
+    $drupal_date = strtotime($date);
+    $formatted_date = date('d F Y', $drupal_date);
 
-      $date = $form_state->getValue('date');
-      $drupal_date = strtotime($date);
-      $formatted_date = date('d F Y', $drupal_date);
+    $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
 
-      $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
-
-      $exercise_selection = $form_state->getValue('exercise_selection');
-      unset($exercise_selection['actions']);
-
-
-      $girls_training = $this->nodeStorage->create([
-        'type' => 'girls_training',
-        'title' => $title,
-        'field_girls_body_part' => $body_part,
-        'field_girls_type_of_training' => $training_type,
-        'field_girls_training_date' => $date,
-      ]);
+    $exercise_selection = $form_state->getValue('exercise_selection');
+    unset($exercise_selection['actions']);
 
 
+    $girls_training = $this->nodeStorage->create([
+      'type' => 'girls_training',
+      'title' => $title,
+      'field_girls_body_part' => $body_part,
+      'field_girls_type_of_training' => $training_type,
+      'field_girls_training_date' => $date,
+    ]);
 
-      foreach ($exercise_selection as $exercise_container) {
-        $exercise = $exercise_container['exercises']['exercise'];
-        $weight = $exercise_container['weight']['weight'];
-        $repetition = $exercise_container['repetition']['repetition'];
-        $approaches = $exercise_container['approaches']['approaches'];
 
-        $paragraph = $this->paragraphStorage->create([
-          'type' => 'girl_training',
-          'field_girl_exercise' => $exercise,
-          'field_weight' => $weight,
-          'field_repetition' => $repetition,
-          'field_approaches' => $approaches,
-        ]);
 
-        // Зберігаємо параграф.
-        $paragraph->save();
+    foreach ($exercise_selection as $exercise_container) {
+      $exercise = $exercise_container['exercises']['exercise'];
+      $weight = $exercise_container['weight']['weight'];
+      $repetition = $exercise_container['repetition']['repetition'];
+      $approaches = $exercise_container['approaches']['approaches'];
 
-        // Додаємо параграф до поля "field_exercises" вузла "Training Plan."
-        $girls_training->field_girls_exercises[] = $paragraph;
-        $girls_training->save();
+      if (empty($exercise)) {
+
       }
 
-      // Виводимо текст допоміжний
-      $this->messenger->addMessage(
-        t('The training @title for @body_part successfully add', [
-          '@title' => $title,
-          '@body_part' => $body_part_name
-        ])
-      );
+      $paragraph = $this->paragraphStorage->create([
+        'type' => 'girl_training',
+        'field_girl_exercise' => $exercise,
+        'field_weight' => $weight,
+        'field_repetition' => $repetition,
+        'field_approaches' => $approaches,
+      ]);
 
+      // Зберігаємо параграф.
+      $paragraph->save();
 
-      // Якщо немає помилок, виконуємо інші дії та можливо перенаправлення.
-      $form_state->setRedirectUrl(Url::fromUri($this->getRequest()->headers->get('referer')));
-
-
-
-
+      // Додаємо параграф до поля "field_exercises" вузла "Training Plan."
+      $girls_training->field_girls_exercises[] = $paragraph;
+      $girls_training->save();
     }
 
+    // Виводимо текст допоміжний
+    $this->messenger->addMessage(
+      t('The training @title for @body_part successfully add', [
+        '@title' => $title,
+        '@body_part' => $body_part_name
+      ])
+    );
+
+    // Якщо немає помилок, виконуємо інші дії та можливо перенаправлення.
+    $form_state->setRedirectUrl(Url::fromUri($this->getRequest()->headers->get('referer')));
+  }
 
 
 
