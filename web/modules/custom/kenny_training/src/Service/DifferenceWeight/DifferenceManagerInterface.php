@@ -34,6 +34,10 @@ interface DifferenceManagerInterface {
    *   The paragraph id.
    * @param int $exercise
    *   The exercise id.
+   * @param $date
+   *    The training date.
+   * @param int $uid
+   *     The user id.
    * @param int $type_of_training_id
    *   The type of training id.
    * @param string $people
@@ -41,5 +45,5 @@ interface DifferenceManagerInterface {
    * @return int
    *   Return weight by kg.
    */
-  public function getRelativeWeight($pid, $exercise, $type_of_training_id, $people = 'man');
+  public function getRelativeWeight($pid, $uid, $date, $exercise, $type_of_training_id, $people = 'man');
 }

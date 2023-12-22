@@ -59,9 +59,18 @@ class DifferenceManager implements DifferenceManagerInterface {
     if ($paragraph instanceof ParagraphInterface) {
       if ($people == 'man') {
         $exercise = $paragraph->get('field_exercise')->entity->id();
+        $field_training_date = 'field_training_date';
       } else {
         $exercise = $paragraph->get('field_girl_exercise')->entity->id();
+        $field_training_date = 'field_girls_training_date';
       }
+
+      $uid = $paragraph->getOwnerId();
+      $node = $paragraph->getParentEntity();
+      if ($node instanceof NodeInterface) {
+        $date = $node->get($field_training_date)->value;
+      }
+
 
 
       // Get type of training 'intensive' or 'force'
@@ -71,7 +80,7 @@ class DifferenceManager implements DifferenceManagerInterface {
 
 
       // Get a weight past training
-      $relative_weight = $this->getRelativeWeight($pid, $exercise, $type_of_training_id, $people);
+      $relative_weight = $this->getRelativeWeight($pid, $uid, $date, $exercise, $type_of_training_id, $people);
       if ($weight > $relative_weight) {
         $difference['weight'] = '+ ' . $weight - $relative_weight;
         $difference['class'] = 'grower';
@@ -139,26 +148,31 @@ class DifferenceManager implements DifferenceManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getRelativeWeight($pid, $exercise, $type_of_training_id, $people = 'man') {
+  public function getRelativeWeight($pid, $uid, $date, $exercise, $type_of_training_id, $people = 'man') {
 
     if ($people == 'man') {
       $node_type = 'training_plan';
       $field_exercises = 'field_exercises';
       $field_exercise = 'field_exercise';
       $field_type_of_training = 'field_type_of_training';
+      $field_date = 'field_training_date';
 
     } else {
       $node_type = 'girls_training';
       $field_exercises = 'field_girls_exercises';
       $field_exercise = 'field_girl_exercise';
       $field_type_of_training = 'field_girls_type_of_training';
+      $field_date = 'field_girls_training_date';
     }
 
     $query = $this->nodeStorage->getQuery()
       ->condition('type', $node_type)
+      ->condition($field_date, $date, '<')
+      ->condition('uid', $uid)
       ->accessCheck('FALSE')
       ->condition('status', NodeInterface::PUBLISHED)
-      ->condition($field_type_of_training, $type_of_training_id);
+      ->condition($field_type_of_training, $type_of_training_id)
+      ->sort($field_date, 'desc');
 
 
     $nids = $query->execute();
@@ -180,14 +194,8 @@ class DifferenceManager implements DifferenceManagerInterface {
       }
     }
 
-    // Sort by id, desc
-    rsort($result_pids);
-    $key = array_search($pid, $result_pids);
-    if ($key !== false && $key < count($result_pids) - 1) {
-      $relative_paragraph = $result_pids[$key + 1];
-    } else {
-      $relative_paragraph = [];
-    }
+
+    $relative_paragraph = reset($result_pids);
 
     // Get weight past training
     if(!empty($relative_paragraph)) {

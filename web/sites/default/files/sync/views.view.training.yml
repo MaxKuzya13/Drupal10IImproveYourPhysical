@@ -17,6 +17,7 @@ dependencies:
     - 'taxonomy_term:type_of_training:2c61fed7-50b7-4d73-9fee-d20dd747b735'
     - 'taxonomy_term:type_of_training:8df0132f-26a6-4a48-b97a-9254e1441664'
   module:
+    - datetime
     - node
     - paragraphs
     - taxonomy
@@ -121,22 +122,20 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        field_training_date_value:
+          id: field_training_date_value
+          table: node__field_training_date
+          field: field_training_date_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
+          plugin_id: datetime
           order: DESC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: second
+          granularity: day
       arguments:
         uid:
           id: uid
