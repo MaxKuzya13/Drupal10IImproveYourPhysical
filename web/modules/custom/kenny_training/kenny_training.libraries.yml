@@ -6,3 +6,12 @@ kenny_training_script:
     - core/jquery
     - core/drupal
     - core/once
+
+kenny_form_script:
+  version: 1.x
+  js:
+    js/kenny_form_script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once

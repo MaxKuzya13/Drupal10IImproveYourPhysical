@@ -4,6 +4,7 @@ namespace Drupal\kenny_training\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -104,6 +105,8 @@ class KennyTrainingPlanForm extends FormBase {
       $body_part_options[$term->tid] = $term->name;
     }
 
+    $form['#attached']['library'][] = 'kenny_training/kenny_form_script';
+
     $form['date'] = [
       '#type' => 'date',
       '#title' => $this->t('Date'),
@@ -121,14 +124,6 @@ class KennyTrainingPlanForm extends FormBase {
       '#title' => $this->t('Type of training'),
       '#options' => $training_type_options,
       '#empty_option' => $this->t('- Select a training type -'),
-      '#required' => TRUE,
-    ];
-
-    $form['num_groups'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Number of Muscle Groups'),
-      '#options' => [1 => '1', 'full_body' => 'Full Body'],
-      '#empty_optios' => $this->t('- Select groups of body -'),
       '#required' => TRUE,
     ];
 
@@ -178,14 +173,13 @@ class KennyTrainingPlanForm extends FormBase {
         $form['exercise_selection'][$exercise_container_id]['exercises'] = $this
           ->createExerciseSelectField($form, $form_state, $i);
         $form['exercise_selection'][$exercise_container_id]['weight'] = $this
-          ->createExerciseField($form_state, 'weight', 'Weight');
+          ->createExerciseField($form_state, 'weight', 'Weight', $i);
         $form['exercise_selection'][$exercise_container_id]['repetition'] = $this
-          ->createExerciseField($form_state,'repetition', 'Repetition');
+          ->createExerciseField($form_state,'repetition', 'Repetition', $i);
         $form['exercise_selection'][$exercise_container_id]['approaches'] = $this
-          ->createExerciseField($form_state,'approaches', 'Approaches');
+          ->createExerciseField($form_state,'approaches', 'Approaches', $i);
       }
     }
-
 
 
     if ($num_exercises > 1) {
@@ -218,11 +212,12 @@ class KennyTrainingPlanForm extends FormBase {
 
     $form['actions'] = ['#type' => 'actions'];
 
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
+    $form['actions'] = [
+      '#type' => 'button',
       '#value' => $this->t('Save'),
-      '#submit' => ['::submitForm'],
-      '#validate' => ['::ajaxValidateSave'],
+      '#ajax' => [
+        'callback' => '::submitData'
+      ],
       '#attributes' => [
         'class' => ['save-new-training-form', 'new-training-form-button'],
       ]
@@ -289,14 +284,18 @@ class KennyTrainingPlanForm extends FormBase {
   }
 
   /**
-   * Create field for exercise
+   * Create selected options for exercises.
    *
-   * @param integer $index
-   *   The exercise index
+   * @param array $form
+   *    An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *    The current state of the form.
+   * @param $index
+   *   The exercise index.
    * @return array
-   *   Form element
+   *   Form element.
    */
-  public function createExerciseSelectField(&$form, $form_state, $index) {
+  public function createExerciseSelectField(&$form, FormStateInterface $form_state, $index) {
 
     if (!empty($form_state->getValue('muscle_groups'))) {
       $body_part_id = $form_state->getValue('muscle_groups');
@@ -317,8 +316,10 @@ class KennyTrainingPlanForm extends FormBase {
           '#type' => 'select',
           '#options' => $exercises_options,
           '#empty_option' => $this->t('- Select an exercise -'),
-          '#prefix' => '<div class="exercise-item" id="exercises_' . $index . '">',
-          '#suffix' => '</div>',
+          '#suffix' => '<div class="exercise-item error" id="exercises_' . $index . '"></div>',
+          '#attributes' => [
+            'class' => ['edit-exercises-' . $index],
+          ]
         ],
       ];
 
@@ -331,27 +332,31 @@ class KennyTrainingPlanForm extends FormBase {
   /**
    * Create a field for exercise (weight, repetition, approaches).
    *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
    * @param string $field_name
    *   The field name (weight, repetition, approaches).
    * @param string $title
    *   The title for the field.
-   * @param string $unit
-   *   The unit for the field (e.g., "kg").
+   * @param int $index
+   *   The current index.
    * @return array
    *   Form element.
    */
-  public function createExerciseField(FormStateInterface $form_state, $field_name, $title, $unit = '') {
+  public function createExerciseField(FormStateInterface $form_state, $field_name, $title, $index) {
 
     if (!empty($form_state->getValue('muscle_groups'))) {
       $formField = [
         $field_name => [
           '#type' => 'textfield',
           '#title' => $this->t($title),
+          '#suffix' => '<div class="error" id="' . $field_name . '_' . $index . '"></div>',
+          '#attributes' => [
+            'class' => ['edit-' . $field_name . '-' . $index],
+          ]
         ],
       ];
-      if (!empty($unit)) {
-        $formField[$field_name]['#prefix'] = $unit;
-      }
+
       return $formField;
     }
 
@@ -360,12 +365,81 @@ class KennyTrainingPlanForm extends FormBase {
 
 
   /**
+   * Check if the field value is numeric.
+   *
+   * @param \Drupal\Core\Ajax\AjaxResponse $ajax_response
+   *   The ajax response object.
+   * @param int $index
+   *    The current index.
+   * @param string|int|null $value,
+   *   The value of field.
+   * @param string $field_label
+   *   Назва поля для відображення.
+   * @return bool
+   *
+   */
+  public function validateNumericField($ajax_response, $index, $value, $field_label) {
+    if (!is_numeric($value) || intval($value) <= 0) {
+      $field_name = strtolower($field_label);
+      $ajax_response->addCommand(new HtmlCommand('#' . $field_name . '_' . $index, $this->t('%field_label must be a positive number.', [
+        '%field_label' => $field_label
+      ])));
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Check if the field is none empty.
+   *
+   * @param \Drupal\Core\Ajax\AjaxResponse $ajax_response
+   *  The ajax response object.
+   * @param int $index
+   *    The current index.
+   * @param string|int|null $value,
+   *   The value of field.
+   * @param string $field_label
+   *   Назва поля для відображення.
+   * @return bool
+   *
+   */
+  public function validateNonEmptyField($ajax_response, $index, $value, $field_label) {
+    if (!empty($value)) {
+      $field_name = strtolower($field_label);
+      $ajax_response->addCommand(new HtmlCommand('#' . $field_name . '_' . $index, $this->t('Entered %field_label for empty field exercise.', [
+        '%field_label' => $field_label,
+      ])));
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function ajaxValidateSave(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+  }
+
+  /**
+   * The ajax submit.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *
+   */
+  function submitData(array &$form, FormStateInterface $form_state) {
+
+    $ajax_response = new AjaxResponse();
 
     $exercise_selection = $form_state->getValue('exercise_selection');
     unset($exercise_selection['actions']);
+
+    $flag = [];
 
     for ($i = 0; $i < count($exercise_selection); $i++) {
       $exercise_container = $exercise_selection['exercise-container-' . $i];
@@ -376,130 +450,90 @@ class KennyTrainingPlanForm extends FormBase {
       $approaches = $exercise_container['approaches']['approaches'];
 
       if (empty($exercise_name) && $i == 0) {
-        $form_state->setErrorByName('exercise', $this->t('Exercise must be selected'));
+
+        return $ajax_response->addCommand(new HtmlCommand('#exercises_' . $i, 'Exercise must be selected'));
+        $flag[] = 'add some';
       }
+
 
       if (!empty($exercise)) {
-        $this->validateNumericField($form_state, $weight,'Weight', $exercise_name);
-        $this->validateNumericField($form_state, $repetition, 'Repetition', $exercise_name);
-        $this->validateNumericField($form_state, $approaches, 'Approaches', $exercise_name);
+        $weight_flag = $this->validateNumericField($ajax_response, $i, $weight, 'Weight');
+        $repetition_flag = $this->validateNumericField($ajax_response, $i, $repetition, 'Repetition');
+        $approaches_flag = $this->validateNumericField($ajax_response, $i, $approaches, 'Approaches');
       } else {
-        $this->validateNonEmptyField($form_state, $weight, 'Weight');
-        $this->validateNonEmptyField($form_state, $repetition, 'Repetition');
-        $this->validateNonEmptyField($form_state, $approaches, 'Approaches');
+        $weight_flag  = $this->validateNonEmptyField($ajax_response, $i, $weight, 'Weight');
+        $repetition_flag = $this->validateNonEmptyField($ajax_response, $i, $repetition, 'Repetition');
+        $approaches_flag = $this->validateNonEmptyField($ajax_response, $i, $approaches, 'Approaches');
+      }
+
+      if ($weight_flag || $repetition_flag || $approaches_flag) {
+        $flag[] = 'add some';
       }
     }
 
+    if (empty($flag)) {
+      $training_type = $form_state->getValue('training_type');
+      $training_type_name = !empty($training_type) ? $this->termStorage
+        ->load($training_type)->getName() : '';
 
-  }
+      $body_part = $form_state->getValue('muscle_groups');
+      $body_part_name = !empty($body_part) ? $this->termStorage
+        ->load($body_part)->getName() : '';
 
-  /**
-   * Перевірка числового поля.
-   *
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Об'єкт стану форми.
-   * @param string $field_name
-   *   Назва поля.
-   * @param string $field_label
-   *   Назва поля для відображення.
-   * @param string $exercise_name
-   *   Назва вправи.
-   */
-  public function validateNumericField(FormStateInterface $form_state, $value,  $field_label, $exercise_name = '') {
-    if (!is_numeric($value) || intval($value) <= 0) {
-      $field_name = strtolower($field_label);
-      $form_state->setErrorByName($field_name, $this->t('%field_label for @exercise must be a positive integer.', [
-        '%field_label' => $field_label,
-        '@exercise' => $exercise_name,
-      ]));
-    }
-  }
+      $date = $form_state->getValue('date');
+      $drupal_date = strtotime($date);
+      $formatted_date = date('d F Y', $drupal_date);
 
-  /**
-   * Перевірка непорожнього поля.
-   *
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Об'єкт стану форми.
-   * @param string $field_name
-   *   Назва поля.
-   * @param string $field_label
-   *   Назва поля для відображення.
-   */
-  public function validateNonEmptyField(FormStateInterface $form_state, $value, $field_label) {
-    if (!empty($value)) {
-      $field_name = strtolower($field_label);
-      $form_state->setErrorByName($field_name, $this->t('Entered %field_label @value for empty field exercise.', [
-        '%field_label' => $field_label,
-        '@value' => $value
-      ]));
-    }
-  }
+      $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $training_type = $form_state->getValue('training_type');
-    $training_type_name = !empty($training_type) ? $this->termStorage
-      ->load($training_type)->getName() : '';
-
-    $body_part = $form_state->getValue('muscle_groups');
-    $body_part_name = !empty($body_part) ? $this->termStorage
-      ->load($body_part)->getName() : '';
-
-    $date = $form_state->getValue('date');
-    $drupal_date = strtotime($date);
-    $formatted_date = date('d F Y', $drupal_date);
-
-    $title = $formatted_date . ' | ' . $body_part_name . ' | ' . $training_type_name;
-
-    $training_plan = $this->nodeStorage->create([
-      'type' => 'training_plan',
-      'title' => $title,
-      'field_body_part' => $body_part,
-      'field_type_of_training' => $training_type,
-      'field_training_date' => $date,
-    ]);
-
-    $exercise_selection = $form_state->getValue('exercise_selection');
-    unset($exercise_selection['actions']);
-
-    foreach ($exercise_selection as $exercise_container) {
-      $exercise = $exercise_container['exercises']['exercise'];
-      $weight = $exercise_container['weight']['weight'];
-      $repetition = $exercise_container['repetition']['repetition'];
-      $approaches = $exercise_container['approaches']['approaches'];
-
-      $paragraph_type = strtolower($body_part_name);
-
-      $paragraph = $this->paragraphStorage->create([
-        'type' => $paragraph_type,
-        'field_exercise' => $exercise,
-        'field_weight' => $weight,
-        'field_repetition' => $repetition,
-        'field_approaches' => $approaches,
+      $training_plan = $this->nodeStorage->create([
+        'type' => 'training_plan',
+        'title' => $title,
+        'field_body_part' => $body_part,
+        'field_type_of_training' => $training_type,
+        'field_training_date' => $date,
       ]);
 
-      // Зберігаємо параграф.
-      $paragraph->save();
+      $exercise_selection = $form_state->getValue('exercise_selection');
+      unset($exercise_selection['actions']);
 
-      // Додаємо параграф до поля "field_exercises" вузла "Training Plan."
-      $training_plan->field_exercises[] = $paragraph;
-      $training_plan->save();
+      foreach ($exercise_selection as $exercise_container) {
+        $exercise = $exercise_container['exercises']['exercise'];
+        $weight = $exercise_container['weight']['weight'];
+        $repetition = $exercise_container['repetition']['repetition'];
+        $approaches = $exercise_container['approaches']['approaches'];
+
+        $paragraph_type = strtolower($body_part_name);
+
+        $paragraph = $this->paragraphStorage->create([
+          'type' => $paragraph_type,
+          'field_exercise' => $exercise,
+          'field_weight' => $weight,
+          'field_repetition' => $repetition,
+          'field_approaches' => $approaches,
+        ]);
+
+        // Зберігаємо параграф.
+        $paragraph->save();
+
+        // Додаємо параграф до поля "field_exercises" вузла "Training Plan."
+        $training_plan->field_exercises[] = $paragraph;
+        $training_plan->save();
+      }
+
+      // Виводимо текст допоміжний
+      $this->messenger->addMessage(
+        t('The training plan @title for body part @body_part successfully add', [
+          '@title' => $title,
+          '@body_part' => $body_part_name
+        ])
+      );
+
+      // Якщо немає помилок, виконуємо інші дії та можливо перенаправлення.
+      $referer = $this->getRequest()->headers->get('referer');
+      $ajax_response->addCommand(new RedirectCommand($referer));
+
     }
-
-    // Виводимо текст допоміжний
-    $this->messenger->addMessage(
-      t('The training plan @title for body part @body_part successfully add', [
-        '@title' => $title,
-        '@body_part' => $body_part_name
-      ])
-    );
-
-    // Якщо немає помилок, виконуємо інші дії та можливо перенаправлення.
-    $form_state->setRedirectUrl(Url::fromUri($this->getRequest()->headers->get('referer')));
-
-
-
+    return $ajax_response;
   }
 }

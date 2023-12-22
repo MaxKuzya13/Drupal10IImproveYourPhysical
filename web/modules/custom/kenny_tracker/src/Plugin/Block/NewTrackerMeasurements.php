@@ -227,16 +227,20 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
         ],
       ];
 
-      foreach ($desired_result as $k => $value) {
 
+      $index = 0;
+      foreach ($desired_result['body_part'] as $k => $value) {
+
+        $class = $desired_result['class'][$index];
         $output['desired_result']['container'][$k] = [
           '#type' => 'html_tag',
           '#tag' => 'div',
           '#value' =>  $value,
           '#attributes' => [
-            'class' => ['tracker__desired-result__each', 'tracker-container__each'],
+            'class' => ['tracker__desired-result__each', 'tracker-container__each', $class],
           ],
         ];
+        $index++;
 
       };
 

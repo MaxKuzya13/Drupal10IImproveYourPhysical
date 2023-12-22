@@ -206,7 +206,12 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
 
       $started_value = $started_measurements->get("field_{$tracker_name}")->value;
       $relevant_values = $tm->get("field_measurement_value")->value;
-      $progression_values[$tracker_name] = $relevant_values - $started_value;
+      $progression_values['body_part'][$tracker_name] = $relevant_values - $started_value;
+      if ($relevant_values >= $started_value) {
+        $progression_values['class'][] = 'grow';
+      } else {
+        $progression_values['class'][] = 'decrease';
+      }
     }
 
 
@@ -328,6 +333,7 @@ class KennyTrackerMeasurements implements KennyTrackerMeasurementsInterface {
       $name = $tm->get('field_measurement_name')->value;
       $tracker_name = "field_" . strtolower($name);
       $values[$tracker_name] = $tm->get("field_measurement_value")->value;
+
     }
 
     return $values;
