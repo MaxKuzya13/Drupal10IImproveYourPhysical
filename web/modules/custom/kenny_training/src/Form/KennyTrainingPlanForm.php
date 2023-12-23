@@ -9,8 +9,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Url;
-use Drupal\kenny_training\Service\TrainingMethods\TrainingMethodsInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 

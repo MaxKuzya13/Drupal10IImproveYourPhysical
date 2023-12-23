@@ -8,6 +8,9 @@
 namespace Drupal\kenny_measurements\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -15,7 +18,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
 
 class KennyMeasurementsForm extends FormBase {
 
@@ -105,54 +107,63 @@ class KennyMeasurementsForm extends FormBase {
       '#type' => 'textfield',
       '#title' => t('Your height (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-height"></div>',
     ];
 
     $form['weight'] = [
       '#type' => 'textfield',
       '#title' => t('Your bodyweight (kg)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-weight"></div>',
     ];
 
     $form['neck'] = [
       '#type' => 'textfield',
       '#title' => t('Your neck (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-neck"></div>',
     ];
 
     $form['chest'] = [
       '#type' => 'textfield',
       '#title' => t('Your chest (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-chest"></div>',
     ];
 
     $form['biceps'] = [
       '#type' => 'textfield',
       '#title' => t('Your biceps (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-biceps"></div>',
     ];
 
     $form['forearms'] = [
       '#type' => 'textfield',
       '#title' => t('Your forearms (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-forearms"></div>',
     ];
 
     $form['waist'] = [
       '#type' => 'textfield',
       '#title' => t('Your waist (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-waist"></div>',
     ];
 
     $form['glutes'] = [
       '#type' => 'textfield',
       '#title' => t('Your glutes (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-glutes"></div>',
     ];
 
     $form['thigh'] = [
       '#type' => 'textfield',
       '#title' => t('Your thigh (sm)'),
       '#required' => TRUE,
+      '#suffix' => '<div class="measurement-item error" id="measurement-thigh"></div>',
     ];
 
     $form['date'] = [
@@ -166,18 +177,48 @@ class KennyMeasurementsForm extends FormBase {
       '#value_callback' => 'date_element_value_callback',
       '#required' => TRUE,
     ];
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Save'),
+
+
+    $form['actions'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Save'),
+      '#ajax' => [
+        'callback' => '::submitData'
+      ],
+      '#attributes' => [
+        'class' => ['save-new-training-form', 'new-training-form-button'],
+      ]
     ];
+
    return $form;
 
   }
 
+
+
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+
+  }
+
+  /**
+   * The ajax submit.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *
+   */
+  public function submitData(array &$form, FormStateInterface $form_state) {
+
+    $ajax_response = new AjaxResponse();
+
     $fields_to_check = [
       'weight' => 'Weight',
       'height' => 'Height',
@@ -190,64 +231,62 @@ class KennyMeasurementsForm extends FormBase {
       'glutes' => 'Glutes',
     ];
 
+    $flag = TRUE;
+
     foreach ($fields_to_check as $field_name => $field_label) {
       if (!$this->isFloatValue($form_state, $field_name)) {
-        $form_state->setErrorByName($field_name, $this->t('@label must be an float with "." instead ","', [
+        return $ajax_response->addCommand(new HtmlCommand('#measurement-' . $field_name, $this->t('@label must be an float with "." instead ","', [
           '@label' => $field_label
-        ]));
+        ])));
+        $flag = FALSE;
       }
     }
 
-  }
+    if ($flag) {
+      $uid = $this->currentUser->id();
+      $user_name = $this->currentUser->getDisplayName();
+      $date = $form_state->getValue('date');
+      $drupal_date = strtotime($date);
+      $formatted_date = date('d F Y', $drupal_date);
 
+      $title = $formatted_date . ' | Measurements by ' .  $user_name;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+      try {
+        /** @var \Drupal\node\NodeStorageInterface $node_storage */
+        $node_storage = $this->entityTypeManager->getStorage('node');
+        $measurements = $node_storage->create([
+          'type' => 'measurements',
+          'title' => $title,
+          'field_uid' => $uid,
+          'field_weight' => $form_state->getValue('weight'),
+          'field_height' => $form_state->getValue('height'),
+          'field_biceps' => $form_state->getValue('biceps'),
+          'field_forearms' => $form_state->getValue('forearms'),
+          'field_chest' => $form_state->getValue('chest'),
+          'field_neck' => $form_state->getValue('neck'),
+          'field_waist' => $form_state->getValue('waist'),
+          'field_thigh' => $form_state->getValue('thigh'),
+          'field_glutes' => $form_state->getValue('glutes'),
+          'field_created' => $form_state->getValue('date'),
+        ]);
 
+        $measurements->save();
 
-    $uid = $this->currentUser->id();
-    $user_name = $this->currentUser->getDisplayName();
-    $date = $form_state->getValue('date');
-    $drupal_date = strtotime($date);
-    $formatted_date = date('d F Y', $drupal_date);
+        $this->messenger->addMessage(
+          t('Thank you for your measurements')
+        );
 
-    $title = $formatted_date . ' | Measurements by ' .  $user_name;
+        $referer = $this->getRequest()->headers->get('referer');
+        $ajax_response->addCommand(new RedirectCommand($referer));
 
-    try {
-      /** @var \Drupal\node\NodeStorageInterface $node_storage */
-      $node_storage = $this->entityTypeManager->getStorage('node');
-      $measurements = $node_storage->create([
-        'type' => 'measurements',
-        'title' => $title,
-        'field_uid' => $uid,
-        'field_weight' => $form_state->getValue('weight'),
-        'field_height' => $form_state->getValue('height'),
-        'field_biceps' => $form_state->getValue('biceps'),
-        'field_forearms' => $form_state->getValue('forearms'),
-        'field_chest' => $form_state->getValue('chest'),
-        'field_neck' => $form_state->getValue('neck'),
-        'field_waist' => $form_state->getValue('waist'),
-        'field_thigh' => $form_state->getValue('thigh'),
-        'field_glutes' => $form_state->getValue('glutes'),
-        'field_created' => $form_state->getValue('date'),
-      ]);
-
-      $measurements->save();
-
-      $this->messenger->addMessage(
-        t('Thank you for your measurements')
-      );
-
-      $form_state->setRedirectUrl(Url::fromUri('internal:/training/man-stats'));
-
-    } catch (\Exception $e) {
-      $this->messenger->addError(
-        t('Unable to save measurement at this time die to database error.
-          Please try again.')
-      );
+      } catch (\Exception $e) {
+        $ajax_response->addCommand(new HtmlCommand('.refuse', 'Have problem'));
+      }
     }
+
+    return $ajax_response;
+
+
   }
 
 

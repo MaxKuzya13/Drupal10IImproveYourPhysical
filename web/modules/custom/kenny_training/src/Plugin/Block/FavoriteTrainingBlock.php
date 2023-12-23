@@ -3,12 +3,10 @@
 namespace Drupal\kenny_training\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\kenny_training\Service\Favorite\FavoriteManagerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Access\AccessResult;
 
 /**

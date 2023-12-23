@@ -8,7 +8,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Url;
-use Drupal\taxonomy\Plugin\views\argument\Taxonomy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

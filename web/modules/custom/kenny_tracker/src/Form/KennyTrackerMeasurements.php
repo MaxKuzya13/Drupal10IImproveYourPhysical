@@ -3,7 +3,6 @@
 namespace Drupal\kenny_tracker\Form;
 
 
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;

@@ -2,10 +2,6 @@
 
 namespace Drupal\kenny_training\EventSubscriber;
 
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -13,7 +9,6 @@ use Drupal\kenny_training\Event\FinalCreateTrainingGirlsEvent;
 use Drupal\kenny_training\Event\TrainingGirlsEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TrainingGirlsEventSubscriber implements EventSubscriberInterface, ContainerInjectionInterface {
 
