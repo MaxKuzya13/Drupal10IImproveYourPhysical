@@ -2,6 +2,8 @@ uuid: a8c5b65a-4284-400a-9774-61992d72c0bd
 langcode: en
 status: true
 dependencies:
+  module:
+    - user
   theme:
     - kenny
 _core:
@@ -19,4 +21,11 @@ settings:
   provider: core
   primary: true
   secondary: false
-visibility: {  }
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      administrator: administrator

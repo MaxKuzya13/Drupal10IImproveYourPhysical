@@ -48,6 +48,10 @@ class NewTrainingManBlock extends BlockBase  {
    */
   protected function blockAccess(AccountInterface $account) {
 
+    if ($account->id() == 0) {
+      return AccessResult::forbidden();
+    }
+
     return AccessResult::allowed();
   }
 

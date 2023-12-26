@@ -38,6 +38,7 @@
         "drupal/tvi": "^2.0@alpha",
         "drupal/twig_tweak": "^3.2",
         "drupal/views_conditional": "^1.5",
+        "drupal/views_infinite_scroll": "^2.0",
         "drush/drush": "^12.2"
     },
     "conflict": {

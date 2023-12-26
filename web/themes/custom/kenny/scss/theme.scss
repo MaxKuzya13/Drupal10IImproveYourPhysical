@@ -14,10 +14,12 @@
 
 // Block
 
+@import "components/block/block-anonymous-training-block";
 @import "components/block/block-kenny-list-of-exercises-block";
 @import "components/block/block-kenny-new-training-man-block";
 @import "components/block/block-kenny-stats";
 @import "components/block/block-kenny-tracker";
+@import "components/block/block-measurements-list";
 @import "components/block/kenny-hero-block";
 @import "components/block/kenny-hero-block-training-body-part";
 @import "components/block/training-block";

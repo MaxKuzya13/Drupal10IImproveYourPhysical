@@ -93,8 +93,13 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
    */
   public function build() {
 
-    $user = $this->currentUser->id();
-    if ($user == 0) {
+    $uid = $this->currentUser->id();
+    $user = $this->entityTypeManager->getStorage('user');
+
+    $current_user = $user->load($uid);
+    $gender = $current_user->get('field_gender')->value;
+
+    if ($uid == 0) {
       return [
         '#theme' => 'links',
         '#links' => [
@@ -108,6 +113,20 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
             ],
           ],
         ]
+      ];
+    }
+
+
+
+    $isset_training = $this->statsByExercise->issetTraining($uid, $gender);
+    if (!$isset_training) {
+      return [
+        '#type' => 'html_tag',
+        '#tag' => 'h3',
+        '#value' => 'No one training was add',
+        '#attributes' => [
+          'class' => ['kenny-stats-title'],
+        ],
       ];
     }
 
@@ -137,12 +156,8 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     ];
 
 
-
-
-
     // ----------------------------------------- Measurements
-    $current_uid = $this->currentUser->id();
-    $measurements = $this->statsByExercise->getMeasurements($current_uid, $limit);
+    $measurements = $this->statsByExercise->getMeasurements($uid, $limit);
 
     // Container for all measurements result
     $output['measurements']['container'] = [
@@ -166,54 +181,60 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
           ->view($measurements['first_measurements'], 'teaser');
     }
 
-    $result_measurements = $this->statsByExercise
-      ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
-
-
-    // Container for results (Last - first)
-    $output['measurements']['container']['results'] = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['result-measurements-container-stats']],
-    ];
-
-    foreach ($result_measurements as $name => $res) {
-      if (strpos($res, '-') !== false) {
-        $class = 'less';
-      }  else {
-        $class = 'grow';
-      }
-
-      if ($name == 'created') {
-        $output['measurements']['container']['results'][$name] = [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' =>  $res . ' days',
-          '#attributes' => [
-            'class' => ['kenny-stats-days-by-period'],
-          ],
-        ];
-      } elseif ($name !== 'weight') {
-
-        $output['measurements']['container']['results'][$name] = [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' =>  $res . ' sm',
-          '#attributes' => [
-            'class' => ['kenny-stats-body-part-by-period', $class],
-          ],
-        ];
-      } else {
-        $output['measurements']['container']['results'][$name] = [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' =>  $res . ' kg',
-          '#attributes' => [
-            'class' => ['kenny-stats-body-part-by-period', $class],
-          ],
-        ];
-      }
+    if (isset($measurements['first_measurements']) && isset($measurements['last_measurements'])) {
+      $result_measurements = $this->statsByExercise
+        ->getMeasurementsResults($measurements['last_measurements'], $measurements['first_measurements']);
 
     }
+
+
+    if (isset($result_measurements)) {
+      // Container for results (Last - first)
+      $output['measurements']['container']['results'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['result-measurements-container-stats']],
+      ];
+
+      foreach ($result_measurements as $name => $res) {
+        if (strpos($res, '-') !== false) {
+          $class = 'less';
+        }  else {
+          $class = 'grow';
+        }
+
+        if ($name == 'created') {
+          $output['measurements']['container']['results'][$name] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $res . ' days',
+            '#attributes' => [
+              'class' => ['kenny-stats-days-by-period'],
+            ],
+          ];
+        } elseif ($name !== 'weight') {
+
+          $output['measurements']['container']['results'][$name] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $res . ' sm',
+            '#attributes' => [
+              'class' => ['kenny-stats-body-part-by-period', $class],
+            ],
+          ];
+        } else {
+          $output['measurements']['container']['results'][$name] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $res . ' kg',
+            '#attributes' => [
+              'class' => ['kenny-stats-body-part-by-period', $class],
+            ],
+          ];
+        }
+
+      }
+    }
+
 
     // ----------------------------------------- Measurements
 
@@ -235,14 +256,8 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
     ];
 
     //------------------------------------------
-    $user = $this->entityTypeManager->getStorage('user');
-    $uid = $this->currentUser->id();
 
-    $current_user = $user->load($uid);
-    $gender = $current_user->get('field_gender')->value;
-
-
-    $count_of_training = $this->statsByExercise->getNumberOfTraining($gender, $limit);
+    $count_of_training = $this->statsByExercise->getNumberOfTraining($gender, $limit, $uid);
 
     // Container for count
     $output['count_of_training']['container'] = [
@@ -256,43 +271,15 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
       '#attributes' => ['class' => ['count-of-training__total-stats']],
     ];
 
-    foreach ($count_of_training as $count => $value) {
+    if ($count_of_training) {
+      foreach ($count_of_training as $count => $value) {
 
-      $output['count_of_training']['container']['total_stats'][$count] = [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' =>  $count . ' training: ' . $value,
-        '#attributes' => [
-          'class' => ['count-of-training'],
-        ],
-      ];
-    }
-
-
-
-    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($gender, $limit);
-//
-//    $count_output = array_keys($count_by_body_part);
-
-    // Results by body part
-    foreach ($count_by_body_part as $body_part => $value) {
-      $lower_case = strtolower($body_part);
-
-      $output['count_of_training']['container']["count_of_{$lower_case}"] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => ['count-of-training__body-part']
-        ],
-      ];
-
-      foreach ($value as $name => $val) {
-        $lower_case_name = strtolower($name);
-        $output['count_of_training']['container']["count_of_{$lower_case}"][$lower_case_name] = [
+        $output['count_of_training']['container']['total_stats'][$count] = [
           '#type' => 'html_tag',
           '#tag' => 'div',
-          '#value' =>  $body_part . " {$name}: " . $val,
+          '#value' =>  $count . ' training: ' . $value,
           '#attributes' => [
-            'class' => ["count-of-{$lower_case_name}"],
+            'class' => ['count-of-training'],
           ],
         ];
       }
@@ -300,39 +287,77 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
 
-    $most_popular_exercise = $this->statsByExercise->mostPopularExercise($gender, $limit);
-    // Most popular exercises
-    $output["most_popular_exercises-title"] = [
-      '#type' => 'html_tag',
-      '#tag' => 'div',
-      '#value' =>  "Most popular exercises ({$most_popular_exercise['count']} replacement)",
-      '#attributes' => [
-        'class' => ["most-popular-exercises__title"],
-      ],
-    ];
 
-    $output['most_popular_exercises']['container'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => ['most-popular-exercises']
-      ],
-    ];
+    $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($gender, $limit, $uid);
+//
+//    $count_output = array_keys($count_by_body_part);
 
-    $i = 1;
-    foreach ($most_popular_exercise['exercises_names'] as $exercise) {
+    if ($count_by_body_part) {
+      // Results by body part
+      foreach ($count_by_body_part as $body_part => $value) {
+        $lower_case = strtolower($body_part);
 
-      $type = strtolower(str_replace(' ', '_', $exercise));
+        $output['count_of_training']['container']["count_of_{$lower_case}"] = [
+          '#type' => 'container',
+          '#attributes' => [
+            'class' => ['count-of-training__body-part']
+          ],
+        ];
 
-      $output['most_popular_exercises']['container']["most_popular_exercise_{$type}"] = [
+        foreach ($value as $name => $val) {
+          $lower_case_name = strtolower($name);
+          $output['count_of_training']['container']["count_of_{$lower_case}"][$lower_case_name] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  $body_part . " {$name}: " . $val,
+            '#attributes' => [
+              'class' => ["count-of-{$lower_case_name}"],
+            ],
+          ];
+        }
+      }
+    }
+
+
+
+
+    $most_popular_exercise = $this->statsByExercise->mostPopularExercise($gender, $limit, $uid);
+
+    if ($most_popular_exercise) {
+      // Most popular exercises
+      $output["most_popular_exercises-title"] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#value' =>  $i . ") " . $exercise,
+        '#value' =>  "Most popular exercises ({$most_popular_exercise['count']} replacement)",
         '#attributes' => [
-          'class' => ["most-popular-exercises__items"],
+          'class' => ["most-popular-exercises__title"],
         ],
       ];
-      $i++;
+
+      $output['most_popular_exercises']['container'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['most-popular-exercises']
+        ],
+      ];
+
+      $i = 1;
+      foreach ($most_popular_exercise['exercises_names'] as $exercise) {
+
+        $type = strtolower(str_replace(' ', '_', $exercise));
+
+        $output['most_popular_exercises']['container']["most_popular_exercise_{$type}"] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $i . ") " . $exercise,
+          '#attributes' => [
+            'class' => ["most-popular-exercises__items"],
+          ],
+        ];
+        $i++;
+      }
     }
+
 
 
 
@@ -395,111 +420,133 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
     $exercises_array = $config->get();
 
+    if($exercises_array) {
+      foreach ($exercises_array as $lower_body_part => $muscle_id) {
+        $tax_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+        $name_of_exercise = $tax_storage->load($muscle_id)->getName();
 
-    foreach ($exercises_array as $lower_body_part => $muscle_id) {
-      $paragraph = $this->statsByExercise->getCurrentParagraph($gender, $muscle_id);
-      $reformated_exercise_name = ucwords(str_replace('_', ' ', $lower_body_part));
-      $media = $this->statsByExercise->getMedia($reformated_exercise_name);
-
-
-
-      $output['paragraph']['exercise_container'][$lower_body_part] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => ['stats-exercise-container__exercise']
-        ],
-      ];
-
-      $output['paragraph']['exercise_container'][$lower_body_part]['body_part'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#value' =>  $reformated_exercise_name,
-        '#attributes' => [
-          'class' => ["stats-exercise-container__exercise-body-part"],
-        ],
-
-      ];
-
-      if (!is_null($paragraph)) {
-        $relative_paragraph = $this->statsByExercise->getCurrentParagraph($gender, '', $paragraph, $limit);
-
-
-        // Відображення параграфа, якщо він існує.
-
-        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = $this->entityTypeManager
-          ->getViewBuilder('paragraph')
-          ->view($paragraph, 'stats');
-
-        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph']['#attributes']['class'] = [
-          'stats-exercise-container__exercise-last',
-        ];
-
-        if ($relative_paragraph) {
-          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = $this->entityTypeManager
-            ->getViewBuilder('paragraph')
-            ->view($relative_paragraph, 'stats');
-        } else {
-          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = [
-            '#type' => 'html_tag',
-            '#tag' => 'div',
-            '#value' =>  'No relative training by ' . $body_part,
-
-          ];
-        }
-
-        $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph']['#attributes']['class'] = [
-          'stats-exercise-container__exercise-first',
-        ];
-
-        if (!empty($relative_paragraph)) {
-          $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
-          $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
-            '@weight_class' => $result['weight_class'],
-            '@absolute_weight' => $result['absolute_weight'],
-            '@correlation_weight' => $result['correlation_weight'],
-
-          ]);
-          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [
-            '#type' => 'html_tag',
-            '#tag' => 'div',
-            '#value' =>  $workWeightText,
-            '#attributes' => [
-              'class' => ["stats-exercise-container__exercise-working-weight"],
-            ],
-          ];
-        } else {
-          $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [];
-        }
-
-        $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
-          ->getViewBuilder('media')
-          ->view($media, 'full');
-
-        $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
-          'stats-exercise-container__exercise-media',
-        ];
-
-      } else {
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         * Можна додати назву самох вправи, якщо немає жодгого тренування
+         *   Для цього прогружаємо taonomy_term storage і load $muscle_id
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         */
+        $body_part_else = ucwords(str_replace('_', ' ', $lower_body_part), ' ');
+        $paragraph = $this->statsByExercise->getCurrentParagraph($uid, $gender, $muscle_id);
+        $reformated_exercise_name = ucwords(str_replace('_', ' ', $lower_body_part));
+        $media = $this->statsByExercise->getMedia($reformated_exercise_name);
 
 
-        // Відобразити повідомлення про відсутність тренувань для "Body part".
-        $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' =>  'No training by ' . $body_part ,
+
+        $output['paragraph']['exercise_container'][$lower_body_part] = [
+          '#type' => 'container',
           '#attributes' => [
-            'class' => ["stats-exercise-container__exercise-last"],
+            'class' => ['stats-exercise-container__exercise']
           ],
         ];
-        $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
-          ->getViewBuilder('media')
-          ->view($media, 'full');
 
-        $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
-          'stats-exercise-container__exercise-media',
+        $output['paragraph']['exercise_container'][$lower_body_part]['body_part'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' =>  $body_part_else,
+          '#attributes' => [
+            'class' => ["stats-exercise-container__exercise-body-part"],
+          ],
+
         ];
+
+        if (!is_null($paragraph)) {
+          $relative_paragraph = $this->statsByExercise->getCurrentParagraph($uid, $gender, '', $paragraph, $limit);
+
+          // Відображення параграфа, якщо він існує.
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = $this->entityTypeManager
+            ->getViewBuilder('paragraph')
+            ->view($paragraph, 'stats');
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['paragraph']['#attributes']['class'] = [
+            'stats-exercise-container__exercise-last',
+          ];
+
+          if ($relative_paragraph) {
+            $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = $this->entityTypeManager
+              ->getViewBuilder('paragraph')
+              ->view($relative_paragraph, 'stats');
+          } else {
+            $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph'] = [
+              '#type' => 'html_tag',
+              '#tag' => 'div',
+              '#value' =>  'No relative training by ' . $name_of_exercise,
+
+            ];
+          }
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['relative_paragraph']['#attributes']['class'] = [
+            'stats-exercise-container__exercise-first',
+          ];
+
+          if (!empty($relative_paragraph)) {
+            $result = $this->statsByExercise->getResults($paragraph, $relative_paragraph);
+            $workWeightText = $this->t('Ur working weight @weight_class by @absolute_weight kg / @correlation_weight%', [
+              '@weight_class' => $result['weight_class'],
+              '@absolute_weight' => $result['absolute_weight'],
+              '@correlation_weight' => $result['correlation_weight'],
+
+            ]);
+            $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [
+              '#type' => 'html_tag',
+              '#tag' => 'div',
+              '#value' =>  $workWeightText,
+              '#attributes' => [
+                'class' => ["stats-exercise-container__exercise-working-weight"],
+              ],
+            ];
+          } else {
+            $output['paragraph']['exercise_container'][$lower_body_part]['working_weight'] = [];
+          }
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
+            ->getViewBuilder('media')
+            ->view($media, 'full');
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
+            'stats-exercise-container__exercise-media',
+          ];
+
+        } else {
+
+          // Відобразити повідомлення про відсутність тренувань для "Body part".
+          $output['paragraph']['exercise_container'][$lower_body_part]['paragraph'] = [
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' =>  'No training by exercise: ' . $name_of_exercise,
+            '#attributes' => [
+              'class' => ["stats-exercise-container__exercise-last"],
+            ],
+          ];
+          $output['paragraph']['exercise_container'][$lower_body_part]['media'] = $this->entityTypeManager
+            ->getViewBuilder('media')
+            ->view($media, 'full');
+
+          $output['paragraph']['exercise_container'][$lower_body_part]['media']['#attributes']['class'] = [
+            'stats-exercise-container__exercise-media',
+          ];
+        }
       }
     }
+
+
     return $output;
   }
 

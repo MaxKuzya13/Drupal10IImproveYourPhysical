@@ -5,6 +5,17 @@ namespace Drupal\kenny_stats\Service;
 interface KennyStatsByExerciseInterface {
 
   /**
+   * Is isset training.
+   *
+   * @param int $uid
+   *   The user id.
+   * @param string $gender
+   *   The gender name.
+   * @return bool
+   */
+  public function issetTraining($uid, $gender);
+
+  /**
    * Last and first measurements data by current timeline.
    *
    * @param int $uid
@@ -39,6 +50,9 @@ interface KennyStatsByExerciseInterface {
   public function getParagraph($body_part, $exercises_array);
 
   /**
+   *
+   * @param int $uid
+   *   The current user id.
    * @param string $training_people
    *   Male or female.
    * @param int $exercise_id
@@ -49,7 +63,7 @@ interface KennyStatsByExerciseInterface {
    *   The timeline limit.
    * @return mixed
    */
-  public function getCurrentParagraph($training_people, $exercise_id = '', $paragraph = '', $limit = '');
+  public function getCurrentParagraph($uid, $training_people, $exercise_id = '', $paragraph = '', $limit = '');
 
 
   /**
@@ -77,9 +91,11 @@ interface KennyStatsByExerciseInterface {
    *   The sex by people who do training.
    * @param string $limit
    *   The timeline limit.
+   * @param int $uid
+   *    The current user id.
    * @return int
    */
-  public function getNumberOfTraining($training_people, $limit);
+  public function getNumberOfTraining($training_people, $limit, $uid);
 
 
   /**
@@ -89,10 +105,12 @@ interface KennyStatsByExerciseInterface {
    *     The sex by people who do training.
    * @param string $limit
    *     The timeline limit.
+   * @param int $uid
+   *     The current user id.
    * @return int
    */
 
-  public function getNumberOfTrainingByBodyPart($training_people, $limit);
+  public function getNumberOfTrainingByBodyPart($training_people, $limit, $uid);
 
   /**
    * List of exercises that most popular.
@@ -101,7 +119,9 @@ interface KennyStatsByExerciseInterface {
    *      The sex by people who do training.
    * @param string $limit
    *      The timeline limit.
+   * @param int $uid
+   *      The current user id.
    * @return array
    */
-  public function mostPopularExercise($training_people, $limit);
+  public function mostPopularExercise($training_people, $limit, $uid);
 }

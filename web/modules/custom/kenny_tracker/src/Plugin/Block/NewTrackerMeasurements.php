@@ -414,22 +414,23 @@ class NewTrackerMeasurements extends BlockBase implements ContainerFactoryPlugin
 //          ->getViewBuilder('node')
 //          ->view($tracking_measurements, 'full'),
 //      ];
+      $nid = $tracking_measurements_id;
+
+      $output['delete_tracker']['link'] = [
+        '#theme' => 'links',
+        '#links' => [
+          'link' => [
+            'title' => $this->t('Delete this track'),
+            'url' => Url::fromRoute('entity.node.delete_form', ['node' => $nid]),
+            'attributes' => [
+              'class' => ['tracker__delete']
+            ],
+          ],
+        ]
+      ];
     }
 
-    $nid = $tracking_measurements_id;
 
-    $output['delete_tracker']['link'] = [
-      '#theme' => 'links',
-      '#links' => [
-        'link' => [
-          'title' => $this->t('Delete this track'),
-          'url' => Url::fromRoute('entity.node.delete_form', ['node' => $nid]),
-          'attributes' => [
-            'class' => ['tracker__delete']
-          ],
-        ],
-      ]
-    ];
     return $output;
 
 

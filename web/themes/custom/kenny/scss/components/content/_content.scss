@@ -1,4 +1,11 @@
 .app__content {
+  max-width: calc($container-max + 2rem);
+  margin: 0 auto;
+
+  @include mobileDefault {
+    max-width: $container-max-mobile;
+  }
+
   display: flex;
   flex-flow: column;
   flex-grow: 1;
@@ -54,4 +61,12 @@
   &:active {
     transform: scale(0.95);
   }
+}
+
+.js-pager__items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  @include resetLi;
 }

@@ -9,6 +9,7 @@ dependencies:
   module:
     - node
     - user
+    - views_infinite_scroll
 id: favorite_training_plan
 label: 'Favorite training plan'
 module: views
@@ -73,7 +74,7 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: infinite_scroll
         options:
           offset: 0
           items_per_page: 10
@@ -90,6 +91,10 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Load More'
+            automatically_load_content: false
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -246,15 +251,16 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_favorite_training:
-    id: page_favorite_training
-    display_title: 'Favorite Training'
-    display_plugin: page
+  block_favorite_training:
+    id: block_favorite_training
+    display_title: 'Favorite Training Block'
+    display_plugin: block
     position: 1
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: favorite-training
+      block_description: 'Favorite Training Block'
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:

@@ -202,7 +202,7 @@ function kenny_training_preprocess_node__girls_training__teaser(&$variables) {
  * Implements hook_views_pre_view().
  */
 function kenny_training_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
-  if ($view->id() == "favorite_training_plan" && $display_id == 'page_favorite_training') {
+  if ($view->id() == "favorite_training_plan" && $display_id == 'block_favorite_training') {
     $current_user = \Drupal::currentUser()->id();
     $favorite_manager = \Drupal::service('kenny_training.favorite_manager');
     $favorite_training_ids = $favorite_manager->getFavoriteTraining($current_user);
@@ -317,3 +317,44 @@ function kenny_training_preprocess_node(&$variables) {
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function kenny_training_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['name']['#description'] = '';
+  $form['pass']['#description'] = '';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function kenny_training_preprocess_menu(&$variables) {
+  // Отримуємо ID поточного користувача.
+  $current_user_id = \Drupal::currentUser()->id();
+
+  // Отримуємо об'єкт користувача.
+  $current_user = \Drupal\user\Entity\User::load($current_user_id);
+
+  // Отримуємо значення поля "gender".
+  $gender = $current_user->get('field_gender')->value;
+  if ($variables['menu_name'] == 'main' && $gender == 'woman' && $current_user_id !== 1) {
+    foreach ($variables['items'] as $item) {
+      if ($item['title'] == 'Training man') {
+        $item['attributes']['class'] = [
+          'hidden',
+        ];
+      }
+    }
+  };
+
+  if ($variables['menu_name'] == 'main' && $gender == 'man' && $current_user_id !== 1) {
+    foreach ($variables['items'] as $item) {
+      if ($item['title'] == 'Girls training') {
+        $item['attributes']['class'] = [
+          'hidden',
+        ];
+      }
+    }
+  };
+
+}

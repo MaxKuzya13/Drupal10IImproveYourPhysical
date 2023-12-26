@@ -36,6 +36,28 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
+  public function issetTraining($uid, $gender) {
+    $input_array = $this->getMainFields($gender);
+    extract($input_array);
+
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $query = $node_storage->getQuery()
+      ->condition('type', $training)
+      ->condition('uid', $uid)
+      ->accessCheck(FALSE)
+      ->range(0, 1);
+    $nid = $query->execute();
+    if ($nid) {
+      return TRUE;
+    }
+
+    return FALSE;
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getMeasurements($uid, $limit) {
     $node_storage = $this->entityTypeManager->getStorage('node');
     $start_date = $this->switchDate($limit);
@@ -148,7 +170,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCurrentParagraph($training_people, $exercise_id = '', $paragraph = '', $limit = '') {
+  public function getCurrentParagraph($uid, $training_people, $exercise_id = '', $paragraph = '', $limit = '') {
 
     $input_array = $this->getMainFields($training_people);
     extract($input_array);
@@ -172,6 +194,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     if (!isset($start_date)) {
       $query = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_type_of_training, $force)
         ->exists($field_exercises)
         ->accessCheck(FALSE)
@@ -181,6 +204,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     } else {
       $query = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_type_of_training, $force)
         ->exists($field_exercises)
         ->accessCheck(FALSE)
@@ -331,7 +355,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
    * {@inheritdoc}
    */
 
-  public function getNumberOfTraining($training_people, $limit) {
+  public function getNumberOfTraining($training_people, $limit, $uid) {
     $output = [];
 
     $start_date = $this->switchDate($limit);
@@ -342,6 +366,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
     $query = $node_storage->getQuery()
       ->condition('type', $training)
+      ->condition('uid', $uid)
       ->exists($field_exercises)
       ->accessCheck(FALSE)
       ->condition($field_training_date, $start_date->format('Y-m-d'),'>=');
@@ -364,6 +389,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $query = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_type_of_training, $type_of_training_id)
         ->exists($field_exercises)
         ->accessCheck(FALSE)
@@ -386,7 +412,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNumberOfTrainingByBodyPart($training_people, $limit) {
+  public function getNumberOfTrainingByBodyPart($training_people, $limit, $uid) {
 
     $start_date = $this->switchDate($limit);
 
@@ -417,6 +443,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $query = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_body_part, $term->tid)
         ->exists($field_exercises)
         ->accessCheck(FALSE)
@@ -431,6 +458,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $query_force = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_body_part, $term->tid)
         ->condition($field_type_of_training, $force_id)
         ->exists($field_exercises)
@@ -446,6 +474,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
       $query_intensive = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_body_part, $term->tid)
         ->condition($field_type_of_training, $intensive_id)
         ->exists($field_exercises)
@@ -468,7 +497,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
   /**
    * {@inheritdoc}
    */
-  public function mostPopularExercise($training_people, $limit) {
+  public function mostPopularExercise($training_people, $limit, $uid) {
 
     $start_date = $this->switchDate($limit);
 
@@ -499,6 +528,7 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
     foreach ($taxonomy_tree as $term) {
       $query = $node_storage->getQuery()
         ->condition('type', $training)
+        ->condition('uid', $uid)
         ->condition($field_body_part, $term->tid)
         ->exists($field_exercises)
         ->accessCheck(FALSE)

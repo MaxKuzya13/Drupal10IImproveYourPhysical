@@ -2,6 +2,9 @@
 
 namespace Drupal\kenny_training\EventSubscriber;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -68,6 +71,7 @@ class TrainingGirlsEventSubscriber implements EventSubscriberInterface, Containe
     // Перевірте, чи це вузол типу "girls_training".
     if ($node->getType() === 'girls_training') {
 
+
       $body_part = $node->get('field_girls_body_part')->entity->getName();
       $type_of_training = $node->get('field_girls_type_of_training')->entity->getName();
       $date = $node->get('field_girls_training_date')->value;
@@ -97,6 +101,7 @@ class TrainingGirlsEventSubscriber implements EventSubscriberInterface, Containe
       $message_text = $this->getMotivation();
       $text_id = array_rand($message_text);
       $text = $message_text[$text_id];
+
       $this->messenger->addMessage($text);
 
     }

@@ -81,6 +81,10 @@ class NewTrainingGirlsBlock extends BlockBase implements ContainerFactoryPluginI
    */
   protected function blockAccess(AccountInterface $account) {
 
+    if ($account->id() == 0) {
+      return AccessResult::forbidden();
+    }
+
     return AccessResult::allowed();
   }
 }

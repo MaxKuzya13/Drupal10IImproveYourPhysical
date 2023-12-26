@@ -80,11 +80,10 @@
 
 {% set title_class =  ('node-' ~ node.bundle ~ (view_mode != 'default' ? '-' ~ view_mode))|clean_class %}
 <article{{ attributes.addClass(classes) }}>
-
   {{ title_prefix }}
   {% if label and not page %}
     <h2{{ title_attributes }} class="{{ title_class }}__title">
-      <a href="{{ url }}" rel="bookmark" class="{{ title_class }}__link">{{ label }}</a>
+      <a class="{{ title_class }}__link">{{ label }}</a>
     </h2>
   {% endif %}
   {{ title_suffix }}

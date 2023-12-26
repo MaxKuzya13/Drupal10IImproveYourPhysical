@@ -3,7 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.girls_training
+    - node.type.measurements
     - node.type.page
+    - node.type.tracker_measurements
+    - node.type.training_plan
   module:
     - comment
     - contextual
@@ -26,15 +30,41 @@ permissions:
   - 'access files overview'
   - 'access toolbar'
   - 'access tour'
+  - 'administer site configuration'
   - 'administer url aliases'
+  - 'create girls_training content'
+  - 'create measurements content'
   - 'create page content'
+  - 'create tracker_measurements content'
+  - 'create training_plan content'
   - 'create url aliases'
+  - 'delete any girls_training content'
+  - 'delete any measurements content'
+  - 'delete any page content'
+  - 'delete any tracker_measurements content'
+  - 'delete any training_plan content'
+  - 'delete girls_training revisions'
+  - 'delete measurements revisions'
   - 'delete own files'
+  - 'delete own girls_training content'
+  - 'delete own measurements content'
   - 'delete own page content'
+  - 'delete own tracker_measurements content'
+  - 'delete own training_plan content'
   - 'delete page revisions'
+  - 'delete tracker_measurements revisions'
+  - 'delete training_plan revisions'
   - 'edit own comments'
+  - 'edit own girls_training content'
+  - 'edit own measurements content'
   - 'edit own page content'
+  - 'edit own tracker_measurements content'
+  - 'edit own training_plan content'
   - 'revert all revisions'
+  - 'revert girls_training revisions'
+  - 'revert measurements revisions'
+  - 'revert page revisions'
+  - 'revert tracker_measurements revisions'
   - 'view all revisions'
   - 'view own unpublished content'
   - 'view the administration theme'
