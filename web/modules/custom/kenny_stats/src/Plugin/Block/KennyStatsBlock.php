@@ -425,23 +425,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
         $tax_storage = $this->entityTypeManager->getStorage('taxonomy_term');
         $name_of_exercise = $tax_storage->load($muscle_id)->getName();
 
-        /**
-         *
-         *
-         *
-         *
-         *
-         *
-         * Можна додати назву самох вправи, якщо немає жодгого тренування
-         *   Для цього прогружаємо taonomy_term storage і load $muscle_id
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         */
+
         $body_part_else = ucwords(str_replace('_', ' ', $lower_body_part), ' ');
         $paragraph = $this->statsByExercise->getCurrentParagraph($uid, $gender, $muscle_id);
         $reformated_exercise_name = ucwords(str_replace('_', ' ', $lower_body_part));

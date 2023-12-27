@@ -14,8 +14,10 @@ use Drupal\kenny_training\Event\MonthlyReminderEvent;
 use Drupal\kenny_training\Event\TrainingGirlsEvent;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\user\UserInterface;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Implements hook_entity_extra_field_info(),
@@ -337,6 +339,11 @@ function kenny_training_preprocess_menu(&$variables) {
 
   // Отримуємо значення поля "gender".
   $gender = $current_user->get('field_gender')->value;
+  if ($variables['menu_name'] == 'main') {
+
+    $variables['#attached']['library'][] = 'kenny_training/kenny_menu_script';
+  };
+
   if ($variables['menu_name'] == 'main' && $gender == 'woman' && $current_user_id !== 1) {
     foreach ($variables['items'] as $item) {
       if ($item['title'] == 'Training man') {
@@ -358,3 +365,4 @@ function kenny_training_preprocess_menu(&$variables) {
   };
 
 }
+

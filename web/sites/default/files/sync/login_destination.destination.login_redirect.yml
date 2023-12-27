@@ -1,0 +1,15 @@
+uuid: adc7a33a-8520-4fbf-9cb7-91cd296fdd6a
+langcode: en
+status: true
+dependencies: {  }
+name: login_redirect
+label: 'Login Redirect'
+triggers:
+  login: login
+destination_path: 'internal:/'
+pages_type: 0
+pages: ''
+language: ''
+roles: {  }
+weight: 0
+enabled: true

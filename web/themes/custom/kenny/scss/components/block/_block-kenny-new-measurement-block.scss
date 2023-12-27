@@ -1,0 +1,27 @@
+.block-kenny-new-measurement-block {
+  max-width: calc($container-max + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto 2rem auto;
+
+  @include mobileDefault {
+    max-width: $container-max-mobile;
+    padding: 1rem 0.5rem;
+  }
+
+  li {
+    @include resetLi;
+
+    a {
+      display: inline-block;
+      font-size: 24px;
+      margin: 0;
+      color: $color-active;
+
+      &:hover {
+        color: $color-active-hover;
+      }
+    }
+  }
+}

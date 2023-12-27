@@ -233,6 +233,34 @@ p {
   color: #fff;
 }
 
+.block-kenny-new-measurement-block {
+  max-width: calc(1170px + 2rem);
+  border: 2px solid gray;
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  margin: 0 auto 2rem auto;
+}
+@media (max-width: 1200px) {
+  .block-kenny-new-measurement-block {
+    max-width: calc(100vw - 2rem);
+    padding: 1rem 0.5rem;
+  }
+}
+.block-kenny-new-measurement-block li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.block-kenny-new-measurement-block li a {
+  display: inline-block;
+  font-size: 24px;
+  margin: 0;
+  color: cadetblue;
+}
+.block-kenny-new-measurement-block li a:hover {
+  color: deepskyblue;
+}
+
 .block-kenny-new-training-man-block, .block-kenny-new-training-girls-block {
   max-width: calc(1170px + 2rem);
   border: 2px solid gray;
@@ -567,6 +595,31 @@ p {
     max-width: calc(100vw - 2rem);
     padding: 1rem 0.5rem;
   }
+}
+.block-measurements-list .view-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 700px) {
+  .block-measurements-list .view-content {
+    grid-template-columns: 1fr;
+  }
+}
+.block-measurements-list .node-measurements-teaser__title a {
+  color: cadetblue;
+}
+.block-measurements-list .node-measurements-teaser .field--label-above {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  border-bottom: 1px solid gray;
+}
+.block-measurements-list .node-measurements-teaser .field--label-above .field__label {
+  color: cadetblue;
+}
+.block-measurements-list .node-measurements-teaser .field--label-above .field__label:after {
+  content: " :";
 }
 
 .kenny-hero-block {
@@ -1179,20 +1232,87 @@ p {
   align-items: center;
   gap: 2rem;
 }
+@media (max-width: 700px) {
+  .region-header .menu {
+    display: none; /* hide the navigation items by default on small screens */
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* adjust this value based on your design */
+    left: 0;
+    background-color: #333;
+  }
+}
 .region-header .menu-item {
-  padding: 0.3rem 1rem;
   border: 1px solid gray;
   border-radius: 1rem;
-}
-@media (max-width: 700px) {
-  .region-header .menu-item {
-    font-size: 14px;
-    padding: 0.15rem 0.5rem;
-  }
 }
 .region-header .menu-item:hover {
   border-color: cadetblue;
   cursor: pointer;
+}
+.region-header .menu-item a {
+  display: block;
+  padding: 0.3rem 1rem;
+  width: 100%;
+  height: 100%;
+}
+.region-header .menu-item--active-trail {
+  border-color: cadetblue;
+}
+.region-header .mobile_menu {
+  display: none;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  position: fixed;
+  top: 6.5rem;
+  right: 0;
+  height: 80vh;
+  width: 15rem;
+  z-index: 100;
+  background-color: rgba(225, 225, 255, 0.2);
+  border-radius: 1rem;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+}
+.region-header .mobile_menu-button {
+  display: none;
+  padding: 0.5rem;
+}
+@media (max-width: 700px) {
+  .region-header .mobile_menu-button {
+    display: flex;
+    margin-right: -2rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.region-header .mobile_menu-button:hover {
+  background-color: rgba(225, 225, 255, 0.2);
+  border-radius: 50vh;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.region-header .mobile_menu .menu-item {
+  border: none;
+}
+.region-header .mobile_menu .menu-item:hover {
+  background: gray;
+  cursor: pointer;
+}
+.region-header .mobile_menu .menu-item a {
+  display: block;
+  padding: 0.3rem 1rem;
+  width: 100%;
+  height: 100%;
+}
+.region-header .mobile_menu .menu-item--active-trail a {
+  color: cadetblue;
 }
 
 .app {

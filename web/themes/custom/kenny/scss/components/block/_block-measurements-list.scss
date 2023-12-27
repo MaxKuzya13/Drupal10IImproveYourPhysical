@@ -1,3 +1,41 @@
 .block-measurements-list {
   @include mainContainer;
+
+  .view-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @include mobile{
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  .node-measurements-teaser__title {
+    a {
+      color: $color-active;
+    }
+
+  }
+
+  .node-measurements-teaser {
+    .field--label-above {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      border-bottom: 1px solid $color-gray;
+
+      .field__label {
+        color: $color-active;
+
+        &:after {
+          content: ' :';
+        }
+      }
+
+
+    }
+
+  }
 }
