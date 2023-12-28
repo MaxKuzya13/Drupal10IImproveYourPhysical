@@ -289,8 +289,7 @@ class KennyStatsBlock extends BlockBase implements ContainerFactoryPluginInterfa
 
 
     $count_by_body_part = $this->statsByExercise->getNumberOfTrainingByBodyPart($gender, $limit, $uid);
-//
-//    $count_output = array_keys($count_by_body_part);
+
 
     if ($count_by_body_part) {
       // Results by body part

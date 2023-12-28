@@ -146,7 +146,7 @@ class KennyTrackerMeasurements extends FormBase {
       $form['measurements_selection'][$i] = $this->createMeasurementsField($form_state);
     }
 
-    $form['measurements_selection']['actions'] = ['#type' => 'actions'];
+//    $form['measurements_selection']['actions'] = ['#type' => 'actions'];
 
     if ($num_exercises > 1) {
       $form['measurements_selection']['actions']['remove_field'] = [
@@ -170,6 +170,7 @@ class KennyTrackerMeasurements extends FormBase {
       ],
     ];
 
+    $form['actions'] = ['#type' => 'actions'];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -488,7 +489,11 @@ class KennyTrackerMeasurements extends FormBase {
 
 
 
-    $form_state->setRedirectUrl(Url::fromUri('internal:/test-tracker'));
+    // Отримайте URL попередньої сторінки з HTTP-заголовка "Referer".
+    $previous_url = Url::fromUri(\Drupal::request()->server->get('HTTP_REFERER'));
+
+// Встановіть попередню сторінку для перенаправлення.
+    $form_state->setRedirectUrl($previous_url);
 
 
 

@@ -506,23 +506,14 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
 
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $node_storage = $this->entityTypeManager->getStorage('node');
-    $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
 
-//    $force_id = $this->entityTypeManager->getStorage('taxonomy_term')
-//      ->loadByProperties(['name' => 'Force', 'vid' => $type_of_training]);
-//    $force_id = reset($force_id)->id();
-//
-//    $intensive_id = $this->entityTypeManager->getStorage('taxonomy_term')
-//      ->loadByProperties(['name' => 'Intensive', 'vid' => $type_of_training]);
-//    $intensive_id = reset($intensive_id)->id();
 
     if ($training_people == 'woman') {
       $taxonomy_tree = $term_storage->loadTree('girls_body_part');
     } else {
       $taxonomy_tree = $term_storage->loadTree('body_part');
     }
-//
-//    $output = [];
+
     $count_tid = [];
 
     foreach ($taxonomy_tree as $term) {
@@ -547,8 +538,6 @@ class KennyStatsByExercise implements KennyStatsByExerciseInterface {
           }
         }
 
-
-//        $paragraphs = $nodes->get($field_exercises)->referencedEntities();
 
       }
     }
